@@ -54,5 +54,14 @@ namespace EducationPlatform.Api.Controllers
             var value = _commentService.TGetById(id);
             return Ok(value);
         }
+        [HttpGet("GetByResourceId")]
+        public IActionResult GetByResourceId(int id)
+        {
+            var value = _commentService.GetByResourceId(id);
+            return Ok(value);
+        }
+       
+        
+
     }
 }

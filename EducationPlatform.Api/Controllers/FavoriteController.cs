@@ -54,5 +54,12 @@ namespace EducationPlatform.Api.Controllers
             var value = _favoriteService.TGetById(id);
             return Ok(value);
         }
+        [HttpGet("GetByUserId")]
+        public IActionResult GetByUserId(int id)
+        {
+            var value = _favoriteService.GetByUserId(id);
+            return Ok(value);
+        }
+        
     }
 }

@@ -9,5 +9,6 @@ namespace EducationPlatform.Application.Abstract
 {
     public interface ICategoryService:IGenericService<Category>
     {
+        Category GetByName(string name);
     }
 }

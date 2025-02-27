@@ -13,6 +13,11 @@ namespace EducationPlatform.Application.Concrete
             _favoriteDal = favoriteDal;
         }
 
+        public List<Favorite> GetByUserId(int userId)
+        {
+           return _favoriteDal.GetByUserId(userId);
+        }
+
         public void TAdd(Favorite entity)
         {
             _favoriteDal.Add(entity);

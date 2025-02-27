@@ -13,6 +13,11 @@ namespace EducationPlatform.Application.Concrete
             _resourceDal = resourceDal;
         }
 
+        public List<Resource> GetByCategoryId(int categoryId)
+        {
+           return _resourceDal.GetByCategoryId(categoryId);
+        }
+
         public void TAdd(Resource entity)
         {
             _resourceDal.Add(entity);

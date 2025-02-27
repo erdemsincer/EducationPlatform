@@ -9,5 +9,6 @@ namespace EducationPlatform.Application.Abstract
 {
     public interface IResourceService : IGenericService<Resource>
     {
+        List<Resource> GetByCategoryId(int categoryId);
     }
 }

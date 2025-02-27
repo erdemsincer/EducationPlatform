@@ -54,5 +54,11 @@ namespace EducationPlatform.Api.Controllers
             var value = _categoryService.TGetById(id);
             return Ok(value);
         }
+        [HttpGet("GetByName")]
+        public IActionResult GetByName(string name)
+        {
+            var value = _categoryService.GetByName(name);
+            return Ok(value);
+        }
     }
 }

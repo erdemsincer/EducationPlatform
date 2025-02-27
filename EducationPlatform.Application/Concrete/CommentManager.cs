@@ -13,6 +13,11 @@ namespace EducationPlatform.Application.Concrete
             _commentDal = commentDal;
         }
 
+        public List<Comment> GetByResourceId(int resourceId)
+        {
+            return _commentDal.GetByResourceId(resourceId);
+        }
+
         public void TAdd(Comment entity)
         {
             _commentDal.Add(entity);

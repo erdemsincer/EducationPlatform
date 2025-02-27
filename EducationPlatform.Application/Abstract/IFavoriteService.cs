@@ -9,5 +9,6 @@ namespace EducationPlatform.Application.Abstract
 {
     public interface IFavoriteService:IGenericService<Favorite>
     {
+        List<Favorite> GetByUserId(int userId);
     }
 }

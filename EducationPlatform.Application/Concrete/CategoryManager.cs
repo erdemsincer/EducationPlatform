@@ -13,6 +13,11 @@ namespace EducationPlatform.Application.Concrete
             _categoryDal = categoryDal;
         }
 
+        public Category GetByName(string name)
+        {
+            return _categoryDal.GetByName(name);
+        }
+
         public void TAdd(Category entity)
         {
             _categoryDal.Add(entity);

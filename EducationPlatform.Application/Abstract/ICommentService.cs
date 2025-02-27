@@ -9,5 +9,6 @@ namespace EducationPlatform.Application.Abstract
 {
     public interface ICommentService:IGenericService<Comment>
     {
+        List<Comment> GetByResourceId(int resourceId);
     }
 }
