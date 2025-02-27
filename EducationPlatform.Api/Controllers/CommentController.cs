@@ -2,8 +2,9 @@
 using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Dto.CommentDto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Api.Controllers
 {
@@ -21,47 +22,63 @@ namespace EducationPlatform.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult CommentList()
+        public async Task<IActionResult> CommentList()
         {
-            var values = _commentService.TGetListAll();
+            var values = await _commentService.TGetListAllAsync();
             return Ok(values);
         }
+
         [HttpPost]
-        public IActionResult CreateComment(CreateCommentDto createCommentDto)
+        public async Task<IActionResult> CreateComment(CreateCommentDto createCommentDto)
         {
             var values = _mapper.Map<Comment>(createCommentDto);
-            _commentService.TAdd(values);
-            return Ok("eklendi");
+            await _commentService.TAddAsync(values);
+            return Ok("Eklendi");
         }
+
         [HttpPut]
-        public IActionResult UpdateComment(UpdateCommentDto updateCommentDto)
+        public async Task<IActionResult> UpdateComment(UpdateCommentDto updateCommentDto)
         {
             var values = _mapper.Map<Comment>(updateCommentDto);
-
-            _commentService.TUpdate(values);
+            await _commentService.TUpdateAsync(values);
             return Ok("Güncellendi");
         }
+
         [HttpDelete("{id}")]
-        public IActionResult DeleteComment(int id)
+        public async Task<IActionResult> DeleteComment(int id)
         {
-            var value = _commentService.TGetById(id);
-            _commentService.TDelete(value);
+            var value = await _commentService.TGetByIdAsync(id);
+            if (value == null)
+            {
+                return NotFound("Yorum bulunamadı");
+            }
+
+            await _commentService.TDeleteAsync(value);
             return Ok("Silindi");
         }
-        [HttpGet("{id}")]
-        public IActionResult GetByIdComment(int id)
-        {
-            var value = _commentService.TGetById(id);
-            return Ok(value);
-        }
-        [HttpGet("GetByResourceId")]
-        public IActionResult GetByResourceId(int id)
-        {
-            var value = _commentService.GetByResourceId(id);
-            return Ok(value);
-        }
-       
-        
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetByIdComment(int id)
+        {
+            var value = await _commentService.TGetByIdAsync(id);
+            if (value == null)
+            {
+                return NotFound("Yorum bulunamadı");
+            }
+
+            return Ok(value);
+        }
+
+        [HttpGet("GetByResourceId")]
+        public async Task<IActionResult> GetByResourceId(int id)
+        {
+            var value = await _commentService.GetByResourceIdAsync(id);
+            if (value == null || value.Count == 0)
+            {
+                return NotFound("Bu kaynak için yorum bulunamadı");
+            }
+
+            return Ok(value);
+        }
     }
 }

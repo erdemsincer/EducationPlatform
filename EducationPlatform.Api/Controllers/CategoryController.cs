@@ -2,8 +2,9 @@
 using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Dto.CategoryDto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Api.Controllers
 {
@@ -21,43 +22,62 @@ namespace EducationPlatform.Api.Controllers
         }
 
         [HttpGet]
-        public   IActionResult CategoryList()
+        public async Task<IActionResult> CategoryList()
         {
-            var values =  _categoryService.TGetListAll();
+            var values = await _categoryService.TGetListAllAsync();
             return Ok(values);
         }
+
         [HttpPost]
-        public IActionResult CreateCategory(CreateCategoryDto createCategoryDto)
+        public async Task<IActionResult> CreateCategory(CreateCategoryDto createCategoryDto)
         {
             var values = _mapper.Map<Category>(createCategoryDto);
-            _categoryService.TAdd(values);
-            return Ok("eklendi");
+            await _categoryService.TAddAsync(values);
+            return Ok("Eklendi");
         }
+
         [HttpPut]
-        public IActionResult UpdateCategory(UpdateCategoryDto updateCategoryDto)
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
             var values = _mapper.Map<Category>(updateCategoryDto);
-
-            _categoryService.TUpdate(values);
+            await _categoryService.TUpdateAsync(values);
             return Ok("Güncellendi");
         }
+
         [HttpDelete("{id}")]
-        public IActionResult DeleteCategory(int id)
+        public async Task<IActionResult> DeleteCategory(int id)
         {
-            var value = _categoryService.TGetById(id);
-            _categoryService.TDelete(value);
+            var value = await _categoryService.TGetByIdAsync(id);
+            if (value == null)
+            {
+                return NotFound("Kategori bulunamadı");
+            }
+
+            await _categoryService.TDeleteAsync(value);
             return Ok("Silindi");
         }
+
         [HttpGet("{id}")]
-        public IActionResult GetByIdCategory(int id)
+        public async Task<IActionResult> GetByIdCategory(int id)
         {
-            var value = _categoryService.TGetById(id);
+            var value = await _categoryService.TGetByIdAsync(id);
+            if (value == null)
+            {
+                return NotFound("Kategori bulunamadı");
+            }
+
             return Ok(value);
         }
+
         [HttpGet("GetByName")]
-        public IActionResult GetByName(string name)
+        public async Task<IActionResult> GetByName(string name)
         {
-            var value = _categoryService.GetByName(name);
+            var value = await _categoryService.GetByNameAsync(name);
+            if (value == null)
+            {
+                return NotFound("Kategori bulunamadı");
+            }
+
             return Ok(value);
         }
     }

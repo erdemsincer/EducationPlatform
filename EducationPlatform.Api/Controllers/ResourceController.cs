@@ -2,8 +2,9 @@
 using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Dto.ResourceDto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Api.Controllers
 {
@@ -21,46 +22,63 @@ namespace EducationPlatform.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult ResourceList()
+        public async Task<IActionResult> ResourceList()
         {
-            var values = _resourceService.TGetListAll();
+            var values = await _resourceService.TGetListAllAsync();
             return Ok(values);
         }
+
         [HttpPost]
-        public IActionResult CreateResource(CreateResourceDto createResourceDto)
+        public async Task<IActionResult> CreateResource(CreateResourceDto createResourceDto)
         {
             var values = _mapper.Map<Resource>(createResourceDto);
-            _resourceService.TAdd(values);
-            return Ok("eklendi");
+            await _resourceService.TAddAsync(values);
+            return Ok("Eklendi");
         }
+
         [HttpPut]
-        public IActionResult UpdateResource(UpdateResourceDto updateResourceDto)
+        public async Task<IActionResult> UpdateResource(UpdateResourceDto updateResourceDto)
         {
             var values = _mapper.Map<Resource>(updateResourceDto);
-
-            _resourceService.TUpdate(values);
+            await _resourceService.TUpdateAsync(values);
             return Ok("Güncellendi");
         }
+
         [HttpDelete("{id}")]
-        public IActionResult DeleteResource(int id)
+        public async Task<IActionResult> DeleteResource(int id)
         {
-            var value = _resourceService.TGetById(id);
-            _resourceService.TDelete(value);
+            var value = await _resourceService.TGetByIdAsync(id);
+            if (value == null)
+            {
+                return NotFound("Kaynak bulunamadı");
+            }
+
+            await _resourceService.TDeleteAsync(value);
             return Ok("Silindi");
         }
+
         [HttpGet("{id}")]
-        public IActionResult GetByIdResource(int id)
+        public async Task<IActionResult> GetByIdResource(int id)
         {
-            var value = _resourceService.TGetById(id);
-            return Ok(value);
-        }
-        [HttpGet("GetByCategoryId")]
-        public IActionResult GetByCategoryId(int id)
-        {
-            var value = _resourceService.GetByCategoryId(id);
+            var value = await _resourceService.TGetByIdAsync(id);
+            if (value == null)
+            {
+                return NotFound("Kaynak bulunamadı");
+            }
+
             return Ok(value);
         }
 
-        
+        [HttpGet("GetByCategoryId")]
+        public async Task<IActionResult> GetByCategoryId(int id)
+        {
+            var value = await _resourceService.GetByCategoryIdAsync(id);
+            if (value == null || value.Count == 0)
+            {
+                return NotFound("Bu kategoriye ait kaynak bulunamadı");
+            }
+
+            return Ok(value);
+        }
     }
 }

@@ -2,8 +2,9 @@
 using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Dto.UserDto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Api.Controllers
 {
@@ -21,37 +22,50 @@ namespace EducationPlatform.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult UserList()
+        public async Task<IActionResult> UserList()
         {
-            var values = _userService.TGetListAll();
+            var values = await _userService.TGetListAllAsync();
             return Ok(values);
         }
+
         [HttpPost]
-        public IActionResult CreateUser(CreateUserDto createUserDto)
+        public async Task<IActionResult> CreateUser(CreateUserDto createUserDto)
         {
             var values = _mapper.Map<User>(createUserDto);
-            _userService.TAdd(values);
-            return Ok("eklendi");
+            await _userService.TAddAsync(values);
+            return Ok("Eklendi");
         }
+
         [HttpPut]
-        public IActionResult UpdateUser(UpdateUserDto updateUserDto)
+        public async Task<IActionResult> UpdateUser(UpdateUserDto updateUserDto)
         {
             var values = _mapper.Map<User>(updateUserDto);
-
-            _userService.TUpdate(values);
+            await _userService.TUpdateAsync(values);
             return Ok("Güncellendi");
         }
+
         [HttpDelete("{id}")]
-        public IActionResult DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            var value = _userService.TGetById(id);
-            _userService.TDelete(value);
+            var value = await _userService.TGetByIdAsync(id);
+            if (value == null)
+            {
+                return NotFound("Kullanıcı bulunamadı");
+            }
+
+            await _userService.TDeleteAsync(value);
             return Ok("Silindi");
         }
+
         [HttpGet("{id}")]
-        public IActionResult GetByIdUser(int id)
+        public async Task<IActionResult> GetByIdUser(int id)
         {
-            var value = _userService.TGetById(id);
+            var value = await _userService.TGetByIdAsync(id);
+            if (value == null)
+            {
+                return NotFound("Kullanıcı bulunamadı");
+            }
+
             return Ok(value);
         }
     }

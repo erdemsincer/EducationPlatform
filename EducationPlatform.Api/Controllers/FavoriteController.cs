@@ -2,8 +2,9 @@
 using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Dto.FavoriteDto;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Api.Controllers
 {
@@ -21,45 +22,63 @@ namespace EducationPlatform.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult FavoriteList()
+        public async Task<IActionResult> FavoriteList()
         {
-            var values = _favoriteService.TGetListAll();
+            var values = await _favoriteService.TGetListAllAsync();
             return Ok(values);
         }
+
         [HttpPost]
-        public IActionResult CreateFavorite(CreateFavoriteDto createFavoriteDto)
+        public async Task<IActionResult> CreateFavorite(CreateFavoriteDto createFavoriteDto)
         {
             var values = _mapper.Map<Favorite>(createFavoriteDto);
-            _favoriteService.TAdd(values);
-            return Ok("eklendi");
+            await _favoriteService.TAddAsync(values);
+            return Ok("Eklendi");
         }
+
         [HttpPut]
-        public IActionResult UpdateFavorite(UpdateFavoriteDto updateFavoriteDto)
+        public async Task<IActionResult> UpdateFavorite(UpdateFavoriteDto updateFavoriteDto)
         {
             var values = _mapper.Map<Favorite>(updateFavoriteDto);
-
-            _favoriteService.TUpdate(values);
+            await _favoriteService.TUpdateAsync(values);
             return Ok("Güncellendi");
         }
+
         [HttpDelete("{id}")]
-        public IActionResult DeleteFavorite(int id)
+        public async Task<IActionResult> DeleteFavorite(int id)
         {
-            var value = _favoriteService.TGetById(id);
-            _favoriteService.TDelete(value);
+            var value = await _favoriteService.TGetByIdAsync(id);
+            if (value == null)
+            {
+                return NotFound("Favori bulunamadı");
+            }
+
+            await _favoriteService.TDeleteAsync(value);
             return Ok("Silindi");
         }
+
         [HttpGet("{id}")]
-        public IActionResult GetByIdFavorite(int id)
+        public async Task<IActionResult> GetByIdFavorite(int id)
         {
-            var value = _favoriteService.TGetById(id);
+            var value = await _favoriteService.TGetByIdAsync(id);
+            if (value == null)
+            {
+                return NotFound("Favori bulunamadı");
+            }
+
             return Ok(value);
         }
+
         [HttpGet("GetByUserId")]
-        public IActionResult GetByUserId(int id)
+        public async Task<IActionResult> GetByUserId(int id)
         {
-            var value = _favoriteService.GetByUserId(id);
+            var value = await _favoriteService.GetByUserIdAsync(id);
+            if (value == null || value.Count == 0)
+            {
+                return NotFound("Bu kullanıcıya ait favori bulunamadı");
+            }
+
             return Ok(value);
         }
-        
     }
 }
