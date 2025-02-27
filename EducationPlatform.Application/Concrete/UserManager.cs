@@ -1,6 +1,8 @@
 ﻿using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Persistence.Abstract;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Application.Concrete
 {
@@ -13,29 +15,29 @@ namespace EducationPlatform.Application.Concrete
             _userDal = userDal;
         }
 
-        public void TAdd(User entity)
+        public async Task TAddAsync(User entity)
         {
-           _userDal.Add(entity);
+            await _userDal.AddAsync(entity);
         }
 
-        public void TDelete(User entity)
+        public async Task TDeleteAsync(User entity)
         {
-            _userDal.Delete(entity);
+            await _userDal.DeleteAsync(entity);
         }
 
-        public User TGetById(int id)
+        public async Task<User> TGetByIdAsync(int id)
         {
-            return _userDal.GetById(id);
+            return await _userDal.GetByIdAsync(id);
         }
 
-        public List<User> TGetListAll()
+        public async Task<List<User>> TGetListAllAsync()
         {
-            return _userDal.GetListAll();
+            return await _userDal.GetListAllAsync();
         }
 
-        public void TUpdate(User entity)
+        public async Task TUpdateAsync(User entity)
         {
-            _userDal.Update(entity);
+            await _userDal.UpdateAsync(entity);
         }
     }
 }

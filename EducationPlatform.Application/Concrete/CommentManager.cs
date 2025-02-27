@@ -1,6 +1,8 @@
 ﻿using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Persistence.Abstract;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Application.Concrete
 {
@@ -13,34 +15,34 @@ namespace EducationPlatform.Application.Concrete
             _commentDal = commentDal;
         }
 
-        public List<Comment> GetByResourceId(int resourceId)
+        public async Task<List<Comment>> GetByResourceIdAsync(int resourceId)
         {
-            return _commentDal.GetByResourceId(resourceId);
+            return await _commentDal.GetByResourceIdAsync(resourceId);
         }
 
-        public void TAdd(Comment entity)
+        public async Task TAddAsync(Comment entity)
         {
-            _commentDal.Add(entity);
+            await _commentDal.AddAsync(entity);
         }
 
-        public void TDelete(Comment entity)
+        public async Task TDeleteAsync(Comment entity)
         {
-            _commentDal.Delete(entity);
+            await _commentDal.DeleteAsync(entity);
         }
 
-        public Comment TGetById(int id)
+        public async Task<Comment> TGetByIdAsync(int id)
         {
-            return _commentDal.GetById(id);
+            return await _commentDal.GetByIdAsync(id);
         }
 
-        public List<Comment> TGetListAll()
+        public async Task<List<Comment>> TGetListAllAsync()
         {
-            return _commentDal.GetListAll();
+            return await _commentDal.GetListAllAsync();
         }
 
-        public void TUpdate(Comment entity)
+        public async Task TUpdateAsync(Comment entity)
         {
-            _commentDal.Update(entity);
+            await _commentDal.UpdateAsync(entity);
         }
     }
 }

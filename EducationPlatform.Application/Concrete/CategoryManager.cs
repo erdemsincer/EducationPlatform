@@ -1,6 +1,8 @@
 ﻿using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Persistence.Abstract;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Application.Concrete
 {
@@ -13,34 +15,34 @@ namespace EducationPlatform.Application.Concrete
             _categoryDal = categoryDal;
         }
 
-        public Category GetByName(string name)
+        public async Task<Category> GetByNameAsync(string name)
         {
-            return _categoryDal.GetByName(name);
+            return await _categoryDal.GetByNameAsync(name);
         }
 
-        public void TAdd(Category entity)
+        public async Task TAddAsync(Category entity)
         {
-            _categoryDal.Add(entity);
+            await _categoryDal.AddAsync(entity);
         }
 
-        public void TDelete(Category entity)
+        public async Task TDeleteAsync(Category entity)
         {
-            _categoryDal.Delete(entity);
+            await _categoryDal.DeleteAsync(entity);
         }
 
-        public Category TGetById(int id)
+        public async Task<Category> TGetByIdAsync(int id)
         {
-            return _categoryDal.GetById(id);
+            return await _categoryDal.GetByIdAsync(id);
         }
 
-        public List<Category> TGetListAll()
+        public async Task<List<Category>> TGetListAllAsync()
         {
-            return _categoryDal.GetListAll();
+            return await _categoryDal.GetListAllAsync();
         }
 
-        public void TUpdate(Category entity)
+        public async Task TUpdateAsync(Category entity)
         {
-            _categoryDal.Update(entity);
+            await _categoryDal.UpdateAsync(entity);
         }
     }
 }

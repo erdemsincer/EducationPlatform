@@ -1,14 +1,11 @@
 ﻿using EducationPlatform.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EducationPlatform.Persistence.Abstract
 {
     public interface IFavoriteDal : IGenericDal<Favorite>
     {
-        List<Favorite> GetByUserId(int userId);
+        Task<List<Favorite>> GetByUserIdAsync(int userId);
     }
 }

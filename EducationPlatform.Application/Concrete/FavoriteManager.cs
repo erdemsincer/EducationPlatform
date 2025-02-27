@@ -1,6 +1,8 @@
 ﻿using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Persistence.Abstract;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Application.Concrete
 {
@@ -13,34 +15,34 @@ namespace EducationPlatform.Application.Concrete
             _favoriteDal = favoriteDal;
         }
 
-        public List<Favorite> GetByUserId(int userId)
+        public async Task<List<Favorite>> GetByUserIdAsync(int userId)
         {
-           return _favoriteDal.GetByUserId(userId);
+            return await _favoriteDal.GetByUserIdAsync(userId);
         }
 
-        public void TAdd(Favorite entity)
+        public async Task TAddAsync(Favorite entity)
         {
-            _favoriteDal.Add(entity);
+            await _favoriteDal.AddAsync(entity);
         }
 
-        public void TDelete(Favorite entity)
+        public async Task TDeleteAsync(Favorite entity)
         {
-            _favoriteDal.Delete(entity);
+            await _favoriteDal.DeleteAsync(entity);
         }
 
-        public Favorite TGetById(int id)
+        public async Task<Favorite> TGetByIdAsync(int id)
         {
-            return _favoriteDal.GetById(id);
+            return await _favoriteDal.GetByIdAsync(id);
         }
 
-        public List<Favorite> TGetListAll()
+        public async Task<List<Favorite>> TGetListAllAsync()
         {
-            return _favoriteDal.GetListAll();
+            return await _favoriteDal.GetListAllAsync();
         }
 
-        public void TUpdate(Favorite entity)
+        public async Task TUpdateAsync(Favorite entity)
         {
-            _favoriteDal.Update(entity);
+            await _favoriteDal.UpdateAsync(entity);
         }
     }
 }

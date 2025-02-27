@@ -2,6 +2,10 @@
 using EducationPlatform.Persistence.Abstract;
 using EducationPlatform.Persistence.Context;
 using EducationPlatform.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Persistence.EntityFrameworkCore
 {
@@ -14,9 +18,11 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
             _context = context;
         }
 
-        public List<Comment> GetByResourceId(int resourceId)
+        public async Task<List<Comment>> GetByResourceIdAsync(int resourceId)
         {
-            return _context.Comments.Where(c => c.ResourceId == resourceId).ToList();
+            return await _context.Comments
+                .Where(c => c.ResourceId == resourceId)
+                .ToListAsync();
         }
     }
 }

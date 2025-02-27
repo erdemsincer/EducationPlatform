@@ -2,6 +2,8 @@
 using EducationPlatform.Persistence.Abstract;
 using EducationPlatform.Persistence.Context;
 using EducationPlatform.Persistence.Repositories;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Persistence.EntityFrameworkCore
 {
@@ -11,12 +13,12 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
 
         public EFCategoryDal(ApplicationDbContext context) : base(context)
         {
-            _context=context;
+            _context = context;
         }
 
-        public Category GetByName(string name)
+        public async Task<Category> GetByNameAsync(string name)
         {
-            return _context.Categories.FirstOrDefault(c => c.Name == name);
+            return await _context.Categories.FirstOrDefaultAsync(c => c.Name == name);
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Persistence.Abstract;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace EducationPlatform.Application.Concrete
 {
@@ -13,34 +15,34 @@ namespace EducationPlatform.Application.Concrete
             _resourceDal = resourceDal;
         }
 
-        public List<Resource> GetByCategoryId(int categoryId)
+        public async Task<List<Resource>> GetByCategoryIdAsync(int categoryId)
         {
-           return _resourceDal.GetByCategoryId(categoryId);
+            return await _resourceDal.GetByCategoryIdAsync(categoryId);
         }
 
-        public void TAdd(Resource entity)
+        public async Task TAddAsync(Resource entity)
         {
-            _resourceDal.Add(entity);
+            await _resourceDal.AddAsync(entity);
         }
 
-        public void TDelete(Resource entity)
+        public async Task TDeleteAsync(Resource entity)
         {
-            _resourceDal.Delete(entity);
+            await _resourceDal.DeleteAsync(entity);
         }
 
-        public Resource TGetById(int id)
+        public async Task<Resource> TGetByIdAsync(int id)
         {
-            return _resourceDal.GetById(id);
+            return await _resourceDal.GetByIdAsync(id);
         }
 
-        public List<Resource> TGetListAll()
+        public async Task<List<Resource>> TGetListAllAsync()
         {
-            return _resourceDal.GetListAll();
+            return await _resourceDal.GetListAllAsync();
         }
 
-        public void TUpdate(Resource entity)
+        public async Task TUpdateAsync(Resource entity)
         {
-            _resourceDal.Update(entity);
+            await _resourceDal.UpdateAsync(entity);
         }
     }
 }

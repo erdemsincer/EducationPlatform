@@ -1,14 +1,11 @@
 ﻿using EducationPlatform.Domain.Entities;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EducationPlatform.Application.Abstract
 {
-    public interface ICommentService:IGenericService<Comment>
+    public interface ICommentService : IGenericService<Comment>
     {
-        List<Comment> GetByResourceId(int resourceId);
+        Task<List<Comment>> GetByResourceIdAsync(int resourceId);
     }
 }

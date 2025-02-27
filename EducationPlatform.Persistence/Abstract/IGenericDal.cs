@@ -8,10 +8,10 @@ namespace EducationPlatform.Persistence.Abstract
 {
     public interface IGenericDal<T> where T : class
     {
-        void Add(T entity);
-        void Update(T entity);
-        void Delete(T entity);
-        T GetById(int id);
-        List<T> GetListAll();
+        Task AddAsync(T entity);
+        Task UpdateAsync(T entity);
+        Task DeleteAsync(T entity);
+        Task<T> GetByIdAsync(int id);
+        Task<List<T>> GetListAllAsync();
     }
 }
