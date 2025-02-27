@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPlatform.Persisten
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPlatform.Dto", "EducationPlatform.Dto\EducationPlatform.Dto.csproj", "{870E0986-816B-4372-9CBB-C2A26EFD510A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPlatform.WebUI", "EducationPlatform.WebUI\EducationPlatform.WebUI.csproj", "{A7D12776-0C29-4CAA-9926-C33BEF7F17BA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{870E0986-816B-4372-9CBB-C2A26EFD510A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{870E0986-816B-4372-9CBB-C2A26EFD510A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{870E0986-816B-4372-9CBB-C2A26EFD510A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7D12776-0C29-4CAA-9926-C33BEF7F17BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7D12776-0C29-4CAA-9926-C33BEF7F17BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7D12776-0C29-4CAA-9926-C33BEF7F17BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7D12776-0C29-4CAA-9926-C33BEF7F17BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
