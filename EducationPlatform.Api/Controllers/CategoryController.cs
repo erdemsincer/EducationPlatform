@@ -21,9 +21,9 @@ namespace EducationPlatform.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult CategoryList()
+        public   async Task<IActionResult >CategoryList()
         {
-            var values = _categoryService.TGetListAll();
+            var values = await _categoryService.TGetListAll();
             return Ok(values);
         }
         [HttpPost]
