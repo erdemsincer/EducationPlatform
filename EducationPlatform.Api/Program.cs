@@ -19,6 +19,14 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IUserDal, EFUserDal>();
+builder.Services.AddScoped<ICommentService, CommentManager>();
+builder.Services.AddScoped<ICommentDal, EFCommentDal>();
+builder.Services.AddScoped<IFavoriteService, FavoriteManager>();
+builder.Services.AddScoped<IFavoriteDal, EFFavoriteDal>();
+builder.Services.AddScoped<IResourceService, ResourceManager>();
+builder.Services.AddScoped<IResourceDal, EFResourceDal>();
+builder.Services.AddScoped<ICategoryService, CategoryManager>();
+builder.Services.AddScoped<ICategoryDal, EFCategoryDal>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
