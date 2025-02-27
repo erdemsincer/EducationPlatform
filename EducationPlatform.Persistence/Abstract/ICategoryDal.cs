@@ -9,5 +9,6 @@ namespace EducationPlatform.Persistence.Abstract
 {
     public interface ICategoryDal : IGenericDal<Category>
     {
+        Category GetByName(string name);
     }
 }

@@ -9,5 +9,6 @@ namespace EducationPlatform.Persistence.Abstract
 {
     public interface IResourceDal : IGenericDal<Resource>
     {
+        List<Resource> GetByCategoryId(int categoryId);
     }
 }

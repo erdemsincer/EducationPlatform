@@ -9,5 +9,6 @@ namespace EducationPlatform.Persistence.Abstract
 {
     public interface ICommentDal : IGenericDal<Comment>
     {
+        List<Comment> GetByResourceId(int resourceId);
     }
 }

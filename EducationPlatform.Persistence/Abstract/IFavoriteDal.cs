@@ -9,5 +9,6 @@ namespace EducationPlatform.Persistence.Abstract
 {
     public interface IFavoriteDal : IGenericDal<Favorite>
     {
+        List<Favorite> GetByUserId(int userId);
     }
 }

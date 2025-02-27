@@ -7,8 +7,16 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
 {
     public class EFFavoriteDal : GenericRepository<Favorite>, IFavoriteDal
     {
+        private readonly ApplicationDbContext _context;
+
         public EFFavoriteDal(ApplicationDbContext context) : base(context)
         {
+            _context = context;
+        }
+
+        public List<Favorite> GetByUserId(int userId)
+        {
+            return _context.Favorites.Where(f => f.UserId == userId).ToList();
         }
     }
 }
