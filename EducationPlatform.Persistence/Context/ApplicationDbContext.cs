@@ -27,5 +27,10 @@ namespace EducationPlatform.Persistence.Context
                 .HasIndex(f => new { f.UserId, f.ResourceId })
                 .IsUnique();
         }
+
+        internal async Task<object> FindAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -3,15 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPlatform.Api", "EducationPlatform.Api\EducationPlatform.Api.csproj", "{EDAF339E-DCB1-4CA8-89BF-1701C2C71085}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPlatform.Api", "EducationPlatform.Api\EducationPlatform.Api.csproj", "{EDAF339E-DCB1-4CA8-89BF-1701C2C71085}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPlatform.Application", "EducationPlatform.Application\EducationPlatform.Application.csproj", "{082DDC9F-A36C-4E6D-8857-AA5CFC28371F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPlatform.Application", "EducationPlatform.Application\EducationPlatform.Application.csproj", "{082DDC9F-A36C-4E6D-8857-AA5CFC28371F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPlatform.Domain", "EducationPlatform.Domain\EducationPlatform.Domain.csproj", "{32F5D9FA-92D6-4334-8EDE-4C459D032DEA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPlatform.Domain", "EducationPlatform.Domain\EducationPlatform.Domain.csproj", "{32F5D9FA-92D6-4334-8EDE-4C459D032DEA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPlatform.Infrastructure", "EducationPlatform.Infrastructure\EducationPlatform.Infrastructure.csproj", "{EDE06594-EC69-4CF9-9CD3-DCE957138E27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPlatform.Infrastructure", "EducationPlatform.Infrastructure\EducationPlatform.Infrastructure.csproj", "{EDE06594-EC69-4CF9-9CD3-DCE957138E27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPlatform.Persistence", "EducationPlatform.Persistence\EducationPlatform.Persistence.csproj", "{53C72449-115E-4DD9-9AC1-723E7BA2235B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EducationPlatform.Persistence", "EducationPlatform.Persistence\EducationPlatform.Persistence.csproj", "{53C72449-115E-4DD9-9AC1-723E7BA2235B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EducationPlatform.Dto", "EducationPlatform.Dto\EducationPlatform.Dto.csproj", "{870E0986-816B-4372-9CBB-C2A26EFD510A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{53C72449-115E-4DD9-9AC1-723E7BA2235B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{53C72449-115E-4DD9-9AC1-723E7BA2235B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{53C72449-115E-4DD9-9AC1-723E7BA2235B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{870E0986-816B-4372-9CBB-C2A26EFD510A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{870E0986-816B-4372-9CBB-C2A26EFD510A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{870E0986-816B-4372-9CBB-C2A26EFD510A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{870E0986-816B-4372-9CBB-C2A26EFD510A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

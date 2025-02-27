@@ -15,7 +15,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
     <Folder Include="Configurations\" />
     <Folder Include="Dtos\" />
     <Folder Include="Middleware\" />
@@ -23,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EducationPlatform.Application\EducationPlatform.Application.csproj" />
+    <ProjectReference Include="..\EducationPlatform.Dto\EducationPlatform.Dto.csproj" />
     <ProjectReference Include="..\EducationPlatform.Persistence\EducationPlatform.Persistence.csproj" />
   </ItemGroup>
 
