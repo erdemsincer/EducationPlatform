@@ -1,5 +1,6 @@
 ﻿using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
+using EducationPlatform.Dto.ResourceDto;
 using EducationPlatform.Persistence.Abstract;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -18,6 +19,11 @@ namespace EducationPlatform.Application.Concrete
         public async Task<List<Resource>> GetByCategoryIdAsync(int categoryId)
         {
             return await _resourceDal.GetByCategoryIdAsync(categoryId);
+        }
+
+        public async Task<List<ResultResourceDto>> GetResourceDetailsAsync()
+        {
+            return await _resourceDal.GetResourceDetailsAsync();
         }
 
         public async Task TAddAsync(Resource entity)

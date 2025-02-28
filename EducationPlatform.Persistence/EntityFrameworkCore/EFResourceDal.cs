@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.Domain.Entities;
+using EducationPlatform.Dto.ResourceDto;
 using EducationPlatform.Persistence.Abstract;
 using EducationPlatform.Persistence.Context;
 using EducationPlatform.Persistence.Repositories;
@@ -23,6 +24,25 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
             return await _context.Resources
                 .Where(r => r.CategoryId == categoryId)
                 .ToListAsync();
+        }
+
+        public async Task<List<ResultResourceDto>> GetResourceDetailsAsync()
+        {
+            return await _context.Resources
+                 .Include(r => r.User)  // Kullanıcı bilgilerini çekiyoruz
+                 .Include(r => r.Category)  // Kategori bilgilerini çekiyoruz
+                 .Select(r => new ResultResourceDto
+                 {
+                     Id = r.Id,
+                     Title = r.Title,
+                     Description = r.Description,
+                     FileUrl = r.FileUrl,
+                     CategoryId = r.CategoryId,
+                     UserId = r.UserId,
+                     CreatedAt = r.CreatedAt,
+                     UserName = r.User.FullName,  // Kullanıcı Adı
+                     CategoryName = r.Category.Name  // Kategori Adı
+                 }).ToListAsync();
         }
     }
 }

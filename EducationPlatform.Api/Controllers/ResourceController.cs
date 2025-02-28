@@ -80,5 +80,11 @@ namespace EducationPlatform.Api.Controllers
 
             return Ok(value);
         }
+        [HttpGet("GetResourceDetails")]
+        public async Task<ActionResult<List<ResultResourceDto>>> GetResourceDetails()
+        {
+            var resources = await _resourceService.GetResourceDetailsAsync();
+            return Ok(resources);
+        }
     }
 }

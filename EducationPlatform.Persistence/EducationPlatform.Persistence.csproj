@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EducationPlatform.Domain\EducationPlatform.Domain.csproj" />
+    <ProjectReference Include="..\EducationPlatform.Dto\EducationPlatform.Dto.csproj" />
   </ItemGroup>
 
   <ItemGroup>
