@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using EducationPlatform.Application.Abstract;
+using EducationPlatform.Application.Security;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Dto.UserDto;
 using Microsoft.AspNetCore.Mvc;
@@ -68,5 +69,6 @@ namespace EducationPlatform.Api.Controllers
 
             return Ok(value);
         }
+        
     }
 }
