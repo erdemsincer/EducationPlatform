@@ -45,7 +45,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            // JSON VERİSİNİ KONSOLA YAZDIRARAK KONTROL EDELİM
+          
             Console.WriteLine("Gönderilen JSON: " + JsonConvert.SerializeObject(createCategoryDto));
 
             var responseMessage = await client.PostAsJsonAsync("https://localhost:7028/api/Category", createCategoryDto);
@@ -86,7 +86,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
                 var category = JsonConvert.DeserializeObject<UpdateCategoryDto>(jsonData);
                 return View(category);
             }
-            return View(new UpdateCategoryDto()); // Hata durumunda boş DTO döndür
+            return View(new UpdateCategoryDto()); 
         }
 
         [HttpPost]
@@ -95,7 +95,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         {
             var client = _httpClientFactory.CreateClient();
 
-            // JSON VERİSİNİ KONSOLA YAZDIRARAK KONTROL EDELİM
+           
             Console.WriteLine("Güncellenen JSON: " + JsonConvert.SerializeObject(updateCategoryDto));
 
             var responseMessage = await client.PutAsJsonAsync($"https://localhost:7028/api/Category/{updateCategoryDto.Id}", updateCategoryDto);

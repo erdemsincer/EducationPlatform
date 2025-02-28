@@ -1,0 +1,72 @@
+﻿@model List<ResultResourceDto>
+
+@{
+    ViewData["Title"] = "Kaynak Yönetimi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+
+        <!-- Sayfa Başlığı -->
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Kaynak Listesi</h4>
+                        <p class="card-subtitle mb-4">
+                            Buradan platforma eklenen kaynakları yönetebilirsiniz. Yeni kaynak ekleyebilir, mevcut kaynakları düzenleyebilir veya silebilirsiniz.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Başlık</th>
+                                        <th>Açıklama</th>
+                                        <th>Dosya</th>
+                                        <th>Kategori</th>
+                                        <th>Kullanıcı</th>
+                                        <th>Tarih</th>
+                                        <th>Sil</th>
+                                        <th>Güncelle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <th scope="row">@count</th>
+                                            <td>@item.Title</td>
+                                            <td>@item.Description</td>
+                                            <td>
+                                                <a href="@item.FileUrl" target="_blank" class="btn btn-outline-info">Dosyayı Gör</a>
+                                            </td>
+                                            <td>@item.CategoryId</td>
+                                            <td>@item.UserId</td>
+                                            <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                            <td>
+                                                <a href="/Admin/AdminResource/RemoveResource/@item.Id" class="btn btn-outline-danger">Sil</a>
+                                            </td>
+                                            <td>
+                                                <a href="/Admin/AdminResource/UpdateResource/@item.Id" class="btn btn-outline-success">Güncelle</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <a href="/Admin/AdminResource/CreateResource/" class="btn btn-outline-primary">Yeni Kaynak Ekle</a>
+                        </div>
+                    </div>
+                    <!-- end card-body-->
+                </div>
+                <!-- end card -->
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+
+    </div> <!-- container-fluid -->
+</div>
