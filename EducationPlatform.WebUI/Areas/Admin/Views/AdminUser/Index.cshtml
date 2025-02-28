@@ -1,0 +1,68 @@
+﻿@model List<ResultUserDto>
+
+@{
+    ViewData["Title"] = "Kullanıcı Yönetimi";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+    int count = 0;
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Kullanıcı Listesi</h4>
+                        <p class="card-subtitle mb-4">
+                            Buradan platformunuza kayıtlı kullanıcıları görebilir, yeni kullanıcı ekleyebilir ve mevcut kullanıcıları düzenleyebilirsiniz.
+                        </p>
+                        <div class="table-responsive">
+                            <table class="table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Ad Soyad</th>
+                                        <th>Email</th>
+                                        <th>Profil Resmi</th>
+                                        <th>Oluşturulma Tarihi</th>
+                                        <th>Sil</th>
+                                        <th>Güncelle</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        count++;
+                                        <tr>
+                                            <th scope="row">@count</th>
+                                            <td>@item.FullName</td>
+                                            <td>@item.Email</td>
+                                            <td>
+                                                @if (!string.IsNullOrEmpty(item.ProfileImage))
+                                                {
+                                                    <img src="@item.ProfileImage" alt="Profil Resmi" width="50" height="50" class="rounded-circle">
+                                                }
+                                                else
+                                                {
+                                                    <span>Resim Yok</span>
+                                                }
+                                            </td>
+                                            <td>@item.CreatedAt.ToString("dd/MM/yyyy")</td>
+                                            <td>
+                                                <a href="/Admin/AdminUser/RemoveUser/@item.Id" class="btn btn-outline-danger">Sil</a>
+                                            </td>
+                                            <td>
+                                                <a href="/Admin/AdminUser/UpdateUser/@item.Id" class="btn btn-outline-success">Güncelle</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <a href="/Admin/AdminUser/CreateUser/" class="btn btn-outline-primary">Yeni Kullanıcı Ekle</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

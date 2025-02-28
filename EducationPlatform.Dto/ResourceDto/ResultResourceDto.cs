@@ -14,6 +14,6 @@ namespace EducationPlatform.Dto.ResourceDto
         public string FileUrl { get; set; }  // Dosya bağlantısı
         public int CategoryId { get; set; }  // Kategori ile ilişki
         public int UserId { get; set; }  // Kaynağı ekleyen kullanıcı
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } 
     }
 }
