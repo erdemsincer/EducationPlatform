@@ -1,5 +1,4 @@
-﻿using EducationPlatform.Dto.CategoryDto;
-using EducationPlatform.Dto.ResourceDto;
+﻿using EducationPlatform.Dto.ResourceDto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
@@ -28,6 +27,20 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
                 return View(values);
             }
             return View(new List<ResultResourceDto>());
+        }
+
+        [Route("RemoveResource/{id}")]
+        public async Task<IActionResult> RemoveResource(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var responseMessage = await client.DeleteAsync($"https://localhost:7028/api/Resource/{id}");
+            if (responseMessage.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "Kategori silinirken hata oluştu!");
+            return RedirectToAction("Index");
         }
 
     }
