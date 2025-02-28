@@ -34,7 +34,8 @@ namespace EducationPlatform.Application.Security
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.FullName),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim("ProfileImage", user.ProfileImage ?? "")
+                new Claim("ProfileImage", user.ProfileImage ?? ""),
+                new Claim(ClaimTypes.Role, user.Role)
             };
 
             var token = new JwtSecurityToken(

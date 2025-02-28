@@ -36,7 +36,8 @@ namespace EducationPlatform.Api.Controllers
                 FullName = registerDto.FullName,
                 Email = registerDto.Email,
                 PasswordHash = hashedPassword,
-                ProfileImage = "ERDEM"
+                ProfileImage = "ERDEM",
+                Role = registerDto.Role
 
             };
 
