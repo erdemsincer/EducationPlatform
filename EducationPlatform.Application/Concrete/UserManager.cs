@@ -39,5 +39,11 @@ namespace EducationPlatform.Application.Concrete
         {
             await _userDal.UpdateAsync(entity);
         }
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await _userDal.GetByEmailAsync(email);
+        }
+
+     
     }
 }

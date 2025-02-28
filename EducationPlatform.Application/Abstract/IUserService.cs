@@ -9,5 +9,7 @@ namespace EducationPlatform.Application.Abstract
 {
     public interface IUserService : IGenericService<User>
     {
+        Task<User> GetUserByEmailAsync(string email);
+        
     }
 }
