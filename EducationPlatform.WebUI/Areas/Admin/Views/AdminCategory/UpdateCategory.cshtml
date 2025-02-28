@@ -1,0 +1,46 @@
+﻿@model UpdateCategoryDto
+
+@{
+    ViewData["Title"] = "Kategori Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="page-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Kategori Güncelleme Alanı</h4>
+                        <p class="card-subtitle mb-4">
+                            Seçili kategoriyi güncellemek için aşağıdaki formu doldurun.
+                        </p>
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                        <form method="post">
+                            <input type="hidden" asp-for="Id" />
+                            <div class="form-group">
+                                <label for="categoryName">Kategori Adı</label>
+                                <input type="text" class="form-control" id="categoryName" asp-for="Name" required>
+                                <span class="text-danger" asp-validation-for="Name"></span>
+                            </div>
+                            <button type="submit" class="btn btn-success waves-effect waves-light">Güncelle</button>
+                            <a href="/Admin/AdminCategory/Index" class="btn btn-secondary">Geri</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

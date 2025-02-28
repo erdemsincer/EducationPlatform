@@ -1,5 +1,6 @@
-﻿@using EducationPlatform.Dto.CategoryDto
+﻿
 @model List<ResultCategoryDto>
+
 @{
     ViewData["Title"] = "Kategori Yönetimi";
     Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
@@ -8,8 +9,6 @@
 
 <div class="page-content">
     <div class="container-fluid">
-
-        <!-- Sayfa Başlığı -->
         <div class="row">
             <div class="col-xl-12">
                 <div class="card">
@@ -35,22 +34,17 @@
                                         <tr>
                                             <th scope="row">@count</th>
                                             <td>@item.Name</td>
-                                            <td><a href="/Admin/AdminCategory/Delete/@item.CategoryID" class="btn btn-outline-danger">Sil</a></td>
-                                            <td><a href="/Admin/AdminCategory/Edit/@item.CategoryID" class="btn btn-outline-success">Güncelle</a></td>
+                                            <td><a href="/Admin/AdminCategory/RemoveCategory/@item.Id" class="btn btn-outline-danger">Sil</a></td>
+                                            <td><a href="/Admin/AdminCategory/UpdateCategory/@item.Id" class="btn btn-outline-success">Güncelle</a></td>
                                         </tr>
                                     }
                                 </tbody>
                             </table>
-                            <a href="/Admin/AdminCategory/Create/" class="btn btn-outline-primary">Yeni Kategori Ekle</a>
+                            <a href="/Admin/AdminCategory/CreateCategory/" class="btn btn-outline-primary">Yeni Kategori Ekle</a>
                         </div>
                     </div>
-                    <!-- end card-body-->
                 </div>
-                <!-- end card -->
             </div>
-            <!-- end col -->
         </div>
-        <!-- end row -->
-
-    </div> <!-- container-fluid -->
+    </div>
 </div>
