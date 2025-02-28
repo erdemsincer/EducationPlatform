@@ -1,0 +1,65 @@
+﻿@using EducationPlatform.Dto.AuthDto
+@model LoginDto
+
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<div class="content">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="~/login-form-07/images/undraw_remotely_2j6y.svg" alt="Görsel" class="img-fluid">
+            </div>
+            <div class="col-md-6 contents">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="mb-4">
+                            <h3>Giriş Yap</h3>
+                            <p class="mb-4">Ücretsiz kurslarımıza erişmek için giriş yapınız.</p>
+                        </div>
+
+                        @if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                    {
+                                        <li>@error.ErrorMessage</li>
+                                    }
+                                </ul>
+                            </div>
+                        }
+
+                        <form method="post">
+                            <div class="form-group first">
+                                <label for="email">E-Posta</label>
+                                <input type="email" asp-for="Email" class="form-control" required>
+                                <span class="text-danger" asp-validation-for="Email"></span>
+                            </div>
+
+                            <div class="form-group last mb-4">
+                                <label for="password">Şifre</label>
+                                <input type="password" asp-for="Password" class="form-control" id="password" required>
+                                <span class="text-danger" asp-validation-for="Password"></span>
+                            </div>
+
+                            <button type="submit" class="btn btn-block btn-primary">Giriş Yap</button>
+
+                            <span class="d-block text-left my-4 text-muted">
+                                Hesabınız yok mu?
+                                <a asp-action="Register" asp-controller="Auth">Kayıt Ol</a>
+                            </span>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/login-form-07/js/jquery-3.3.1.min.js"></script>
+<script src="~/login-form-07/js/popper.min.js"></script>
+<script src="~/login-form-07/js/bootstrap.min.js"></script>
+<script src="~/login-form-07/js/main.js"></script>
