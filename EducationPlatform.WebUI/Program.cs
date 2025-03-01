@@ -85,7 +85,19 @@ app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "areas",
-        pattern: "{area:exists}/{controller=AdminHome}/{action=Index}/{id?}"
+        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+    );
+
+    endpoints.MapControllerRoute(
+        name: "admin",
+        pattern: "Admin/{controller=AdminHome}/{action=Index}/{id?}",
+        defaults: new { area = "Admin" }
+    );
+
+    endpoints.MapControllerRoute(
+        name: "student",
+        pattern: "Student/{controller=StudentHome}/{action=Index}/{id?}",
+        defaults: new { area = "Student" }
     );
 
     endpoints.MapControllerRoute(
@@ -93,5 +105,6 @@ app.UseEndpoints(endpoints =>
         pattern: "{controller=Home}/{action=Index}/{id?}"
     );
 });
+
 
 app.Run();
