@@ -1,0 +1,100 @@
+﻿@model RegisterDto
+
+@{
+    ViewData["Title"] = "Kayıt Ol";
+}
+
+<!doctype html>
+<html lang="tr">
+<head>
+    <!-- Meta Ayarları -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400&display=swap" rel="stylesheet">
+
+    <!-- Stil Dosyaları -->
+    <link rel="stylesheet" href="~/login-form-07/fonts/icomoon/style.css">
+    <link rel="stylesheet" href="~/login-form-07/css/owl.carousel.min.css">
+    <link rel="stylesheet" href="~/login-form-07/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/login-form-07/css/style.css">
+
+    <title>Online Edu | Kayıt Ol</title>
+</head>
+<body>
+
+    <div class="content">
+        <div class="container">
+            <div class="row">
+                <!-- Görsel Kısmı -->
+                <div class="col-md-6">
+                    <img src="~/login-form-07/images/undraw_remotely_2j6y.svg" alt="Kayıt Ol" class="img-fluid">
+                </div>
+
+                <!-- Kayıt Formu -->
+                <div class="col-md-6 contents">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <h3 class="mb-4">Kayıt Ol</h3>
+                            <p class="mb-4">Ücretsiz kurslarımıza kayıt olmak için aşağıdaki formu doldurun.</p>
+
+                            <!-- Form Başlangıcı -->
+                            <form method="post" asp-action="Register" asp-controller="Auth">
+                                <div class="form-group first">
+                                    <label for="FullName">Ad Soyad</label>
+                                    <input type="text" asp-for="FullName" class="form-control" required>
+                                    <span class="text-danger" asp-validation-for="FullName"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Email">E-Posta</label>
+                                    <input type="email" asp-for="Email" class="form-control" required>
+                                    <span class="text-danger" asp-validation-for="Email"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Password">Şifre</label>
+                                    <input type="password" asp-for="Password" class="form-control" required>
+                                    <span class="text-danger" asp-validation-for="Password"></span>
+                                </div>
+
+                              
+
+                                <!-- Validasyon Mesajları -->
+                                @if (!ViewData.ModelState.IsValid)
+                                {
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                            {
+                                                <li>@error.ErrorMessage</li>
+                                            }
+                                        </ul>
+                                    </div>
+                                }
+
+                                <!-- Kayıt Ol Butonu -->
+                                <button type="submit" class="btn btn-block btn-primary">Kayıt Ol</button>
+                            </form>
+                            <!-- Form Bitişi -->
+                            <!-- Giriş Yap Linki -->
+                            <span class="d-block text-left my-4 text-muted">
+                                Zaten bir hesabınız var mı?
+                                <a asp-action="Login" asp-controller="Auth">Giriş Yap</a>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script Dosyaları -->
+    <script src="~/login-form-07/js/jquery-3.3.1.min.js"></script>
+    <script src="~/login-form-07/js/popper.min.js"></script>
+    <script src="~/login-form-07/js/bootstrap.min.js"></script>
+    <script src="~/login-form-07/js/main.js"></script>
+
+</body>
+</html>

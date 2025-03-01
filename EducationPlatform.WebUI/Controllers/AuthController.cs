@@ -44,7 +44,7 @@ namespace EducationPlatform.WebUI.Controllers
             }
 
             var responseString = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("API Yanıtı: " + responseString); // 🔥 Konsolda yanıtı görmek için
+            Console.WriteLine("API Yanıtı: " + responseString); 
 
             var token = JsonConvert.DeserializeObject<TokenResponseDto>(responseString);
 
@@ -54,19 +54,49 @@ namespace EducationPlatform.WebUI.Controllers
                 return View(loginDto);
             }
 
-            // ✅ Token'ı Session'a Kaydet
+         
             HttpContext.Session.SetString("AuthToken", token.AccessToken);
 
-            // ✅ Token'ı HttpOnly Cookie'ye Kaydet
+            
             Response.Cookies.Append("AuthToken", token.AccessToken, new CookieOptions
             {
                 HttpOnly = true,
-                Secure = true,   // Sadece HTTPS üzerinden erişilebilir
+                Secure = true,   
                 SameSite = SameSiteMode.Strict
             });
 
-            return RedirectToAction("Index", "Home"); // Giriş başarılı, anasayfaya yönlendir
+            return RedirectToAction("Index", "Home"); 
         }
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task< IActionResult> Register(RegisterDto registerDto)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(registerDto);
+            }
+
+            var client = _httpClientFactory.CreateClient(); // BaseAddress tanımlandığı için sadece endpoint veriyoruz
+            var jsonData = JsonConvert.SerializeObject(registerDto);
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+            var response = await client.PostAsync("https://localhost:7028/api/Auth/register", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                ModelState.AddModelError("", "Kayıt işlemi başarısız! Lütfen bilgileri kontrol edin.");
+                return View(registerDto);
+            }
+
+            // Başarılı kayıt sonrası Login sayfasına yönlendir
+            return RedirectToAction("Login", "Auth");
+        }
+    
 
         public IActionResult Logout()
         {
