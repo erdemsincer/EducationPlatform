@@ -1,4 +1,5 @@
-﻿using EducationPlatform.Application.Abstract;
+﻿using AutoMapper;
+using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Dto.ResourceDto;
 using EducationPlatform.Persistence.Abstract;
@@ -10,10 +11,12 @@ namespace EducationPlatform.Application.Concrete
     public class ResourceManager : IResourceService
     {
         private readonly IResourceDal _resourceDal;
+        private readonly IMapper _mapper;
 
-        public ResourceManager(IResourceDal resourceDal)
+        public ResourceManager(IResourceDal resourceDal, IMapper mapper)
         {
             _resourceDal = resourceDal;
+            _mapper = mapper;
         }
 
         public async Task<List<Resource>> GetByCategoryIdAsync(int categoryId)
@@ -24,6 +27,13 @@ namespace EducationPlatform.Application.Concrete
         public async Task<List<ResultResourceDto>> GetResourceDetailsAsync()
         {
             return await _resourceDal.GetResourceDetailsAsync();
+        }
+
+        public async Task<List<ResultResourceDto>> GetResourcesByUserIdAsync(int userId)
+        {
+            var resources = await _resourceDal.GetResourcesByUserIdAsync(userId);
+            return _mapper.Map<List<ResultResourceDto>>(resources);
+
         }
 
         public async Task TAddAsync(Resource entity)

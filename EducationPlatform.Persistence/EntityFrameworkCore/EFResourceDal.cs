@@ -44,5 +44,12 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                      CategoryName = r.Category.Name  // Kategori Adı
                  }).ToListAsync();
         }
+
+        public async Task<List<Resource>> GetResourcesByUserIdAsync(int userId)
+        {
+            return await _context.Resources
+                .Where(r => r.UserId == userId)
+                .ToListAsync();
+        }
     }
 }

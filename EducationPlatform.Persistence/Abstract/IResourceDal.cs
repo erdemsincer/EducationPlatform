@@ -9,5 +9,6 @@ namespace EducationPlatform.Persistence.Abstract
     {
         Task<List<Resource>> GetByCategoryIdAsync(int categoryId);
         Task<List<ResultResourceDto>> GetResourceDetailsAsync();
+        Task<List<Resource>> GetResourcesByUserIdAsync(int userId);
     }
 }
