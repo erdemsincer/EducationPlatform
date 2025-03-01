@@ -1,7 +1,9 @@
 ﻿using EducationPlatform.Dto.AuthDto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net.Http;
+using System.Security.Claims;
 using System.Text;
 
 namespace EducationPlatform.WebUI.Controllers
@@ -20,6 +22,7 @@ namespace EducationPlatform.WebUI.Controllers
             return View();
         }
 
+
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
@@ -28,14 +31,11 @@ namespace EducationPlatform.WebUI.Controllers
                 return View(loginDto);
             }
 
-            // ✅ HttpClient oluşturulurken BaseAddress kullanılmalı!
             var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(loginDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            // ✅ API ile İletişim
             var response = await client.PostAsync("https://localhost:7028/api/Auth/login", content);
-
 
             if (!response.IsSuccessStatusCode)
             {
@@ -44,8 +44,6 @@ namespace EducationPlatform.WebUI.Controllers
             }
 
             var responseString = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("API Yanıtı: " + responseString); 
-
             var token = JsonConvert.DeserializeObject<TokenResponseDto>(responseString);
 
             if (token == null || string.IsNullOrEmpty(token.AccessToken))
@@ -54,19 +52,32 @@ namespace EducationPlatform.WebUI.Controllers
                 return View(loginDto);
             }
 
-         
-            HttpContext.Session.SetString("AuthToken", token.AccessToken);
+            // **✅ Token içinden Kullanıcı ID’sini Çekme**
+            var handler = new JwtSecurityTokenHandler();
+            var jwtToken = handler.ReadJwtToken(token.AccessToken);
+            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            
+            if (string.IsNullOrEmpty(userId))
+            {
+                ModelState.AddModelError("", "Kullanıcı ID alınamadı, kimlik doğrulama başarısız!");
+                return View(loginDto);
+            }
+
+            // ✅ Kullanıcı ID'yi ve Token'ı Session’a Kaydet
+            HttpContext.Session.SetString("AuthToken", token.AccessToken);
+            HttpContext.Session.SetString("UserId", userId);
+
+            // ✅ Cookie’ye Token Kaydet
             Response.Cookies.Append("AuthToken", token.AccessToken, new CookieOptions
             {
                 HttpOnly = true,
-                Secure = true,   
+                Secure = true,
                 SameSite = SameSiteMode.Strict
             });
 
-            return RedirectToAction("Index", "Home"); 
+            return RedirectToAction("Index", "Home");
         }
+
         [HttpGet]
         public IActionResult Register()
         {

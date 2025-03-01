@@ -75,36 +75,22 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
-app.UseRouting();  // ⬅️ ROUTING ÖNCEDEN EKLENMELİ
+app.UseRouting();  
 
 app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-        name: "areas",
-        pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
-    );
+app.MapControllerRoute(
+  name: "areas",
+  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+);
 
-    endpoints.MapControllerRoute(
-        name: "admin",
-        pattern: "Admin/{controller=AdminHome}/{action=Index}/{id?}",
-        defaults: new { area = "Admin" }
-    );
 
-    endpoints.MapControllerRoute(
-        name: "student",
-        pattern: "Student/{controller=StudentHome}/{action=Index}/{id?}",
-        defaults: new { area = "Student" }
-    );
 
-    endpoints.MapControllerRoute(
-        name: "default",
-        pattern: "{controller=Home}/{action=Index}/{id?}"
-    );
-});
+app.MapControllerRoute(
+    name: "default",
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 
 app.Run();

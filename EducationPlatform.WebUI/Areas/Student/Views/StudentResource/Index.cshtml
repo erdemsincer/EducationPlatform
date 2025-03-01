@@ -1,8 +1,36 @@
-﻿
+﻿@using EducationPlatform.Dto.ResourceDto
+@model List<ResultResourceDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "CreateResource";
     Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
 }
+<h2>Kullanıcıya Ait Kaynaklar</h2>
 
-<h1>Index</h1>
-
+@if (Model != null && Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Başlık</th>
+                <th>Açıklama</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.Description</td>
+                    <td>@item.CreatedAt.ToShortDateString()</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Henüz eklenmiş kaynak yok.</p>
+}
