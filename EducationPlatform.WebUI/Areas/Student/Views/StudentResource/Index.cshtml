@@ -4,33 +4,43 @@
     ViewData["Title"] = "CreateResource";
     Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
 }
-<h2>Kullanıcıya Ait Kaynaklar</h2>
+<div class="container">
+    <h2>Kaynaklarım</h2>
+    <a href="/Student/StudentResource/CreateResource" class="btn btn-primary">Yeni Kaynak Ekle</a>
 
-@if (Model != null && Model.Any())
-{
-    <table class="table">
+    <table class="table table-bordered mt-3">
         <thead>
             <tr>
-                <th>ID</th>
+                <th>#</th>
                 <th>Başlık</th>
                 <th>Açıklama</th>
-                <th>Tarih</th>
+                <th>İşlemler</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @if (Model != null && Model.Count > 0)
+            {
+                int count = 0;
+                @foreach (var item in Model)
+                {
+                    count++;
+                    <tr>
+                        <td>@count</td>
+                        <td>@item.Title</td>
+                        <td>@item.Description</td>
+                        <td>
+                            <a href="/Student/StudentResource/UpdateResource/@item.Id" class="btn btn-warning">Güncelle</a>
+                            <a href="/Student/StudentResource/DeleteResource/@item.Id" class="btn btn-danger">Sil</a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
             {
                 <tr>
-                    <td>@item.Id</td>
-                    <td>@item.Title</td>
-                    <td>@item.Description</td>
-                    <td>@item.CreatedAt.ToShortDateString()</td>
+                    <td colspan="4" class="text-center">Henüz eklenmiş bir kaynak yok.</td>
                 </tr>
             }
         </tbody>
     </table>
-}
-else
-{
-    <p>Henüz eklenmiş kaynak yok.</p>
-}
+</div>

@@ -8,6 +8,7 @@ namespace EducationPlatform.Dto.ResourceDto
 {
     public class CreateResourceDto
     {
+        
         public string Title { get; set; }  // Kaynak başlığı
         public string Description { get; set; }  // Açıklama
         public string FileUrl { get; set; }  // Dosya bağlantısı

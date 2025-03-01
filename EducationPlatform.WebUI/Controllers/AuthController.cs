@@ -52,7 +52,7 @@ namespace EducationPlatform.WebUI.Controllers
                 return View(loginDto);
             }
 
-            // **✅ Token içinden Kullanıcı ID’sini Çekme**
+           
             var handler = new JwtSecurityTokenHandler();
             var jwtToken = handler.ReadJwtToken(token.AccessToken);
             var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
@@ -63,11 +63,11 @@ namespace EducationPlatform.WebUI.Controllers
                 return View(loginDto);
             }
 
-            // ✅ Kullanıcı ID'yi ve Token'ı Session’a Kaydet
+           
             HttpContext.Session.SetString("AuthToken", token.AccessToken);
             HttpContext.Session.SetString("UserId", userId);
 
-            // ✅ Cookie’ye Token Kaydet
+          
             Response.Cookies.Append("AuthToken", token.AccessToken, new CookieOptions
             {
                 HttpOnly = true,

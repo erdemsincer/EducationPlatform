@@ -29,8 +29,8 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
         public async Task<List<ResultResourceDto>> GetResourceDetailsAsync()
         {
             return await _context.Resources
-                 .Include(r => r.User)  // Kullanıcı bilgilerini çekiyoruz
-                 .Include(r => r.Category)  // Kategori bilgilerini çekiyoruz
+                 .Include(r => r.User)  
+                 .Include(r => r.Category)  
                  .Select(r => new ResultResourceDto
                  {
                      Id = r.Id,
@@ -40,8 +40,8 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                      CategoryId = r.CategoryId,
                      UserId = r.UserId,
                      CreatedAt = r.CreatedAt,
-                     UserName = r.User.FullName,  // Kullanıcı Adı
-                     CategoryName = r.Category.Name  // Kategori Adı
+                     UserName = r.User.FullName,  
+                     CategoryName = r.Category.Name  
                  }).ToListAsync();
         }
 
