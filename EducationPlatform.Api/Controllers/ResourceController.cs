@@ -86,5 +86,18 @@ namespace EducationPlatform.Api.Controllers
             var resources = await _resourceService.GetResourceDetailsAsync();
             return Ok(resources);
         }
+
+        [HttpGet("User/{userId}")]
+        public async Task<IActionResult> GetUserResources(int userId)
+        {
+            var userResources = await _resourceService.GetResourcesByUserIdAsync(userId);
+
+            if (userResources == null || !userResources.Any())
+            {
+                return NotFound("Kullanıcının eklediği herhangi bir kaynak bulunamadı.");
+            }
+
+            return Ok(userResources);
+        }
     }
 }
