@@ -37,7 +37,7 @@ namespace EducationPlatform.Api.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateResource(UpdateResourceDto updateResourceDto)
+        public async Task<IActionResult> UpdateResource([FromBody] UpdateResourceDto updateResourceDto)
         {
             var values = _mapper.Map<Resource>(updateResourceDto);
             await _resourceService.TUpdateAsync(values);

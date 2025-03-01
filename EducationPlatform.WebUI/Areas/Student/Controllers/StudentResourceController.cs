@@ -124,5 +124,87 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpGet]
+        [Route("UpdateResource/{id}")]
+        public async Task<IActionResult> UpdateResource(int id)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToRoute(new { controller = "Auth", action = "Login", area = "" });
+            }
+
+            var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
+
+            Console.WriteLine($"🔹 API'ye istek yapılıyor: /api/Resource/{id}");
+
+            var response = await client.GetAsync($"https://localhost:7028/api/Resource/{id}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine($"❌ API Hatası: {response.StatusCode}");
+                ViewBag.ErrorMessage = "Kaynak bulunamadı!";
+                return View();
+            }
+
+            var jsonData = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"✅ API'den Gelen Veri: {jsonData}");
+
+            var resource = JsonConvert.DeserializeObject<UpdateResourceDto>(jsonData);
+
+            await LoadCategoryDropdown();
+
+            return View(resource);
+        }
+        [HttpPost]
+        [Route("UpdateResource")]
+        public async Task<IActionResult> UpdateResource(UpdateResourceDto updateResourceDto)
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToRoute(new { controller = "Auth", action = "Login", area = "" });
+            }
+
+            if (updateResourceDto == null || updateResourceDto.Id == 0)
+            {
+                ViewBag.ErrorMessage = "❌ Güncellenecek kaynak bilgileri eksik!";
+                await LoadCategoryDropdown();
+                return View(updateResourceDto);
+            }
+
+            var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
+
+            // **API'ye giden veriyi logla**
+            string jsonData = JsonConvert.SerializeObject(updateResourceDto);
+            Console.WriteLine($"🔹 API'ye Gönderilen Güncelleme Verisi: {jsonData}");
+
+            var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+            var response = await client.PutAsync("https://localhost:7028/api/Resource", content);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorMessage = await response.Content.ReadAsStringAsync();
+                Console.WriteLine($"❌ API Güncelleme Hatası: {errorMessage}");
+
+                ViewBag.ErrorMessage = $"❌ Güncelleme başarısız! API Hatası: {errorMessage}";
+                await LoadCategoryDropdown();
+                return View(updateResourceDto);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+
+
+
+
+
     }
 }
