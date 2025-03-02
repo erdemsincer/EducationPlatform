@@ -1,0 +1,26 @@
+﻿@model List<ResultCommentDto>
+@{
+    ViewData["Title"] = "Profilim";
+    Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
+}
+<h2>Yorumlarım</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>İçerik</th>
+            <th>Eklenme Tarihi</th>
+            <th>Kaynak</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Content</td>
+                <td>@item.CreatedAt.ToString("dd.MM.yyyy")</td>
+                <td>@item.ResourceTitle</td>
+            </tr>
+        }
+    </tbody>
+</table>

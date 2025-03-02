@@ -8,12 +8,10 @@ namespace EducationPlatform.Dto.CommentDto
 {
     public class ResultCommentDto
     {
-        public int Id { get; set; }  // Birincil anahtar
-        public string Content { get; set; }  // Yorum içeriği
-        public int UserId { get; set; }  // Yorumu yazan kullanıcı
-                                         // Navigasyon
-        public int ResourceId { get; set; }  // Hangi kaynağa ait
-        // Navigasyon
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public int Id { get; set; }
+        public string Content { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int ResourceId { get; set; }
+        public string ResourceTitle { get; set; } // Kaynağın adını göstermek için
     }
 }

@@ -80,5 +80,16 @@ namespace EducationPlatform.Api.Controllers
 
             return Ok(value);
         }
+
+        [HttpGet("User/{userId}")]
+        public async Task<IActionResult> GetCommentsByUserId(int userId)
+        {
+            var comments = await _commentService.GetCommentsByUserIdAsync(userId);
+
+            var result = _mapper.Map<List<ResultCommentDto>>(comments);
+
+            return Ok(result);
+        }
+
     }
 }

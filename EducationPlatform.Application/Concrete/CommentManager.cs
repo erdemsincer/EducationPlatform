@@ -44,5 +44,10 @@ namespace EducationPlatform.Application.Concrete
         {
             await _commentDal.UpdateAsync(entity);
         }
+        public async Task<List<Comment>> GetCommentsByUserIdAsync(int userId)
+        {
+            return await _commentDal.GetCommentsByUserIdAsync(userId);
+        }
+
     }
 }

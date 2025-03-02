@@ -24,5 +24,13 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                 .Where(c => c.ResourceId == resourceId)
                 .ToListAsync();
         }
+        public async Task<List<Comment>> GetCommentsByUserIdAsync(int userId)
+        {
+            return await _context.Comments
+                .Include(x => x.Resource)
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+        }
+
     }
 }

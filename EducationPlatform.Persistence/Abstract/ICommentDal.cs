@@ -7,5 +7,7 @@ namespace EducationPlatform.Persistence.Abstract
     public interface ICommentDal : IGenericDal<Comment>
     {
         Task<List<Comment>> GetByResourceIdAsync(int resourceId);
+        Task<List<Comment>> GetCommentsByUserIdAsync(int userId);
+
     }
 }
