@@ -1,53 +1,8 @@
-﻿@model UpdateResourceDto
+﻿
 @{
-    ViewData["Title"] = "Kaynak Güncelle";
+    ViewData["Title"] = "UpdateResource";
     Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
 }
 
-<div class="container">
-    <h2>Kaynak Güncelle</h2>
+<h1>UpdateResource</h1>
 
-    @if (ViewBag.ErrorMessage != null)
-    {
-        <div class="alert alert-danger">❌ @ViewBag.ErrorMessage</div>
-    }
-
-    <form method="post">
-        <input type="hidden" asp-for="Id" />
-
-        <div class="form-group">
-            <label>Başlık</label>
-            <input type="text" asp-for="Title" class="form-control" required />
-        </div>
-
-        <div class="form-group">
-            <label>Açıklama</label>
-            <textarea asp-for="Description" class="form-control" required></textarea>
-        </div>
-
-        <div class="form-group">
-            <label>Dosya URL</label>
-            <input type="text" asp-for="FileUrl" class="form-control" required />
-        </div>
-
-        <div class="form-group">
-            <label for="categoryId">Kategori Seç</label>
-            <select asp-for="CategoryId" class="form-control">
-                <option value="">Lütfen bir kategori seçin</option>
-                @if (ViewBag.Categories != null)
-                {
-                    @foreach (var category in ViewBag.Categories as List<SelectListItem>)
-                    {
-                        <option value="@category.Value" selected="@(category.Value == Model.CategoryId.ToString())">
-                            @category.Text
-                        </option>
-                    }
-                }
-            </select>
-            <span class="text-danger" asp-validation-for="CategoryId"></span>
-        </div>
-
-        <button type="submit" class="btn btn-success">Güncelle</button>
-        <<a href="/Student/StudentResource/Index" class="btn btn-secondary">Geri</a>
-    </form>
-</div>
