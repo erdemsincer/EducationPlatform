@@ -39,4 +39,26 @@ public class StudentCommentController : Controller
 
         return View(comments);
     }
+    [Route("Delete/{id}")]
+    public async Task<IActionResult> Delete(int id)
+    {
+        var client = _httpClientFactory.CreateClient();
+        client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
+
+        var response = await client.DeleteAsync($"https://localhost:7028/api/Comment/{id}");
+
+        if (response.IsSuccessStatusCode)
+        {
+            TempData["Success"] = "✅ Yorum başarıyla silindi!";
+        }
+        else
+        {
+            TempData["Error"] = "❌ Yorum silinemedi.";
+        }
+
+        return RedirectToAction("Index");
+    }
+
+
 }
