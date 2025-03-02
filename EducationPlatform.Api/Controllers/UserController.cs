@@ -40,10 +40,25 @@ namespace EducationPlatform.Api.Controllers
         [HttpPut("UpdateUser")]
         public async Task<IActionResult> UpdateUser(UpdateUserDto updateUserDto)
         {
-            var values = _mapper.Map<User>(updateUserDto);
-            await _userService.TUpdateAsync(values);
-            return Ok("Güncellendi");
+            var user = await _userService.GetUserByIdAsync(updateUserDto.Id);
+
+            if (user == null)
+                return NotFound();
+
+            user.FullName = updateUserDto.FullName;
+            user.Email = updateUserDto.Email;
+            user.ProfileImage = updateUserDto.ProfileImage;
+
+            if (!string.IsNullOrEmpty(updateUserDto.PasswordHash))
+            {
+                user.PasswordHash = PasswordHelper.HashPassword(updateUserDto.PasswordHash);
+            }
+
+            await _userService.TUpdateAsync(user);
+
+            return Ok();
         }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id)

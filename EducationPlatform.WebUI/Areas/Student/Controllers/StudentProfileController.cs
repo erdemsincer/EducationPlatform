@@ -74,8 +74,8 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             return View(user);
         }
 
-        [Route("Update")]
         [HttpPost]
+        [Route("Update")]
         public async Task<IActionResult> Update(UpdateUserDto updateUserDto)
         {
             var client = _httpClientFactory.CreateClient();
@@ -84,15 +84,12 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
 
             var response = await client.PutAsync("https://localhost:7028/api/User/UpdateUser", content);
 
-            if (!response.IsSuccessStatusCode)
-            {
-                TempData["Error"] = "Profil güncellenemedi!";
-                return View(updateUserDto);
-            }
+           
 
-            TempData["Success"] = "Profil başarıyla güncellendi!";
+           
             return RedirectToAction("Index");
         }
+
 
 
 
