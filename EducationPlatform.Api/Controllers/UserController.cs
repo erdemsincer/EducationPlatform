@@ -37,7 +37,7 @@ namespace EducationPlatform.Api.Controllers
             return Ok("Eklendi");
         }
 
-        [HttpPut]
+        [HttpPut("UpdateUser")]
         public async Task<IActionResult> UpdateUser(UpdateUserDto updateUserDto)
         {
             var values = _mapper.Map<User>(updateUserDto);

@@ -1,0 +1,22 @@
+﻿@model UpdateUserDto
+@{
+    ViewData["Title"] = "Profilim";
+    Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
+}
+<h2>Profil Bilgilerim</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Id" />
+    <label>Ad Soyad</label>
+    <input asp-for="FullName" class="form-control" />
+
+    <label>Email</label>
+    <input asp-for="Email" class="form-control" />
+
+    <label>Profil Fotoğrafı (URL)</label>
+    <input asp-for="ProfileImage" class="form-control" />
+
+    
+
+    <button class="btn btn-primary mt-3">Güncelle</button>
+</form>
