@@ -20,5 +20,9 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
+        public async Task<User> GetUserByIdAsync(int id)
+        {
+            return await _context.Users.FirstOrDefaultAsync(x => x.Id == id);
+        }
     }
 }

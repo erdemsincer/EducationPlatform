@@ -58,17 +58,19 @@ namespace EducationPlatform.Api.Controllers
             return Ok("Silindi");
         }
 
+       
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetByIdUser(int id)
+        public async Task<IActionResult> GetUserById(int id)
         {
-            var value = await _userService.TGetByIdAsync(id);
-            if (value == null)
+            var user = await _userService.GetUserByIdAsync(id);
+            if (user == null)
             {
-                return NotFound("Kullanıcı bulunamadı");
+                return NotFound("Kullanıcı bulunamadı.");
             }
 
-            return Ok(value);
+            var result = _mapper.Map<ResultUserDto>(user);
+            return Ok(result);
         }
-        
+
     }
 }

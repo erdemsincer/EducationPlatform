@@ -43,7 +43,11 @@ namespace EducationPlatform.Application.Concrete
         {
             return await _userDal.GetByEmailAsync(email);
         }
+        public async Task<User> GetUserByIdAsync(int id)
+        {
+            return await _userDal.GetUserByIdAsync(id);
+        }
 
-     
+
     }
 }

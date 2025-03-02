@@ -1,0 +1,21 @@
+﻿@model ResultUserDto
+@{
+    ViewData["Title"] = "Profilim";
+    Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Profilim</h2>
+
+    <div class="card" style="max-width: 600px; margin: auto;">
+        <div class="card-body text-center">
+            <img src="@Model.ProfileImage" class="rounded-circle mb-3" alt="Profil Fotoğrafı" width="150" height="150" onerror="this.onerror=null;this.src='/default-profile.png';">
+
+            <h4 class="card-title">@Model.FullName</h4>
+            <p class="card-text"><strong>E-Posta:</strong> @Model.Email</p>
+            <p class="card-text"><strong>Üyelik Tarihi:</strong> @Model.CreatedAt.ToString("dd.MM.yyyy")</p>
+
+            <a href="/Student/Dashboard/Index" class="btn btn-secondary mt-3">Panele Dön</a>
+        </div>
+    </div>
+</div>
