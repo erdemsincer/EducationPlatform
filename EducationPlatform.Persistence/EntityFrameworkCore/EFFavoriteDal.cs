@@ -24,5 +24,14 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                 .Where(f => f.UserId == userId)
                 .ToListAsync();
         }
+        // EFFavoriteDal.cs
+        public async Task<List<Favorite>> GetFavoritesByUserIdAsync(int userId)
+        {
+            return await _context.Favorites
+                                 .Include(f => f.Resource)
+                                 .Where(f => f.UserId == userId)
+                                 .ToListAsync();
+        }
+
     }
 }

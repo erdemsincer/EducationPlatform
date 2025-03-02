@@ -80,5 +80,15 @@ namespace EducationPlatform.Api.Controllers
 
             return Ok(value);
         }
+        [HttpGet("User/{userId}")]
+        public async Task<IActionResult> GetFavoritesByUserId(int userId)
+        {
+            var favorites = await _favoriteService.GetFavoritesByUserIdAsync(userId);
+
+            var result = _mapper.Map<List<ResultFavoriteDto>>(favorites);
+
+            return Ok(result);
+        }
+
     }
 }

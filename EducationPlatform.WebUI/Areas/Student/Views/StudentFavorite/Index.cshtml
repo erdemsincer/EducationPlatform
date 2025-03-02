@@ -1,0 +1,45 @@
+﻿@model List<ResultFavoriteDto>
+
+@{
+    ViewData["Title"] = "Favorilerim";
+    Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
+}
+
+<h2>Favorilerim</h2>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success">@TempData["Success"]</div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">@TempData["Error"]</div>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Başlık</th>
+            <th>Açıklama</th>
+            <th>Kaynak</th>
+            <th>İşlem</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.ResourceTitle</td>
+                <td>@item.ResourceDescription</td>
+                <td>
+                    <a href="@item.ResourceFileUrl" target="_blank" class="btn btn-primary btn-sm">
+                        Görüntüle
+                    </a>
+                </td>
+                <td>
+                    <a href="/Student/StudentFavorite/Delete/@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

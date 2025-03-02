@@ -44,5 +44,11 @@ namespace EducationPlatform.Application.Concrete
         {
             await _favoriteDal.UpdateAsync(entity);
         }
+        // FavoriteManager.cs
+        public async Task<List<Favorite>> GetFavoritesByUserIdAsync(int userId)
+        {
+            return await _favoriteDal.GetFavoritesByUserIdAsync(userId);
+        }
+
     }
 }
