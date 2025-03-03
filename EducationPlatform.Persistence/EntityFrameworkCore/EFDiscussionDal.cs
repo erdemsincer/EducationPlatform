@@ -23,5 +23,13 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                 .Include(d => d.User)
                 .ToListAsync();
         }
+        public async Task<List<Discussion>> GetDiscussionsByUserIdAsync(int userId)
+        {
+            return await _context.Discussions
+                .Where(d => d.UserId == userId)
+                .Include(d => d.User)
+                .ToListAsync();
+        }
+
     }
 }

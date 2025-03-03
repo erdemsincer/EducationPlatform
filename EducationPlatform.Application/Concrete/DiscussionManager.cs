@@ -43,6 +43,11 @@ namespace EducationPlatform.Application.Concrete
         {
             return await _discussionDal.GetDiscussionsWithUserAsync();
         }
+        public async Task<List<Discussion>> GetDiscussionsByUserIdAsync(int userId)
+        {
+            return await _discussionDal.GetDiscussionsByUserIdAsync(userId);
+        }
+
 
     }
 }

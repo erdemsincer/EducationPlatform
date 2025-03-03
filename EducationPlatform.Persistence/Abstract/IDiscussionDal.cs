@@ -5,5 +5,6 @@ namespace EducationPlatform.Persistence.Abstract
     public interface IDiscussionDal : IGenericDal<Discussion>
     {
         Task<List<Discussion>> GetDiscussionsWithUserAsync();
+        Task<List<Discussion>> GetDiscussionsByUserIdAsync(int userId);
     }
 }
