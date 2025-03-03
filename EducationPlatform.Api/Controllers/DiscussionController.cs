@@ -8,7 +8,6 @@ namespace EducationPlatform.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-   
     public class DiscussionController : ControllerBase
     {
         private readonly IDiscussionService _discussionService;
@@ -25,6 +24,18 @@ namespace EducationPlatform.Api.Controllers
         public async Task<IActionResult> GetAll()
         {
             var discussions = await _discussionService.GetDiscussionsWithUserAsync();
+            var result = _mapper.Map<List<ResultDiscussionDto>>(discussions);
+            return Ok(result);
+        }
+
+        // ✅ Kullanıcıya Göre Tartışmaları Listele
+        [HttpGet("User/{userId}")]
+        public async Task<IActionResult> GetByUserId(int userId)
+        {
+            var discussions = await _discussionService.GetDiscussionsByUserIdAsync(userId);
+            if (discussions == null || !discussions.Any())
+                return NotFound("Bu kullanıcıya ait tartışma bulunamadı.");
+
             var result = _mapper.Map<List<ResultDiscussionDto>>(discussions);
             return Ok(result);
         }
@@ -70,6 +81,5 @@ namespace EducationPlatform.Api.Controllers
             await _discussionService.TDeleteAsync(discussion);
             return Ok("Tartışma başarıyla silindi.");
         }
-       
     }
 }
