@@ -39,5 +39,10 @@ namespace EducationPlatform.Application.Concrete
         {
             await _discussionDal.UpdateAsync(entity);
         }
+        public async Task<List<Discussion>> GetDiscussionsWithUserAsync()
+        {
+            return await _discussionDal.GetDiscussionsWithUserAsync();
+        }
+
     }
 }

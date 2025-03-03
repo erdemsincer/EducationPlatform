@@ -12,6 +12,8 @@ namespace EducationPlatform.Persistence.Context
         public DbSet<Category> Categories { get; set; }
         public DbSet<Comment> Comments { get; set; }
         public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<Discussion> Discussions { get; set; }
+        public DbSet<DiscussionReply> DiscussionReplies { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

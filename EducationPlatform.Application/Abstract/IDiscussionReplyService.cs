@@ -9,5 +9,6 @@ namespace EducationPlatform.Application.Abstract
 {
     public interface IDiscussionReplyService : IGenericService<DiscussionReply>
     {
+        Task<List<DiscussionReply>> GetRepliesWithUserAsync(int discussionId);
     }
 }

@@ -9,5 +9,6 @@ namespace EducationPlatform.Application.Abstract
 {
     public interface IDiscussionService:IGenericService<Discussion>
     {
+        Task<List<Discussion>> GetDiscussionsWithUserAsync();
     }
 }

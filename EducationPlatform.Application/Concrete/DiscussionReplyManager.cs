@@ -39,5 +39,10 @@ namespace EducationPlatform.Application.Concrete
         {
             await _discussionReplyDal.UpdateAsync(entity);
         }
+        public async Task<List<DiscussionReply>> GetRepliesWithUserAsync(int discussionId)
+        {
+            return await _discussionReplyDal.GetRepliesWithUserAsync(discussionId);
+        }
+
     }
 }
