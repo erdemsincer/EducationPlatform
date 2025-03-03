@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.Persistence.EntityFrameworkCore
 {
-    public class EFDiscussionReplyDal : GenericRepository<Discussion>, IDiscussionDal
+    public class EFDiscussionReplyDal : GenericRepository<DiscussionReply>, IDiscussionReplyDal
     {
         public EFDiscussionReplyDal(ApplicationDbContext context) : base(context)
         {
