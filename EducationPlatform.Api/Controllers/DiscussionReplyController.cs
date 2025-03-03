@@ -59,5 +59,12 @@ namespace EducationPlatform.Api.Controllers
             await _discussionReplyService.TDeleteAsync(reply);
             return Ok("Yanıt başarıyla silindi.");
         }
+        [HttpGet("GetReplies/{discussionId}")]
+        public async Task<IActionResult> GetReplies(int discussionId)
+        {
+            var replies = await _discussionReplyService.GetRepliesWithUserAsync(discussionId);
+            var result = _mapper.Map<List<ResultDiscussionReplyDto>>(replies);
+            return Ok(result);
+        }
     }
 }

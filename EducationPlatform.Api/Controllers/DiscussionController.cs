@@ -21,10 +21,10 @@ namespace EducationPlatform.Api.Controllers
         }
 
         // ✅ Tüm Tartışmaları Listele
-        [HttpGet]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var discussions = await _discussionService.TGetListAllAsync();
+            var discussions = await _discussionService.GetDiscussionsWithUserAsync();
             var result = _mapper.Map<List<ResultDiscussionDto>>(discussions);
             return Ok(result);
         }
@@ -70,5 +70,6 @@ namespace EducationPlatform.Api.Controllers
             await _discussionService.TDeleteAsync(discussion);
             return Ok("Tartışma başarıyla silindi.");
         }
+       
     }
 }
