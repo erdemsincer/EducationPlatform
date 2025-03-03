@@ -1,0 +1,41 @@
+﻿@model CreateDiscussionDto
+
+@{
+    ViewData["Title"] = "Tartışma Oluştur";
+    Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Yeni Tartışma Oluştur</h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <form method="post">
+        <!-- Başlık -->
+        <div class="form-group mb-3">
+            <label>Başlık</label>
+            <input type="text" asp-for="Title" class="form-control" placeholder="Başlık girin" required />
+            <span class="text-danger" asp-validation-for="Title"></span>
+        </div>
+
+        <!-- İçerik -->
+        <div class="form-group mb-3">
+            <label>İçerik</label>
+            <textarea asp-for="Content" class="form-control" rows="5" placeholder="İçeriği yazın" required></textarea>
+            <span class="text-danger" asp-validation-for="Content"></span>
+        </div>
+
+        <!-- Butonlar -->
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-success">Oluştur</button>
+            <a href="/Student/StudentDiscussion/Index" class="btn btn-secondary">İptal</a>
+        </div>
+    </form>
+</div>
