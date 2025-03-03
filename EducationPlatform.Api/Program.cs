@@ -31,7 +31,14 @@ builder.Services.AddScoped<IResourceService, ResourceManager>();
 builder.Services.AddScoped<IResourceDal, EFResourceDal>();
 builder.Services.AddScoped<ICategoryService, CategoryManager>();
 builder.Services.AddScoped<ICategoryDal, EFCategoryDal>();
-builder.Services.AddScoped<TokenGenerator>();
+builder.Services.AddScoped<TokenGenerator>(); 
+builder.Services.AddScoped<IDiscussionService, DiscussionManager>();
+builder.Services.AddScoped<IDiscussionDal, EFDiscussionDal>();
+
+builder.Services.AddScoped<IDiscussionReplyService, DiscussionReplyManager>();
+builder.Services.AddScoped<IDiscussionReplyDal, EFDiscussionReplyDal>();
+
+
 
 // JWT Authentication Ayarlarý (Güçlü Secret Key Kullanýmý)
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
