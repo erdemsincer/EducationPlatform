@@ -1,0 +1,37 @@
+﻿@model List<ResultDiscussionDto>
+
+@{
+    ViewData["Title"] = "Tartışmalar";
+    Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Tartışmalar</h2>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Başlık</th>
+                <th>İçerik</th>
+                <th>Oluşturan</th>
+                <th>Oluşturulma Tarihi</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Title</td>
+                    <td>@item.Content</td>
+                    <td>@item.UserFullName</td>
+                    <td>@item.CreatedAt.ToString("dd.MM.yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
