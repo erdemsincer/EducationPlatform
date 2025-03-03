@@ -3,6 +3,7 @@ using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Dto.DiscussionDto;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace EducationPlatform.Api.Controllers
 {
@@ -19,7 +20,7 @@ namespace EducationPlatform.Api.Controllers
             _mapper = mapper;
         }
 
-        // ✅ Tüm Tartışmaları Listele
+        
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
@@ -28,7 +29,7 @@ namespace EducationPlatform.Api.Controllers
             return Ok(result);
         }
 
-        // ✅ Kullanıcıya Göre Tartışmaları Listele
+       
         [HttpGet("User/{userId}")]
         public async Task<IActionResult> GetByUserId(int userId)
         {
@@ -40,7 +41,7 @@ namespace EducationPlatform.Api.Controllers
             return Ok(result);
         }
 
-        // ✅ ID'ye Göre Tartışma Getir
+        
         [HttpGet("{id}")]
         public async Task<IActionResult> GetById(int id)
         {
@@ -52,7 +53,7 @@ namespace EducationPlatform.Api.Controllers
             return Ok(result);
         }
 
-        // ✅ Yeni Tartışma Oluştur
+        
         [HttpPost]
         public async Task<IActionResult> Create(CreateDiscussionDto dto)
         {
@@ -61,16 +62,22 @@ namespace EducationPlatform.Api.Controllers
             return Ok("Tartışma başarıyla oluşturuldu.");
         }
 
-        // ✅ Tartışmayı Güncelle
+
         [HttpPut]
         public async Task<IActionResult> Update(UpdateDiscussionDto dto)
         {
+            if (dto.Id == 0 || dto.UserId == 0)
+                return BadRequest("Eksik bilgiler!");
+
             var discussion = _mapper.Map<Discussion>(dto);
+           
             await _discussionService.TUpdateAsync(discussion);
-            return Ok("Tartışma başarıyla güncellendi.");
+
+            return Ok("Güncellendi");
         }
 
-        // ✅ Tartışmayı Sil
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
