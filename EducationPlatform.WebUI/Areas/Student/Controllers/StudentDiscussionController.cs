@@ -39,5 +39,31 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
 
             return View(discussions);
         }
+        [Route("MyDiscussions")]
+        public async Task<IActionResult> MyDiscussions()
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToRoute(new { controller = "Auth", action = "Login", area = "" });
+            }
+
+            var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
+
+            var response = await client.GetAsync($"https://localhost:7028/api/Discussion/User/{userId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                TempData["Error"] = "Tartışmalar yüklenemedi.";
+                return View(new List<ResultDiscussionDto>());
+            }
+
+            var jsonData = await response.Content.ReadAsStringAsync();
+            var discussions = JsonConvert.DeserializeObject<List<ResultDiscussionDto>>(jsonData);
+
+            return View(discussions);
+        }
     }
 }

@@ -1,0 +1,34 @@
+﻿@model List<ResultDiscussionDto>
+
+@{
+    ViewData["Title"] = "Tartışmalarım";
+    Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
+}
+
+<h2>📌 Tartışmalarım</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Başlık</th>
+            <th>Açıklama</th>
+            <th>Oluşturma Tarihi</th>
+            <th>İşlemler</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Title</td>
+                <td>@item.Content</td>
+                <td>@item.CreatedAt.ToString("dd.MM.yyyy")</td>
+                <td>
+                    <a href="/Student/StudentDiscussion/Detail/@item.Id" class="btn btn-info btn-sm">Detay</a>
+                    <a href="/Student/StudentDiscussion/Update/@item.Id" class="btn btn-warning btn-sm">Güncelle</a>
+                    <a href="/Student/StudentDiscussion/Delete/@item.Id" class="btn btn-danger btn-sm">Sil</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
