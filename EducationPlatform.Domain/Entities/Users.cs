@@ -9,5 +9,8 @@
         public string ProfileImage { get; set; }  // Profil fotoğrafı URL
         public string? Role { get; set; } = "User";
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;  // Kullanıcı oluşturulma tarihi
+        public ICollection<Discussion> Discussions { get; set; }
+        public ICollection<DiscussionReply> DiscussionReplies { get; set; }
+
     }
 }
