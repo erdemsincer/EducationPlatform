@@ -1,4 +1,5 @@
 ﻿using EducationPlatform.Dto.DiscussionDto;
+using EducationPlatform.Dto.DiscussionReplyDto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -164,5 +165,13 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             TempData["Success"] = "Tartışma başarıyla güncellendi!";
             return RedirectToAction("MyDiscussions");
         }
+        [HttpGet("Detail/{id}")]
+        public async Task<IActionResult> Detail(int id)
+        {
+            return RedirectToAction("Detail", "StudentDiscussionReply", new { area = "Student", id });
+        }
+
+
+
     }
 }

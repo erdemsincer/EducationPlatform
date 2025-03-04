@@ -1,0 +1,42 @@
+﻿@model ResultDiscussionDto
+@using EducationPlatform.Dto.DiscussionReplyDto
+@{
+    ViewData["Title"] = "Tartışma Detayı";
+    Layout = "~/Areas/Student/Views/StudentLayout/Index.cshtml";
+    var replies = ViewBag.Replies as List<ResultDiscussionReplyDto>;
+}
+
+<h2>@Model.Title</h2>
+<p>@Model.Content</p>
+<p><strong>Oluşturan:</strong> @Model.UserFullName</p>
+<hr />
+
+<h3>Yorumlar</h3>
+
+@if (replies != null && replies.Any())
+{
+    <ul>
+        @foreach (var reply in replies)
+        {
+            <li>
+                <strong>@reply.UserFullName:</strong> @reply.Message
+            </li>
+        }
+    </ul>
+}
+else
+{
+    <p>Henüz yorum yok.</p>
+}
+
+<hr />
+
+<h4>Yorum Ekle</h4>
+<form asp-area="Student" asp-controller="StudentDiscussionReply" asp-action="AddReply" method="post">
+    <input type="hidden" name="DiscussionId" value="@Model.Id" />
+    <div class="form-group">
+        <textarea name="Message" class="form-control" placeholder="Yorumunuzu yazın..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Gönder</button>
+</form>
+
