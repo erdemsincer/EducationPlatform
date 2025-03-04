@@ -11,6 +11,7 @@
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;  // Kullanıcı oluşturulma tarihi
         public ICollection<Discussion> Discussions { get; set; }
         public ICollection<DiscussionReply> DiscussionReplies { get; set; }
+        public ICollection<Role> Roles { get; set; }
 
     }
 }

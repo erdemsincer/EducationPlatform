@@ -14,6 +14,7 @@ namespace EducationPlatform.Persistence.Context
         public DbSet<Favorite> Favorites { get; set; }
         public DbSet<Discussion> Discussions { get; set; }
         public DbSet<DiscussionReply> DiscussionReplies { get; set; }
+        public DbSet<Role> Roles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +29,12 @@ namespace EducationPlatform.Persistence.Context
             modelBuilder.Entity<Favorite>()
                 .HasIndex(f => new { f.UserId, f.ResourceId })
                 .IsUnique();
+
+
+            modelBuilder.Entity<User>()
+                .HasMany(u => u.Roles)
+                .WithMany(r => r.Users)
+                .UsingEntity(j => j.ToTable("UserRoles"));
         }
 
         internal async Task<object> FindAsync(int id)
