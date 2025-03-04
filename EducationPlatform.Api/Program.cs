@@ -34,6 +34,9 @@ builder.Services.AddScoped<ICategoryDal, EFCategoryDal>();
 builder.Services.AddScoped<TokenGenerator>(); 
 builder.Services.AddScoped<IDiscussionService, DiscussionManager>();
 builder.Services.AddScoped<IDiscussionDal, EFDiscussionDal>();
+builder.Services.AddScoped<IRoleService, RoleManager>();
+builder.Services.AddScoped<IRoleDal, EFRoleDal>();
+
 
 builder.Services.AddScoped<IDiscussionReplyService, DiscussionReplyManager>();
 builder.Services.AddScoped<IDiscussionReplyDal, EFDiscussionReplyDal>();
