@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.Api.Controllers
 {
-    [Authorize(Roles = "Student")]
+    [Authorize(Roles = "Student,Admin")]
+
     [Route("api/[controller]")]
     [ApiController]
     public class ResourceController : ControllerBase

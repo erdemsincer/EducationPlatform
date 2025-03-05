@@ -1,9 +1,11 @@
 ﻿using EducationPlatform.Dto.ResourceDto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 
 namespace EducationPlatform.WebUI.Areas.Admin.Controllers
 {
+    [Authorize(Roles = "Admin")]
     [Area("Admin")]
     [Route("Admin/AdminResource")]
     public class AdminResourceController : Controller
@@ -18,7 +20,14 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         [Route("Index")]
         public async Task<IActionResult> Index()
         {
+            var token = HttpContext.Session.GetString("AuthToken");
+            if (string.IsNullOrEmpty(token))
+                return RedirectToRoute(new { controller = "Auth", action = "Login", area = "" });
+
             var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization =
+                new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", token);
+
             var responseMessage = await client.GetAsync("https://localhost:7028/api/Resource/GetResourceDetails");
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -26,6 +35,8 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
                 var values = JsonConvert.DeserializeObject<List<ResultResourceDto>>(jsonData);
                 return View(values);
             }
+
+            TempData["Error"] = "Kaynaklar yüklenirken hata oluştu.";
             return View(new List<ResultResourceDto>());
         }
 
