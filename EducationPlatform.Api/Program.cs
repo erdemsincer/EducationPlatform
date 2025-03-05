@@ -35,6 +35,9 @@ builder.Services.AddScoped<TokenGenerator>();
 builder.Services.AddScoped<IDiscussionService, DiscussionManager>();
 builder.Services.AddScoped<IDiscussionDal, EFDiscussionDal>();
 builder.Services.AddScoped<IRoleService, RoleManager>();
+builder.Services.AddScoped<IUserRoleDal, EFUserRoleDal>();
+builder.Services.AddScoped<IUserRoleService, UserRoleManager>();
+
 builder.Services.AddScoped<IRoleDal, EFRoleDal>();
 
 
