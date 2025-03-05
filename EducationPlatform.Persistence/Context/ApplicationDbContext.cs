@@ -16,6 +16,13 @@ namespace EducationPlatform.Persistence.Context
         public DbSet<DiscussionReply> DiscussionReplies { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Message> Messages { get; set; }
+        public DbSet<Contact> Contacts { get; set; }
+        public DbSet<SocialMedia> SocialMedias { get; set; }
+        public DbSet<Subscriber> Subscribers { get; set; }
+        public DbSet<Testimonial> Testimonials { get; set; }
+        public DbSet<About> Abouts { get; set; }
+        public DbSet<Banner> Banners { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
