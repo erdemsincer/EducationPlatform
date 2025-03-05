@@ -120,5 +120,9 @@ namespace EducationPlatform.WebUI.Controllers
 
             return RedirectToAction("Login", "Auth");
         }
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }
