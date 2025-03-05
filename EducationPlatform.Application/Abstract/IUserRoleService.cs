@@ -7,11 +7,10 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.Application.Abstract
 {
-    public interface IUserService : IGenericService<User>
+    public interface IUserRoleService 
     {
-        Task<User> GetUserByEmailAsync(string email);
-        Task<User> GetUserByIdAsync(int id);
-        Task<User> GetUserWithRolesByEmailAsync(string email);
-
+        Task AssignRoleAsync(int userId, int roleId);
+        Task RemoveRoleAsync(int userId, int roleId);
+        Task<List<Role>> GetUserRolesAsync(int userId);
     }
 }
