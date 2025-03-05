@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.Application.Abstract
 {
-    public interface IAboutService : IGenericService<Category>
+    public interface IAboutService : IGenericService<About>
     {
     }
 }
