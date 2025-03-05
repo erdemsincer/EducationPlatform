@@ -2,12 +2,14 @@
 using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Dto.ResourceDto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace EducationPlatform.Api.Controllers
 {
+    [Authorize(Roles = "Student")]
     [Route("api/[controller]")]
     [ApiController]
     public class ResourceController : ControllerBase
