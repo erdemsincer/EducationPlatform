@@ -1,6 +1,7 @@
 ﻿using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Persistence.Abstract;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -48,6 +49,9 @@ namespace EducationPlatform.Application.Concrete
             return await _userDal.GetUserByIdAsync(id);
         }
 
-
+        public async  Task<User> GetUserWithRolesByEmailAsync(string email)
+        {
+            return await _userDal.GetUserWithRolesByEmailAsync(email);
+        }
     }
 }

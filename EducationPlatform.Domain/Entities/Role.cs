@@ -11,5 +11,6 @@ namespace EducationPlatform.Domain.Entities
         public int Id { get; set; }
         public string Name { get; set; }  // Örn: Admin, User, Student, Teacher
         public ICollection<User> Users { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
     }
 }

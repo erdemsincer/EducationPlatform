@@ -3,6 +3,7 @@ using EducationPlatform.Persistence.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace EducationPlatform.Persistence.Repositories
@@ -42,6 +43,10 @@ namespace EducationPlatform.Persistence.Repositories
         {
             _context.Update(entity);
             await _context.SaveChangesAsync();
+        }
+        public async Task<T> GetAsync(Expression<Func<T, bool>> filter)  // ✅ Burayı ekliyoruz
+        {
+            return await _context.Set<T>().FirstOrDefaultAsync(filter);
         }
     }
 }

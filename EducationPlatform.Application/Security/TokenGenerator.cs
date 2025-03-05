@@ -17,7 +17,7 @@ namespace EducationPlatform.Application.Security
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
         }
 
-        public string GenerateToken(User user)
+        public string GenerateToken(User user, List<string> roles)
         {
             var jwtSettings = _configuration.GetSection("JwtSettings");
             var secretKey = jwtSettings["Secret"];
@@ -29,24 +29,29 @@ namespace EducationPlatform.Application.Security
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            var claims = new[]
+            var claims = new List<Claim>
+    {
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.Name, user.FullName),
+        new Claim(ClaimTypes.Email, user.Email),
+        new Claim("ProfileImage", user.ProfileImage ?? "")
+    };
+
+            foreach (var role in roles)
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.FullName),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim("ProfileImage", user.ProfileImage ?? ""),
-                new Claim(ClaimTypes.Role, user.Role)
-            };
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             var token = new JwtSecurityToken(
                 issuer: jwtSettings["Issuer"],
                 audience: jwtSettings["Audience"],
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(3), // Token 3 saat geçerli
+                expires: DateTime.UtcNow.AddHours(3),
                 signingCredentials: credentials
             );
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+
     }
 }

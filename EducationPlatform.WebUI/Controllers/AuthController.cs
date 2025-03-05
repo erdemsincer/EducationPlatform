@@ -1,8 +1,9 @@
 ﻿using EducationPlatform.Dto.AuthDto;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http;
 using System.Security.Claims;
 using System.Text;
 
@@ -21,7 +22,6 @@ namespace EducationPlatform.WebUI.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public async Task<IActionResult> Login(LoginDto loginDto)
@@ -44,36 +44,37 @@ namespace EducationPlatform.WebUI.Controllers
             }
 
             var responseString = await response.Content.ReadAsStringAsync();
-            var token = JsonConvert.DeserializeObject<TokenResponseDto>(responseString);
+            var tokenResponse = JsonConvert.DeserializeObject<TokenResponseDto>(responseString);
 
-            if (token == null || string.IsNullOrEmpty(token.AccessToken))
+            if (tokenResponse == null || string.IsNullOrEmpty(tokenResponse.AccessToken))
             {
                 ModelState.AddModelError("", "Kimlik doğrulama başarısız!");
                 return View(loginDto);
             }
 
-           
             var handler = new JwtSecurityTokenHandler();
-            var jwtToken = handler.ReadJwtToken(token.AccessToken);
-            var userId = jwtToken.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
+            var jwtToken = handler.ReadJwtToken(tokenResponse.AccessToken);
+
+            var claims = jwtToken.Claims.ToList();
+            var userId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value;
 
             if (string.IsNullOrEmpty(userId))
             {
-                ModelState.AddModelError("", "Kullanıcı ID alınamadı, kimlik doğrulama başarısız!");
+                ModelState.AddModelError("", "Kullanıcı ID alınamadı!");
                 return View(loginDto);
             }
 
-           
-            HttpContext.Session.SetString("AuthToken", token.AccessToken);
-            HttpContext.Session.SetString("UserId", userId);
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var principal = new ClaimsPrincipal(identity);
 
-          
-            Response.Cookies.Append("AuthToken", token.AccessToken, new CookieOptions
+            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, new AuthenticationProperties
             {
-                HttpOnly = true,
-                Secure = true,
-                SameSite = SameSiteMode.Strict
+                IsPersistent = true,
+                ExpiresUtc = DateTime.UtcNow.AddHours(3)
             });
+
+            HttpContext.Session.SetString("AuthToken", tokenResponse.AccessToken);
+            HttpContext.Session.SetString("UserId", userId);
 
             return RedirectToAction("Index", "Home");
         }
@@ -85,14 +86,14 @@ namespace EducationPlatform.WebUI.Controllers
         }
 
         [HttpPost]
-        public async Task< IActionResult> Register(RegisterDto registerDto)
+        public async Task<IActionResult> Register(RegisterDto registerDto)
         {
             if (!ModelState.IsValid)
             {
                 return View(registerDto);
             }
 
-            var client = _httpClientFactory.CreateClient(); // BaseAddress tanımlandığı için sadece endpoint veriyoruz
+            var client = _httpClientFactory.CreateClient();
             var jsonData = JsonConvert.SerializeObject(registerDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
@@ -104,14 +105,13 @@ namespace EducationPlatform.WebUI.Controllers
                 return View(registerDto);
             }
 
-            // Başarılı kayıt sonrası Login sayfasına yönlendir
             return RedirectToAction("Login", "Auth");
         }
-    
 
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            HttpContext.Session.Remove("AuthToken");
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            HttpContext.Session.Clear();
 
             if (Request.Cookies["AuthToken"] != null)
             {

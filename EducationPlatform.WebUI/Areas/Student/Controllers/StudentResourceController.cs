@@ -1,5 +1,6 @@
 ﻿using EducationPlatform.Dto.CategoryDto;
 using EducationPlatform.Dto.ResourceDto;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
@@ -8,6 +9,7 @@ using System.Text;
 
 namespace EducationPlatform.WebUI.Areas.Student.Controllers
 {
+    [Authorize(Roles = "Student")]
     [Area("Student")]
     [Route("Student/StudentResource")]
     public class StudentResourceController : Controller

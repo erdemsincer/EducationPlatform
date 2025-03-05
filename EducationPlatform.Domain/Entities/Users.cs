@@ -12,6 +12,8 @@
         public ICollection<Discussion> Discussions { get; set; }
         public ICollection<DiscussionReply> DiscussionReplies { get; set; }
         public ICollection<Role> Roles { get; set; }
-
+        public ICollection<UserRole> UserRoles { get; set; }
     }
+
 }
+

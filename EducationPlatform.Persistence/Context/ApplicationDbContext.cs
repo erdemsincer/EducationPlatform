@@ -15,31 +15,35 @@ namespace EducationPlatform.Persistence.Context
         public DbSet<Discussion> Discussions { get; set; }
         public DbSet<DiscussionReply> DiscussionReplies { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            // Email'i benzersiz yapalım
+            // ✅ Email'i benzersiz yapalım
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
 
-            // Favori sisteminde kullanıcı & kaynak ilişkisini tanımlayalım
+            // ✅ Favori sistemi için User + Resource tekil olsun
             modelBuilder.Entity<Favorite>()
                 .HasIndex(f => new { f.UserId, f.ResourceId })
                 .IsUnique();
 
+            // ✅ UserRole Ara Tablo Yapısı
+            modelBuilder.Entity<UserRole>()
+                .HasKey(ur => new { ur.UserId, ur.RoleId });
 
-            modelBuilder.Entity<User>()
-                .HasMany(u => u.Roles)
-                .WithMany(r => r.Users)
-                .UsingEntity(j => j.ToTable("UserRoles"));
-        }
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.User)
+                .WithMany(u => u.UserRoles)
+                .HasForeignKey(ur => ur.UserId);
 
-        internal async Task<object> FindAsync(int id)
-        {
-            throw new NotImplementedException();
+            modelBuilder.Entity<UserRole>()
+                .HasOne(ur => ur.Role)
+                .WithMany(r => r.UserRoles)
+                .HasForeignKey(ur => ur.RoleId);
         }
     }
 }

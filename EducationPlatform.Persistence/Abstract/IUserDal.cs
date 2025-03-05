@@ -7,5 +7,6 @@ namespace EducationPlatform.Persistence.Abstract
     {
         Task<User> GetByEmailAsync(string email);
         Task<User> GetUserByIdAsync(int id);
+        Task<User> GetUserWithRolesByEmailAsync(string email);
     }
 }
