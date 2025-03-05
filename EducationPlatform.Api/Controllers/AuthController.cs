@@ -1,8 +1,9 @@
 ﻿using EducationPlatform.Application.Abstract;
 using EducationPlatform.Application.Security;
-using EducationPlatform.Dto.AuthDto;
 using EducationPlatform.Domain.Entities;
+using EducationPlatform.Dto.AuthDto;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace EducationPlatform.Api.Controllers
@@ -12,7 +13,7 @@ namespace EducationPlatform.Api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserService _userService;
-         private readonly TokenGenerator _tokenGenerator;
+        private readonly TokenGenerator _tokenGenerator;
 
         public AuthController(IUserService userService, TokenGenerator tokenGenerator)
         {
@@ -36,18 +37,17 @@ namespace EducationPlatform.Api.Controllers
                 FullName = registerDto.FullName,
                 Email = registerDto.Email,
                 PasswordHash = hashedPassword,
-                ProfileImage = "ERDEM",
-                Role = registerDto.Role
-
+                ProfileImage = "ERDEM"
             };
 
             await _userService.TAddAsync(newUser);
             return Ok("Kayıt başarılı.");
         }
+
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            var user = await _userService.GetUserByEmailAsync(loginDto.Email);
+            var user = await _userService.GetUserWithRolesByEmailAsync(loginDto.Email);
             if (user == null)
             {
                 return Unauthorized("Kullanıcı bulunamadı.");
@@ -59,8 +59,17 @@ namespace EducationPlatform.Api.Controllers
                 return Unauthorized("Şifre hatalı.");
             }
 
-            var token = _tokenGenerator.GenerateToken(user);
-            return Ok(new { Token = token });
+            // ✅ Rolleri çekiyoruz
+            var roles = user.UserRoles.Select(ur => ur.Role.Name).ToList();
+
+            // ✅ Token oluşturuyoruz (roller dahil)
+            var token = _tokenGenerator.GenerateToken(user, roles);
+
+            return Ok(new
+            {
+                Token = token,
+                 Roles = roles
+            });
         }
     }
 }
