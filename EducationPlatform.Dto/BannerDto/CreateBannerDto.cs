@@ -8,7 +8,6 @@ namespace EducationPlatform.Dto.BannerDto
 {
     public class CreateBannerDto
     {
-        public int BannerId { get; set; }
         public string Title { get; set; }
         public string ImageUrl { get; set; }
     }
