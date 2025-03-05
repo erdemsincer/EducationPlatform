@@ -37,6 +37,26 @@ builder.Services.AddScoped<IDiscussionDal, EFDiscussionDal>();
 builder.Services.AddScoped<IRoleService, RoleManager>();
 builder.Services.AddScoped<IUserRoleDal, EFUserRoleDal>();
 builder.Services.AddScoped<IUserRoleService, UserRoleManager>();
+builder.Services.AddScoped<ITestimonaiService, TestimonialManager>();
+builder.Services.AddScoped<ITestimonialDal, EFTestimonialDal>();
+
+builder.Services.AddScoped<IAboutService, AboutManager>();
+builder.Services.AddScoped<IAboutDal, EFAboutDal>();
+
+builder.Services.AddScoped<IBannerService, BannerManager>();
+builder.Services.AddScoped<IBannerDal, EFBannerDal>();
+
+builder.Services.AddScoped<IContactService, ContactManager>();
+builder.Services.AddScoped<IContactDal, EFContactDal>();
+
+builder.Services.AddScoped<IMessageService, MessageManager>();
+builder.Services.AddScoped<IMessageDal, EFMessageDal>();
+
+builder.Services.AddScoped<ISocialMediaService, SocialMediaManager>();
+builder.Services.AddScoped<ISocialMediaDal, EFSocialMediaDal>();
+
+builder.Services.AddScoped<ISubscriberService, SubscriberManager>();
+builder.Services.AddScoped<ISubscriberDal, EFSubscriberDal>();
 
 builder.Services.AddScoped<IRoleDal, EFRoleDal>();
 
