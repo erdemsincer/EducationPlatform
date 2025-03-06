@@ -88,5 +88,13 @@ namespace EducationPlatform.Api.Controllers
             await _discussionService.TDeleteAsync(discussion);
             return Ok("Tartışma başarıyla silindi.");
         }
+        [HttpGet("GetLastDiscussions")]
+        public async Task<IActionResult> GetLastDiscussions()
+        {
+            var discussions = await _discussionService.GetLastDiscussionsAsync(4);
+            var result = _mapper.Map<List<ResultDiscussionDto>>(discussions);
+            return Ok(result);
+        }
+
     }
 }

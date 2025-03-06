@@ -11,6 +11,8 @@ namespace EducationPlatform.Application.Abstract
     {
         Task<List<Discussion>> GetDiscussionsWithUserAsync();
         Task<List<Discussion>> GetDiscussionsByUserIdAsync(int userId);
+        Task<List<Discussion>> GetLastDiscussionsAsync(int count);
+
 
 
     }

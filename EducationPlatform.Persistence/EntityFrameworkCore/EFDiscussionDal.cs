@@ -30,6 +30,15 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                 .Include(d => d.User)
                 .ToListAsync();
         }
+        public async Task<List<Discussion>> GetLastDiscussionsAsync(int count)
+        {
+            return await _context.Discussions
+                .OrderByDescending(d => d.CreatedAt)
+                .Take(count)
+                .Include(d => d.User)
+                .ToListAsync();
+        }
+
 
     }
 }
