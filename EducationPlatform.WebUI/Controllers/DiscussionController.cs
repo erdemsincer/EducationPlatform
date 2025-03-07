@@ -1,5 +1,7 @@
-﻿using EducationPlatform.Dto.SubscriberDto;
+﻿using EducationPlatform.Dto.DiscussionDto;
+using EducationPlatform.Dto.SubscriberDto;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace EducationPlatform.WebUI.Controllers
 {
@@ -23,6 +25,19 @@ namespace EducationPlatform.WebUI.Controllers
             var client = _httpClientFactory.CreateClient();
             await client.PostAsJsonAsync("https://localhost:7028/api/Subscriber", model);
             return NoContent();
+        }
+
+        public async Task<IActionResult> Detail(int id)
+        {
+            var client = _httpClientFactory.CreateClient();
+            var response = await client.GetAsync($"https://localhost:7028/api/Discussion/GetDiscussionDetailWithReplies/{id}");
+
+           
+
+            var jsonData = await response.Content.ReadAsStringAsync();
+            var discussionDetail = JsonConvert.DeserializeObject<DiscussionWithRepliesDto>(jsonData);
+
+            return View(discussionDetail);
         }
     }
 }

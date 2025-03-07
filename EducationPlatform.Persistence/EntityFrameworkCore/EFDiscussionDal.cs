@@ -46,6 +46,16 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                 .OrderByDescending(d => d.CreatedAt)
                 .ToListAsync();
         }
+        public async Task<Discussion> GetDiscussionWithRepliesByIdAsync(int id)
+        {
+            return await _context.Discussions
+                .Include(d => d.User)
+                .Include(d => d.Replies)
+                    .ThenInclude(r => r.User)
+                .FirstOrDefaultAsync(d => d.Id == id);
+        }
+
+
 
 
 

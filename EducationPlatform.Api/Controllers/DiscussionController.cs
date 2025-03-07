@@ -95,6 +95,20 @@ namespace EducationPlatform.Api.Controllers
             var result = _mapper.Map<List<ResultDiscussionDto>>(discussions);
             return Ok(result);
         }
+        [HttpGet("GetDiscussionDetailWithReplies/{id}")]
+        public async Task<IActionResult> GetDiscussionDetailWithReplies(int id)
+        {
+            var discussion = await _discussionService.GetDiscussionWithRepliesByIdAsync(id);
+
+            if (discussion == null)
+                return NotFound("Tartışma bulunamadı.");
+
+            var result = _mapper.Map<DiscussionWithRepliesDto>(discussion);
+
+            return Ok(result);
+        }
+
+
 
     }
 }

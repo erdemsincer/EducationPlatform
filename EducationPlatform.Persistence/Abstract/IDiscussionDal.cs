@@ -8,6 +8,11 @@ namespace EducationPlatform.Persistence.Abstract
         Task<List<Discussion>> GetDiscussionsByUserIdAsync(int userId);
         Task<List<Discussion>> GetLastDiscussionsAsync(int count);
         Task<List<Discussion>> GetDiscussionsWithUserAndReplyCountAsync();
+        Task<Discussion> GetDiscussionWithRepliesByIdAsync(int id);
+
+
+
+
 
     }
 }

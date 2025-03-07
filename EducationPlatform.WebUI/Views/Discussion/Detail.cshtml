@@ -1,0 +1,88 @@
+﻿@model DiscussionWithRepliesDto
+@{
+    ViewData["Title"] = "Tartışma Detayları";
+    Layout = "~/Views/UILayout/Layout.cshtml";
+}
+
+<div class="slider-area ">
+    <div class="slider-height2 d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap hero-cap2 text-center">
+                        <h2>@Model.Title</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="blog_area single-post-area section-padding">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 posts-list">
+                <div class="single-post">
+                    <div class="blog_details">
+                        <h2 style="color: #2d2d2d;">
+                            @Model.Title
+                        </h2>
+                        <ul class="blog-info-link mt-3 mb-4">
+                            <li><a href="#"><i class="fa fa-user"></i> @Model.UserFullName</a></li>
+                            <li><a href="#"><i class="fa fa-calendar"></i> @Model.CreatedAt.ToString("dd MMM yyyy")</a></li>
+                        </ul>
+                        <p class="excert">
+                            @Model.Content
+                        </p>
+                    </div>
+                </div>
+
+                <div class="comments-area">
+                    <h4>@Model.Replies.Count Yorum</h4>
+                    @foreach (var reply in Model.Replies)
+                    {
+                        <div class="comment-list">
+                            <div class="single-comment justify-content-between d-flex">
+                                <div class="user justify-content-between d-flex">
+                                    <div class="desc">
+                                        <p class="comment">
+                                            @reply.Message
+                                        </p>
+                                        <div class="d-flex justify-content-between">
+                                            <div class="d-flex align-items-center">
+                                                <h5>
+                                                    <a href="#">@reply.UserFullName</a>
+                                                </h5>
+                                                <p class="date">@reply.CreatedAt.ToString("dd MMM yyyy HH:mm")</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <div class="comment-form">
+                    <h4>Yorum Yap</h4>
+                    <form class="form-contact comment_form" method="post" asp-action="AddReply" asp-controller="Discussion">
+                        <input type="hidden" name="DiscussionId" value="@Model.Id" />
+                        <div class="form-group">
+                            <textarea class="form-control w-100" name="Content" cols="30" rows="5" placeholder="Yorumunuzu yazın..." required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="button button-contactForm btn_1 boxed-btn">Gönder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    @await Component.InvokeAsync("_DiscussionRecentDiscussions")
+                    @await Component.InvokeAsync("_DiscussionSubscribe")
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

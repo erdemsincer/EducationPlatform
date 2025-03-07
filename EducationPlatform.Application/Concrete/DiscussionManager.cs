@@ -55,6 +55,11 @@ namespace EducationPlatform.Application.Concrete
         {
             return await _discussionDal.GetDiscussionsWithUserAndReplyCountAsync();
         }
+        public async Task<Discussion> GetDiscussionWithRepliesByIdAsync(int id)
+        {
+            return await _discussionDal.GetDiscussionWithRepliesByIdAsync(id);
+        }
+
 
 
 
