@@ -1,0 +1,19 @@
+﻿@model List<ResultDiscussionDto>
+
+<aside class="single_sidebar_widget popular_post_widget">
+    <h3 class="widget_title" style="color: #2d2d2d;">Son Tartışmalar</h3>
+
+    @foreach (var item in Model)
+    {
+        <div class="media post_item">
+            <!-- Eğer görsel yoksa sabit bir ikon kullan -->
+           
+            <div class="media-body">
+                <a href="/Discussion/Detail/@item.Id">
+                    <h3 style="color: #2d2d2d;">@item.Title</h3>
+                </a>
+                <p>@item.CreatedAt.ToString("dd MMM yyyy")</p>
+            </div>
+        </div>
+    }
+</aside>
