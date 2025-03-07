@@ -1,21 +1,21 @@
 ﻿using EducationPlatform.Dto.ContactDto;
+using EducationPlatform.Dto.SubscriberDto;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EducationPlatform.WebUI.ViewComponents.Home
+namespace EducationPlatform.WebUI.ViewComponents.UILayout
 {
-    public class _UILayoutHeaderContactInfoComponent:ViewComponent
+    public class _LayoutSubscribeComponent:ViewComponent
     {
         private readonly IHttpClientFactory _httpClientFactory;
 
-        public _UILayoutHeaderContactInfoComponent(IHttpClientFactory httpClientFactory)
+        public _LayoutSubscribeComponent(IHttpClientFactory httpClientFactory)
         {
             _httpClientFactory = httpClientFactory;
         }
-
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
-            var values = await client.GetFromJsonAsync<List<ResultContactDto>>("https://localhost:7028/api/Contact");
+            var values = await client.GetFromJsonAsync<List<ResultSubscriberDto>>("https://localhost:7028/api/Subscriber");
             return View(values);
         }
     }
