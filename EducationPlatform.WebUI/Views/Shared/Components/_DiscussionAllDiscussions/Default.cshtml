@@ -1,0 +1,37 @@
+﻿@model List<ResultDiscussionDto>
+
+<div class="col-lg-8 mb-5 mb-lg-0">
+    <div class="blog_left_sidebar">
+        @foreach (var item in Model)
+        {
+            <article class="blog_item">
+                <div class="blog_item_date_noimage">
+                    <h3>@item.CreatedAt.ToString("dd")</h3>
+                    <p>@item.CreatedAt.ToString("MMM yyyy")</p>
+                </div>
+                <div class="blog_details">
+                    <a class="d-inline-block" href="/Discussion/Detail/@item.Id">
+                        <h2 class="blog-head" style="color: #2d2d2d;">@item.Title</h2>
+                    </a>
+                    <p>
+                        @if (item.Content.Length > 100)
+                        {
+                            @($"{item.Content.Substring(0, 100)}...")
+                        }
+                        else
+                        {
+                            @item.Content
+                        }
+                    </p>
+                    <ul class="blog-info-link">
+                        <li><a href="#"><i class="fa fa-user"></i> @item.UserFullName</a></li>
+                        <li><a href="#"><i class="fa fa-comments"></i> @item.ReplyCount Yorum</a></li>
+                    </ul>
+                    <div class="text-right mt-2">
+                        <a href="/Discussion/Detail/@item.Id" class="btn btn-sm btn-primary">Tartışmayı Gör</a>
+                    </div>
+                </div>
+            </article>
+        }
+    </div>
+</div>
