@@ -38,6 +38,15 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                 .Include(d => d.User)
                 .ToListAsync();
         }
+        public async Task<List<Discussion>> GetDiscussionsWithUserAndReplyCountAsync()
+        {
+            return await _context.Discussions
+                .Include(d => d.User)
+                .Include(d => d.Replies)
+                .OrderByDescending(d => d.CreatedAt)
+                .ToListAsync();
+        }
+
 
 
     }

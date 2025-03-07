@@ -24,7 +24,7 @@ namespace EducationPlatform.Api.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var discussions = await _discussionService.GetDiscussionsWithUserAsync();
+            var discussions = await _discussionService.GetDiscussionsWithUserAndReplyCountAsync();
             var result = _mapper.Map<List<ResultDiscussionDto>>(discussions);
             return Ok(result);
         }

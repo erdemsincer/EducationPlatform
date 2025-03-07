@@ -51,6 +51,10 @@ namespace EducationPlatform.Application.Concrete
         {
             return await _discussionDal.GetLastDiscussionsAsync(count);
         }
+        public async Task<List<Discussion>> GetDiscussionsWithUserAndReplyCountAsync()
+        {
+            return await _discussionDal.GetDiscussionsWithUserAndReplyCountAsync();
+        }
 
 
 
