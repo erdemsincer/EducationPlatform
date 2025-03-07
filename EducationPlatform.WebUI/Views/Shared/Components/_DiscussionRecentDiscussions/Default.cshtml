@@ -1,18 +1,16 @@
 ﻿@model List<ResultDiscussionDto>
 
-<aside class="single_sidebar_widget popular_post_widget">
-    <h3 class="widget_title" style="color: #2d2d2d;">Son Tartışmalar</h3>
+<aside class="single_sidebar_widget popular_post_widget p-4 shadow-sm rounded">
+    <h3 class="widget_title text-center font-weight-bold text-dark">Son Tartışmalar</h3>
 
     @foreach (var item in Model)
     {
-        <div class="media post_item">
-            <!-- Eğer görsel yoksa sabit bir ikon kullan -->
-           
+        <div class="media post_item align-items-center mb-3 p-2 border-bottom">
             <div class="media-body">
-                <a href="/Discussion/Detail/@item.Id">
-                    <h3 style="color: #2d2d2d;">@item.Title</h3>
+                <a href="/Discussion/Detail/@item.Id" class="text-decoration-none">
+                    <h5 class="text-primary font-weight-bold mb-1">@item.Title</h5>
                 </a>
-                <p>@item.CreatedAt.ToString("dd MMM yyyy")</p>
+                <p class="text-muted small mb-0"><i class="fa fa-calendar-alt"></i> @item.CreatedAt.ToString("dd MMM yyyy")</p>
             </div>
         </div>
     }
