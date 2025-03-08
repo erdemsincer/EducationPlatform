@@ -1,0 +1,88 @@
+﻿@model List<ResultResourceDto>
+@{
+    ViewData["Title"] = ViewBag.Category + " Kaynakları";
+    Layout = "~/Views/UILayout/Layout.cshtml";
+}
+
+<main>
+    <!-- Hero Alanı -->
+    <div class="slider-area">
+        <div class="slider-height2 d-flex align-items-center">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12">
+                        <div class="hero-cap hero-cap2 text-center">
+                            <h2 class="fw-bold text-white">📂 @ViewBag.Category</h2>
+                            <p class="text-white-50">Bu kategoriye ait en iyi kaynakları keşfedin.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Hero Alanı Bitiş -->
+    <!-- Kaynak Listesi Başlangıç -->
+    <section class="all-resource section-padding30">
+        <div class="container">
+            <div class="row">
+                @if (!Model.Any())
+                {
+                    <div class="col-12 text-center">
+                        <h3 class="fw-bold text-danger">😞 Kaynak Bulunamadı</h3>
+                        <p class="text-muted">@ViewBag.Message</p>
+                        
+                    </div>
+                }
+                else
+                {
+                    @foreach (var resource in Model)
+                    {
+                        <div class="col-xl-4 col-lg-4 col-md-6">
+                            <!-- Tekil Kaynak Kartı -->
+                            <div class="single-resource mb-4 border rounded-3 shadow-sm bg-white overflow-hidden">
+                                <div class="resource-caption p-4">
+                                    <div class="resource-cap-top text-center">
+                                        <h4 class="fw-bold">
+                                            <a href="@resource.FileUrl" target="_blank" class="text-dark text-decoration-none">@resource.Title</a>
+                                        </h4>
+                                    </div>
+
+                                    <p class="text-muted small">@resource.Description</p>
+
+                                    <!-- Kullanıcı ve Tarih -->
+                                    <div class="d-flex justify-content-between align-items-center my-3">
+                                        <span class="badge bg-primary">@resource.CategoryName</span>
+                                        <span class="text-muted small">
+                                            <i class="fas fa-calendar-alt"></i> @resource.CreatedAt.ToString("dd MMM yyyy")
+                                        </span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <span class="text-muted small">
+                                            <i class="fas fa-user"></i> @resource.UserName
+                                        </span>
+                                        <a href="@resource.FileUrl" class="btn btn-outline-success btn-sm fw-bold px-3 py-2 rounded-pill shadow-sm" target="_blank">
+                                            <i class="fas fa-file-download"></i> Aç
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+
+            <!-- Geri Dön Butonu -->
+            <div class="row mt-4">
+                <div class="col-lg-12">
+                    <div class="text-center">
+                        <a href="/Resources" class="btn btn-lg btn-primary fw-bold px-4 py-3 rounded-pill shadow">
+                            <i class="fas fa-arrow-left"></i> Tüm Kategorilere Dön
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Kaynak Listesi Bitiş -->
+</main>
