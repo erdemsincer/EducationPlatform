@@ -29,7 +29,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost]
+    
         [HttpPost]
         [Route("CreateBanner")]
         public async Task<IActionResult> CreateBanner(CreateBannerDto createBannerDto)
@@ -101,7 +101,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
 
             Console.WriteLine("Güncellenen JSON: " + JsonConvert.SerializeObject(updateBannerDto));
 
-            var responseMessage = await client.PutAsJsonAsync($"https://localhost:7028/api/Banner/{updateBannerDto.BannerId}", updateBannerDto);
+            var responseMessage = await client.PutAsJsonAsync($"https://localhost:7028/api/Banner/", updateBannerDto);
 
             if (responseMessage.IsSuccessStatusCode)
             {
