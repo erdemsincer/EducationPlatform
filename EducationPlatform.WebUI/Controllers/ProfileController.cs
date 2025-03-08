@@ -1,4 +1,5 @@
-﻿using EducationPlatform.Dto.UserDto;
+﻿using EducationPlatform.Dto.DiscussionDto;
+using EducationPlatform.Dto.UserDto;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
@@ -90,5 +91,33 @@ namespace EducationPlatform.WebUI.Controllers
             TempData["Success"] = "Profil başarıyla güncellendi.";
             return RedirectToAction("Index");
         }
+        
+        public async Task<IActionResult> MyDiscussions()
+        {
+            var userId = HttpContext.Session.GetString("UserId");
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToRoute(new { controller = "Auth", action = "Login", area = "" });
+            }
+
+            var client = _httpClientFactory.CreateClient();
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
+
+            var response = await client.GetAsync($"https://localhost:7028/api/Discussion/User/{userId}");
+
+            if (!response.IsSuccessStatusCode)
+            {
+                TempData["Error"] = "Tartışmalarınız yüklenirken bir hata oluştu.";
+                return RedirectToAction("Index");
+            }
+
+            var jsonData = await response.Content.ReadAsStringAsync();
+            var discussions = JsonConvert.DeserializeObject<List<ResultDiscussionDto>>(jsonData);
+
+            return View(discussions);
+        }
+
     }
 }
