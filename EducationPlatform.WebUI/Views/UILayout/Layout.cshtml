@@ -1,7 +1,5 @@
-﻿﻿
-@{
-    Layout = null;
-}
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 
 <!doctype html>
 <html class="no-js" lang="zxx">
@@ -46,7 +44,7 @@
     <header>
         <!-- Header Start -->
         <div class="header-area">
-            <div class="main-header ">
+            <div class="main-header">
                 <div class="header-top d-none d-lg-block">
                     <!-- Left Social -->
                     @await Component.InvokeAsync("_UILayoutHeaderSocialMediaComponent")
@@ -54,29 +52,47 @@
                     <div class="container">
                         <div class="col-xl-12">
                             <div class="row d-flex justify-content-between align-items-center">
-
                                 @await Component.InvokeAsync("_UILayoutHeaderContactInfoComponent")
 
                                 <div class="header-info-right">
                                     <ul>
-                                        <li><a href="/Login/SignIn"><i class="ti-user"></i>Giriş Yap</a></li>
-                                        <li><a href="/Register/Signup"><i class="ti-lock"></i>Kayıt Ol</a></li>
+                                        @if (HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated)
+                                        {
+                                            var userName = HttpContextAccessor.HttpContext.User.Identity.Name;
+
+                                            <li>
+                                                <a href="/Profile/Index">
+                                                    <i class="ti-user"></i> @userName
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="/Auth/Logout">
+                                                    <i class="ti-lock"></i> Çıkış Yap
+                                                </a>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            <li><a href="/Auth/Login"><i class="ti-user"></i> Giriş Yap</a></li>
+                                            <li><a href="/Auth/Register"><i class="ti-lock"></i> Kayıt Ol</a></li>
+                                        }
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="header-bottom header-sticky">
                     <!-- Logo -->
                     <div class="logo d-none d-lg-block">
-                        <a href="index.html"><img src="~/onlineedu-master/assets/img/logo/logo.png" alt=""></a>
+                        <a href="/Home/Index"><img src="~/onlineedu-master/assets/img/logo/logo.png" alt=""></a>
                     </div>
                     <div class="container">
                         <div class="menu-wrapper">
                             <!-- Logo -->
                             <div class="logo logo2 d-block d-lg-none">
-                                <a href="index.html"><img src="~/onlineedu-master/assets/img/logo/logo.png" alt=""></a>
+                                <a href="/Home/Index"><img src="~/onlineedu-master/assets/img/logo/logo.png" alt=""></a>
                             </div>
                             <!-- Main-menu -->
                             <div class="main-menu d-none d-lg-block">
@@ -84,20 +100,17 @@
                                     <ul id="navigation">
                                         <li><a href="/Home/Index">Ana Sayfa</a></li>
                                         <li><a href="/About/Index">Hakkımızda</a></li>
-                                        <li><a href="/Course/Index">Kurslar</a></li>
+                                        <li><a href="/Resource/Index">Kaynaklar</a></li>
                                         <li><a href="/Teacher/Index">Eğitmenler</a></li>
-                                        <li>
-                                            <a href="/Discussion/Index">Tartışmalar</a>
-
-                                        </li>
+                                        <li><a href="/Discussion/Index">Tartışmalar</a></li>
                                         <li><a href="/Contact/Index">İletişim</a></li>
                                     </ul>
                                 </nav>
                             </div>
                             <!-- Header-btn -->
                             <div class="header-search d-none d-lg-block">
-                                <form action="#" class="form-box f-right ">
-                                    <input type="text" name="Search" placeholder="Kursları Ara...">
+                                <form action="#" class="form-box f-right">
+                                    <input type="text" name="Search" placeholder="Kaynakları Ara...">
                                     <div class="search-icon">
                                         <i class="fas fa-search special-tag"></i>
                                     </div>

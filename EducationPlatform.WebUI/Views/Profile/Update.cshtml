@@ -1,0 +1,64 @@
+﻿@model UpdateUserDto
+@{
+    ViewData["Title"] = "Profili Güncelle";
+    Layout = "~/Views/UILayout/Layout.cshtml";
+}
+
+<section class="profile-edit-area section-padding">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="profile-card">
+                    <div class="profile-header text-center">
+                        <h2>Profili Düzenle</h2>
+                    </div>
+
+                    <form asp-action="Update" asp-controller="Profile" method="post">
+                        <input type="hidden" asp-for="Id" />
+
+                        <div class="form-group">
+                            <label>Ad Soyad</label>
+                            <input type="text" asp-for="FullName" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Email</label>
+                            <input type="email" asp-for="Email" class="form-control" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Profil Fotoğrafı (URL)</label>
+                            <input type="text" asp-for="ProfileImage" class="form-control">
+                        </div>
+
+                        <div class="text-center mt-4">
+                            <button type="submit" class="btn btn-primary">Güncelle</button>
+                            <a href="/Profile/Index" class="btn btn-secondary">İptal</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .profile-edit-area {
+        padding: 50px 0;
+    }
+
+    .profile-card {
+        background: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        margin: 10px;
+    }
+</style>
