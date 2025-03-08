@@ -1,0 +1,66 @@
+﻿@model CreateContactDto
+@{
+    ViewData["Title"] = "Yeni İletişim Bilgisi Ekle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center mb-3 text-primary">📞 Yeni İletişim Bilgisi Ekle</h2>
+
+        <form method="post" class="needs-validation" novalidate>
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">📍 Harita URL</label>
+                <input type="text" asp-for="MapUrl" class="form-control" placeholder="Harita bağlantısını girin" />
+                <span class="text-danger" asp-validation-for="MapUrl"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">🏠 Adres</label>
+                <input type="text" asp-for="Address" class="form-control" placeholder="Adresinizi girin" required />
+                <span class="text-danger" asp-validation-for="Address"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">📞 Telefon</label>
+                <input type="text" asp-for="Phone" class="form-control" placeholder="Telefon numaranızı girin" required />
+                <span class="text-danger" asp-validation-for="Phone"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">✉️ Email</label>
+                <input type="email" asp-for="Email" class="form-control" placeholder="E-posta adresinizi girin" required />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" asp-controller="AdminContact" asp-area="Admin" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Geri Dön
+                </a>
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-save"></i> Kaydet
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            'use strict';
+            var forms = document.querySelectorAll('.needs-validation');
+            Array.prototype.slice.call(forms).forEach(function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (!form.checkValidity()) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        })();
+    </script>
+}

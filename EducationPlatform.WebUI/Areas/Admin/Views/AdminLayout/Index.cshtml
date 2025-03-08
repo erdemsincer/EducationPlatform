@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     Layout = null;
 }
 
@@ -10,18 +9,21 @@
     <div id="layout-wrapper">
         @await Html.PartialAsync("~/Areas/Admin/Views/AdminLayout/AdminNavBarPartial.cshtml")
         @await Html.PartialAsync("~/Areas/Admin/Views/AdminLayout/AdminSideBarPartial.cshtml")
+
         <div class="main-content">
             <div class="page-content">
                 <div class="container-fluid">
-            @RenderBody()
+                    @RenderBody()
                 </div>
-    </div>
-   
-            @await Html.PartialAsync("~/Areas/Admin/Views/AdminLayout/AdminFooterPartial.cshtml")
+            </div>
         </div>
+
+        @await Html.PartialAsync("~/Areas/Admin/Views/AdminLayout/AdminFooterPartial.cshtml")
     </div>
-    
-    
+
+    <!-- Scripts Section Ekleniyor -->
+    @RenderSection("Scripts", required: false)
+
     @await Html.PartialAsync("~/Areas/Admin/Views/AdminLayout/AdminScriptPartial.cshtml")
 </body>
 </html>
