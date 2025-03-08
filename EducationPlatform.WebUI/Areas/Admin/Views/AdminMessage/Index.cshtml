@@ -1,0 +1,46 @@
+﻿@model List<ResultMessageDto>
+@{
+    ViewData["Title"] = "Gelen Mesajlar";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-3">📩 Gelen Mesajlar</h2>
+
+    <table class="table table-striped table-bordered text-center">
+        <thead class="thead-dark">
+            <tr>
+                <th>#</th>
+                <th>Gönderen Adı</th>
+                <th>Email</th>
+                <th>Konu</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var (item, index) in Model.Select((value, i) => (value, i + 1)))
+            {
+                <tr>
+                    <td>@index</td>
+                    <td>@item.Name</td>
+                    <td>@item.Email</td>
+                    <td>@item.Subject</td>
+                    <td>
+                        <!-- Mesaj Detay -->
+                        <a asp-action="MessageDetail" asp-controller="AdminMessage" asp-area="Admin" asp-route-id="@item.MessageId" class="btn btn-sm btn-info">
+                            <i class="fas fa-envelope-open-text"></i> Mesajı Aç
+                        </a>
+
+                        <!-- Mesaj Silme -->
+                        <form asp-action="RemoveMessage" asp-controller="AdminMessage" asp-area="Admin" method="post" class="d-inline">
+                            <input type="hidden" name="id" value="@item.MessageId" />
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash-alt"></i> Sil
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

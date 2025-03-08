@@ -1,0 +1,33 @@
+﻿@model ResultMessageDto
+@{
+    ViewData["Title"] = "Mesaj İçeriği";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-body">
+            <h2 class="text-center text-primary">📄 Mesaj Detayı</h2>
+            <hr>
+
+            <p><strong>👤 Gönderen:</strong> @Model.Name</p>
+            <p><strong>📧 Email:</strong> @Model.Email</p>
+            <p><strong>📅 Konu:</strong> @Model.Subject</p>
+            <hr>
+            <p><strong>✉️ Mesaj:</strong></p>
+            <div class="alert alert-secondary">@Model.Content</div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" asp-controller="AdminMessage" asp-area="Admin" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Geri Dön
+                </a>
+                <form asp-action="RemoveMessage" asp-controller="AdminMessage" asp-area="Admin" method="post" class="d-inline">
+                    <input type="hidden" name="id" value="@Model.MessageId" />
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash-alt"></i> Sil
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
