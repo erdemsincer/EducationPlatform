@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace EducationPlatform.Api.Controllers
 {
-    [Authorize(Roles = "Student,Admin")]
+   
 
     [Route("api/[controller]")]
     [ApiController]
@@ -101,6 +101,32 @@ namespace EducationPlatform.Api.Controllers
             }
 
             return Ok(userResources);
+        }
+        [HttpGet("GetByCategory/{categoryId}")]
+        public async Task<ActionResult<List<ResultResourceDto>>> GetResourcesByCategory(int categoryId)
+        {
+            var resources = await _resourceService.GetResourcesByCategoryWithUser(categoryId);
+            if (resources == null || resources.Count == 0)
+            {
+                return NotFound("Bu kategoriye ait kaynak bulunamadı.");
+            }
+
+            // **Burada Mapping İşlemi Yapılıyor**
+            var resourceDtos = _mapper.Map<List<ResultResourceDto>>(resources);
+            return Ok(resourceDtos);
+        }
+        [HttpGet("GetLatestResources")]
+        public async Task<ActionResult<List<ResultResourceDto>>> GetLatestResources()
+        {
+            var resources = await _resourceService.GetLatestResources();
+            if (resources == null || resources.Count == 0)
+            {
+                return NotFound("Hiç kaynak bulunamadı.");
+            }
+
+            // AutoMapper ile Entity -> DTO dönüşümü
+            var resourceDtos = _mapper.Map<List<ResultResourceDto>>(resources);
+            return Ok(resourceDtos);
         }
     }
 }

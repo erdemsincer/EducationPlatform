@@ -1,0 +1,43 @@
+﻿@model UpdateSocialMediaDto
+@{
+    ViewData["Title"] = "Sosyal Medya Güncelle";
+    Layout = "~/Areas/Admin/Views/AdminLayout/Index.cshtml";
+}
+
+<div class="container mt-4">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center text-warning">✏️ Sosyal Medya Güncelle</h2>
+
+        <form method="post" class="needs-validation" novalidate>
+            @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="SocialMediaId" />
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">📌 Sosyal Medya Adı</label>
+                <input type="text" asp-for="Title" class="form-control" required />
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">🔗 Sosyal Medya URL</label>
+                <input type="url" asp-for="Url" class="form-control" required />
+                <span class="text-danger" asp-validation-for="Url"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">🎨 İkon</label>
+                <input type="text" asp-for="Icon" class="form-control" required />
+                <span class="text-danger" asp-validation-for="Icon"></span>
+            </div>
+
+            <div class="d-flex justify-content-between">
+                <a asp-action="Index" asp-controller="AdminSocialMedia" asp-area="Admin" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Geri Dön
+                </a>
+                <button type="submit" class="btn btn-warning">
+                    <i class="fas fa-edit"></i> Güncelle
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

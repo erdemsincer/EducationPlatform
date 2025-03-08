@@ -51,5 +51,22 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                 .Where(r => r.UserId == userId)
                 .ToListAsync();
         }
+        public async Task<List<Resource>> GetResourcesByCategoryWithUser(int categoryId)
+        {
+            return await _context.Resources
+               .Where(r => r.CategoryId == categoryId)
+               .Include(r => r.User) // Kullanıcıyı dahil et
+               .Include(r => r.Category) // Kategori bilgilerini dahil et
+               .ToListAsync();
+        }
+        public async Task<List<Resource>> GetLatestResources()
+        {
+            return await _context.Resources
+                .OrderByDescending(r => r.CreatedAt) // En yeni resource'ları sırala
+                .Take(3) // Son 4 tanesini al
+                .Include(r => r.User) // Kullanıcı bilgisi ekle
+                .Include(r => r.Category) // Kategori bilgisi ekle
+                .ToListAsync();
+        }
     }
 }

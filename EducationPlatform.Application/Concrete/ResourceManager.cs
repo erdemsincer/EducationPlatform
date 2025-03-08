@@ -60,5 +60,13 @@ namespace EducationPlatform.Application.Concrete
         {
             await _resourceDal.UpdateAsync(entity);
         }
+        public async Task<List<Resource>> GetResourcesByCategoryWithUser(int categoryId)
+        {
+            return await _resourceDal.GetResourcesByCategoryWithUser(categoryId);
+        }
+        public async Task<List<Resource>> GetLatestResources()
+        {
+            return await _resourceDal.GetLatestResources();
+        }
     }
 }
