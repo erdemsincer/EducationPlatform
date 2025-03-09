@@ -41,5 +41,15 @@ namespace EducationPlatform.Application.Concrete
         {
             return await _userRoleDal.GetUserRolesAsync(userId);
         }
+        public async Task AssignRoleToUserAsync(int userId, int roleId)
+        {
+            var userRole = new UserRole
+            {
+                UserId = userId,
+                RoleId = roleId
+            };
+
+            await _userRoleDal.AddAsync(userRole);
+        }
     }
 }

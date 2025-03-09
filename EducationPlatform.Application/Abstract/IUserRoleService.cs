@@ -12,5 +12,6 @@ namespace EducationPlatform.Application.Abstract
         Task AssignRoleAsync(int userId, int roleId);
         Task RemoveRoleAsync(int userId, int roleId);
         Task<List<Role>> GetUserRolesAsync(int userId);
+        Task AssignRoleToUserAsync(int userId, int roleId);
     }
 }
