@@ -4,32 +4,41 @@
     <div class="blog_left_sidebar">
         @foreach (var item in Model)
         {
-            <article class="blog_item">
-                <div class="blog_item_date_noimage text-center">
-                    <h3>@item.CreatedAt.ToString("dd")</h3>
-                    <p>@item.CreatedAt.ToString("MMM yyyy")</p>
+            <article class="blog_item p-4 border rounded-3 shadow-sm bg-white">
+                <!-- Tarih Gösterimi -->
+                <div class="blog_item_date_noimage text-center bg-primary text-white py-2 rounded">
+                    <h3 class="mb-0 fw-bold">@item.CreatedAt.ToString("dd")</h3>
+                    <p class="mb-0">@item.CreatedAt.ToString("MMM yyyy")</p>
                 </div>
-                <div class="blog_details">
+
+                <!-- Tartışma Detayları -->
+                <div class="blog_details mt-3">
                     <a class="d-inline-block" href="/Discussion/Detail/@item.Id">
-                        <h2 class="blog-head text-primary">@item.Title</h2>
+                        <h3 class="blog-head fw-bold text-dark">@item.Title</h3>
                     </a>
                     <p class="text-muted">
                         @if (item.Content.Length > 100)
                         {
                             @($"{item.Content.Substring(0, 100)}... ")
-                            <a href="/Discussion/Detail/@item.Id" class="text-primary font-weight-bold">Devamını Oku</a>
+                            <a href="/Discussion/Detail/@item.Id" class="text-primary fw-bold">Devamını Oku</a>
                         }
                         else
                         {
                             @item.Content
                         }
                     </p>
-                    <ul class="blog-info-link list-inline">
-                        <li class="list-inline-item"><i class="fa fa-user"></i> @item.UserFullName</li>
-                        <li class="list-inline-item"><i class="fa fa-comments"></i> @item.ReplyCount Yorum</li>
+
+                    <!-- Kullanıcı ve Yorum Sayısı -->
+                    <ul class="blog-info-link list-inline text-muted small">
+                        <li class="list-inline-item"><i class="fa fa-user text-primary"></i> @item.UserFullName</li>
+                        <li class="list-inline-item"><i class="fa fa-comments text-secondary"></i> @item.ReplyCount Yorum</li>
                     </ul>
-                    <div class="text-right mt-3">
-                        <a href="/Discussion/Detail/@item.Id" class="btn btn-primary btn-sm">Tartışmayı Gör</a>
+
+                    <!-- Buton -->
+                    <div class="text-end mt-3">
+                        <a href="/Discussion/Detail/@item.Id" class="btn btn-outline-primary btn-sm fw-bold px-3 py-2 rounded-pill shadow-sm">
+                            <i class="fas fa-comments"></i> Tartışmayı Gör
+                        </a>
                     </div>
                 </div>
             </article>

@@ -2,12 +2,12 @@
 
 <div class="home-blog-area section-padding30">
     <div class="container">
-        <!-- Section Title -->
+        <!-- Bölüm Başlığı -->
         <div class="row">
             <div class="col-lg-12">
                 <div class="section-tittle text-center mb-50">
-                    <span>Son Tartışmalar</span>
-                    <h2>Tartışmalara Göz Atın</h2>
+                    <span class="text-primary">📢 En Yeni Tartışmalar</span>
+                    <h2 class="fw-bold">Gündemdeki Tartışmalara Katılın</h2>
                 </div>
             </div>
         </div>
@@ -16,28 +16,37 @@
             @foreach (var item in Model)
             {
                 <div class="col-xl-6 col-lg-6 col-md-6">
-                    <div class="home-blog-single mb-30">
-                        <div class="blog-img-cap">
-                            <div class="blog-img">
-                                <img src="~/onlineedu-master/assets/img/discussion-default.jpg"
-                                     alt="Tartışma Görseli"
-                                     style="width:100%; height:300px; object-fit:cover;">
-                                <!-- Tarih -->
-                                <div class="blog-date text-center">
-                                    <span>@item.CreatedAt.ToString("dd")</span>
-                                    <p>@item.CreatedAt.ToString("MMM")</p>
-                                </div>
-                            </div>
-                            <div class="blog-cap">
-                                <p><i class="fa fa-user"></i> @item.UserFullName</p>
-                                <h3><a href="/Student/StudentDiscussionReply/Detail/@item.Id">@item.Title</a></h3>
-                                <p>@(item.Content.Length > 80 ? item.Content.Substring(0, 80) + "..." : item.Content)</p>
-                                <a href="/Student/StudentDiscussionReply/Detail/@item.Id" class="more-btn">Tartışmaya Katıl »</a>
-                            </div>
-                        </div>
+                    <div class="home-blog-single mb-4 p-4 border rounded-3 shadow-sm bg-white">
+                        <!-- Tartışma Başlığı -->
+                        <h4 class="fw-bold">
+                            <a href="/Discussion/Detail/@item.Id" class="text-dark text-decoration-none">@item.Title</a>
+                        </h4>
+
+                        <!-- Kullanıcı ve Tarih Bilgisi -->
+                        <p class="text-muted small mb-2">
+                            <i class="fas fa-user text-primary"></i> @item.UserFullName |
+                            <i class="fas fa-calendar-alt text-secondary"></i> @item.CreatedAt.ToString("dd MMM yyyy")
+                        </p>
+
+                        <!-- Tartışma İçeriği (Kısa Versiyon) -->
+                        <p class="text-muted">@(item.Content.Length > 80 ? item.Content.Substring(0, 80) + "..." : item.Content)</p>
+
+                        <!-- Detay Butonu -->
+                        <a href="/Student/StudentDiscussionReply/Detail/@item.Id" class="btn btn-outline-primary btn-sm fw-bold px-3 py-2 rounded-pill shadow-sm">
+                            <i class="fas fa-comments"></i> Tartışmaya Katıl
+                        </a>
                     </div>
                 </div>
             }
+        </div>
+
+        <!-- Daha Fazla Tartışma Butonu -->
+        <div class="row">
+            <div class="col-lg-12 text-center mt-4">
+                <a href="/Discussion/Index" class="btn btn-lg btn-primary fw-bold px-4 py-3 rounded-pill shadow">
+                    <i class="fas fa-search"></i> Tüm Tartışmalara Göz At
+                </a>
+            </div>
         </div>
     </div>
 </div>

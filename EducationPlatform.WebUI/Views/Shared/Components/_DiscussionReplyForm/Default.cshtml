@@ -1,0 +1,35 @@
+﻿@model CreateDiscussionReplyDto
+
+<div class="comment-form mt-5 p-4 shadow bg-white rounded">
+    @if (Model.UserId > 0)
+    {
+        <h4 class="fw-bold text-dark mb-3">💬 Yorum Yap</h4>
+        <form method="post" asp-action="AddReply" asp-controller="Discussion">
+            <input type="hidden" asp-for="UserId" />
+            <input type="hidden" asp-for="DiscussionId" />
+
+            <!-- Yorum Kutusu -->
+            <div class="form-group mb-3">
+                <textarea asp-for="Message" class="form-control w-100 p-3 border rounded"
+                          placeholder="Yorumunuzu buraya yazın..." required></textarea>
+            </div>
+
+            <!-- Gönder Butonu -->
+            <div class="form-group text-end">
+                <button type="submit" class="btn btn-primary btn-lg px-4 rounded-pill shadow">
+                    <i class="fas fa-paper-plane"></i> Gönder
+                </button>
+            </div>
+        </form>
+    }
+    else
+    {
+        <div class="text-center">
+            <h4 class="fw-bold text-danger">🚪 Yorum Yapmak İçin Giriş Yapmalısınız</h4>
+            <p class="text-muted">Yorum yapmak için hesabınıza giriş yapmalısınız.</p>
+            <a href="/Auth/Login" class="btn btn-warning btn-lg px-4 rounded-pill shadow">
+                <i class="fa fa-sign-in-alt"></i> Giriş Yap
+            </a>
+        </div>
+    }
+</div>
