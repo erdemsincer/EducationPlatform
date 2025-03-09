@@ -105,8 +105,10 @@ namespace EducationPlatform.WebUI.Controllers
                 return View(registerDto);
             }
 
+            // Başarılı kayıt olduktan sonra giriş sayfasına yönlendirme
             return RedirectToAction("Login", "Auth");
         }
+
 
         public async Task<IActionResult> Logout()
         {
