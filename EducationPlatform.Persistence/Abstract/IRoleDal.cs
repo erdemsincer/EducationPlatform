@@ -9,6 +9,7 @@ namespace EducationPlatform.Persistence.Abstract
 {
     public interface IRoleDal : IGenericDal<Role>
     {
+       
     }
 
 }

@@ -14,35 +14,60 @@ namespace EducationPlatform.Api.Controllers
     {
         private readonly IUserService _userService;
         private readonly TokenGenerator _tokenGenerator;
+        private readonly IRoleService _roleService;
+        private readonly IUserRoleService _userRoleService;
 
-        public AuthController(IUserService userService, TokenGenerator tokenGenerator)
+
+        public AuthController(IUserService userService, TokenGenerator tokenGenerator, IRoleService roleService, IUserRoleService userRoleService)
         {
             _userService = userService;
             _tokenGenerator = tokenGenerator;
+            _roleService = roleService;
+            _userRoleService = userRoleService;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
+            // 1️⃣ Kullanıcının daha önce kayıt olup olmadığını kontrol et
             var existingUser = await _userService.GetUserByEmailAsync(registerDto.Email);
             if (existingUser != null)
             {
                 return BadRequest("Bu e-posta adresi zaten kullanımda.");
             }
 
+            // 2️⃣ Şifreyi hash'le
             var hashedPassword = PasswordHelper.HashPassword(registerDto.Password);
 
+            // 3️⃣ Yeni kullanıcı oluştur
             var newUser = new User
             {
                 FullName = registerDto.FullName,
                 Email = registerDto.Email,
                 PasswordHash = hashedPassword,
-                ProfileImage = "ERDEM"
+                ProfileImage = "default.png" // Varsayılan profil resmi
             };
 
+            // 4️⃣ Kullanıcıyı veritabanına ekle
             await _userService.TAddAsync(newUser);
-            return Ok("Kayıt başarılı.");
+
+            // 5️⃣ "Student" rolü var mı kontrol et, yoksa oluştur
+            var roles = await _roleService.TGetListAllAsync();
+            var studentRole = roles.FirstOrDefault(r => r.Name == "Student");
+
+            if (studentRole == null)
+            {
+                studentRole = new Role { Name = "Student" };
+                await _roleService.TAddAsync(studentRole);
+            }
+
+            // 6️⃣ Kullanıcıya "Student" rolünü ata
+            await _userRoleService.AssignRoleToUserAsync(newUser.Id, studentRole.Id);
+
+            return Ok(new { message = "Kayıt başarılı! Kullanıcıya 'Student' rolü atandı." });
         }
+
+
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
