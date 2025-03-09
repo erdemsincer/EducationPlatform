@@ -43,12 +43,24 @@ namespace EducationPlatform.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateReply(CreateDiscussionReplyDto dto)
         {
+            if (dto.UserId <= 0)
+            {
+                return BadRequest(new { message = "Geçersiz kullanıcı!" });
+            }
+
+            if (string.IsNullOrWhiteSpace(dto.Message))
+            {
+                return BadRequest(new { message = "Yorum içeriği boş olamaz!" });
+            }
+
             var reply = _mapper.Map<DiscussionReply>(dto);
             await _discussionReplyService.TAddAsync(reply);
-            return Ok("Yanıt başarıyla eklendi.");
+
+            return Ok(new { message = "Yorum başarıyla eklendi!" });
         }
 
-       
+
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteReply(int id)
         {
