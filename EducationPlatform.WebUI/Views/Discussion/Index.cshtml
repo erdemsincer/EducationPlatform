@@ -1,100 +1,64 @@
-﻿
-@{
-    ViewData["Title"] = "Index";
+﻿@{
+    ViewData["Title"] = "Tartışmalar";
     Layout = "~/Views/UILayout/Layout.cshtml";
 }
 
-    <!--? Hero Start -->
-    <div class="slider-area ">
-        <div class="slider-height2 d-flex align-items-center">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12">
-                        <div class="hero-cap hero-cap2 text-center">
-                            <h2>Tartışmalar</h2>
-                        </div>
+<!-- Hero Alanı -->
+<div class="slider-area">
+    <div class="slider-height2 d-flex align-items-center">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="hero-cap hero-cap2 text-center">
+                        <h2 class="fw-bold text-white">📢 Tartışmalar</h2>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Hero End -->
-    <!--================Blog Area =================-->
-    <section class="blog_area section-padding">
-        <div class="container">
-            <div class="row">
+</div>
+<!-- Hero Bitiş -->
+
+<!-- Blog Alanı -->
+<section class="blog_area section-padding">
+    <div class="container">
+        <div class="row">
             @await Component.InvokeAsync("_DiscussionAllDiscussions")
-              
-                <div class="col-lg-4">
-                    <div class="blog_right_sidebar">
-                        <aside class="single_sidebar_widget search_widget">
-                            <form action="#">
-                                <div class="form-group">
-                                    <div class="input-group mb-3">
-                                        <input type="text" class="form-control" placeholder='Search Keyword'
-                                               onfocus="this.placeholder = ''"
-                                               onblur="this.placeholder = 'Search Keyword'">
-                                        <div class="input-group-append">
-                                            <button class="btns" type="button"><i class="ti-search"></i></button>
-                                        </div>
+
+            <div class="col-lg-4">
+                <div class="blog_right_sidebar">
+                    <!-- Arama Kutusu -->
+                    <aside class="single_sidebar_widget search_widget">
+                        <form action="#">
+                            <div class="form-group">
+                                <div class="input-group mb-3">
+                                    <input type="text" class="form-control" placeholder="Tartışma Ara..."
+                                           onfocus="this.placeholder = ''"
+                                           onblur="this.placeholder = 'Tartışma Ara...'">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-outline-primary" type="button">
+                                            <i class="fas fa-search"></i>
+                                        </button>
                                     </div>
                                 </div>
-                                <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn"
-                                        type="submit">
-                                    Search
-                                </button>
-                            </form>
-                        </aside>
-                        <aside class="single_sidebar_widget post_category_widget">
-                            <h4 class="widget_title" style="color: #2d2d2d;">Category</h4>
-                            <ul class="list cat-list">
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Resaurant food</p>
-                                        <p>(37)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Travel news</p>
-                                        <p>(10)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Modern technology</p>
-                                        <p>(03)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Product</p>
-                                        <p>(11)</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Inspiration</p>
-                                        <p>21</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="d-flex">
-                                        <p>Health Care (21)</p>
-                                        <p>09</p>
-                                    </a>
-                                </li>
-                            </ul>
-                        </aside>
-                    @await Component.InvokeAsync("_DiscussionRecentDiscussions")
-                    @await Component.InvokeAsync("_DiscussionSubscribe")
+                            </div>
+                            <button class="btn btn-primary w-100 fw-bold py-2 rounded-pill shadow-sm" type="submit">
+                                <i class="fas fa-search"></i> Ara
+                            </button>
+                        </form>
+                    </aside>
 
-                     
-                    </div>
+                    <!-- Kategoriler -->
+          
+
+                    <!-- Son Tartışmalar -->
+                    @await Component.InvokeAsync("_DiscussionRecentDiscussions")
+
+                    <!-- Abonelik Alanı -->
+                    @await Component.InvokeAsync("_DiscussionSubscribe")
                 </div>
             </div>
         </div>
-    </section>
-    <!--================Blog Area =================-->
-
-
+    </div>
+</section>
+<!-- Blog Alanı Bitiş -->
