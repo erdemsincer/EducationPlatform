@@ -68,5 +68,10 @@ namespace EducationPlatform.Application.Concrete
         {
             return await _resourceDal.GetLatestResources();
         }
+
+        public async Task<ResultResourceDto> GetResourceByIdAsync(int id)
+        {
+            return await _resourceDal.GetResourceByIdAsync(id);
+        }
     }
 }

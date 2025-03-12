@@ -68,5 +68,26 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                 .Include(r => r.Category) // Kategori bilgisi ekle
                 .ToListAsync();
         }
+
+        public async Task<ResultResourceDto> GetResourceByIdAsync(int id)
+        {
+            return await _context.Resources
+                 .Where(r => r.Id == id) // ID ile filtreleme
+                 .Include(r => r.User)
+                 .Include(r => r.Category)
+                 .Select(r => new ResultResourceDto
+                 {
+                     Id = r.Id,
+                     Title = r.Title,
+                     Description = r.Description,
+                     FileUrl = r.FileUrl,
+                     CategoryId = r.CategoryId,
+                     UserId = r.UserId,
+                     CreatedAt = r.CreatedAt,
+                     UserName = r.User.FullName,
+                     CategoryName = r.Category.Name
+                 })
+                 .FirstOrDefaultAsync(); // İlk (veya varsayılan) sonucu döndür
+        }
     }
 }

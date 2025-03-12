@@ -12,5 +12,7 @@ namespace EducationPlatform.Application.Abstract
         Task<List<ResultResourceDto>> GetResourcesByUserIdAsync(int userId);
         Task<List<Resource>> GetResourcesByCategoryWithUser(int categoryId);
         Task<List<Resource>> GetLatestResources();
+        Task<ResultResourceDto> GetResourceByIdAsync(int id);
+
     }
 }

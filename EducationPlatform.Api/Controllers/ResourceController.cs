@@ -128,5 +128,16 @@ namespace EducationPlatform.Api.Controllers
             var resourceDtos = _mapper.Map<List<ResultResourceDto>>(resources);
             return Ok(resourceDtos);
         }
+        [HttpGet("GetResourceById/{id}")]
+        public async Task<IActionResult> GetResourceById(int id)
+        {
+            var resourceDto = await _resourceService.GetResourceByIdAsync(id);
+            if (resourceDto == null)
+            {
+                return NotFound("Kaynak bulunamadı");
+            }
+
+            return Ok(resourceDto);
+        }
     }
 }
