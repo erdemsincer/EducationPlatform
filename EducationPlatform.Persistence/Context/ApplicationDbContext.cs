@@ -23,6 +23,9 @@ namespace EducationPlatform.Persistence.Context
         public DbSet<Testimonial> Testimonials { get; set; }
         public DbSet<About> Abouts { get; set; }
         public DbSet<Banner> Banners { get; set; }
+        public DbSet<CareerGoal> CareerGoals { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<Interest> Interests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
