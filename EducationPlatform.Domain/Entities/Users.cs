@@ -13,6 +13,7 @@
         public ICollection<DiscussionReply> DiscussionReplies { get; set; }
         public ICollection<Role> Roles { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
+        public ICollection<Review> Reviews { get; set; }
     }
 
 }
