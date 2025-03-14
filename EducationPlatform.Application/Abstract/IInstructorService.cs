@@ -9,6 +9,7 @@ namespace EducationPlatform.Application.Abstract
 {
     public interface IInstructorService:IGenericService<Instructor>
     {
-        Task<List<Instructor>> GetInstructorsWithReviewsAsync();
+        Task<Instructor> GetInstructorWithReviewsAsync(int instructorId);
+        Task<List<Instructor>> GetLastFourInstructorsAsync();
     }
 }

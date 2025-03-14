@@ -1,6 +1,7 @@
 ﻿using EducationPlatform.Application.Abstract;
 using EducationPlatform.Domain.Entities;
 using EducationPlatform.Persistence.Abstract;
+using EducationPlatform.Persistence.EntityFrameworkCore;
 
 namespace EducationPlatform.Application.Concrete
 {
@@ -13,9 +14,9 @@ namespace EducationPlatform.Application.Concrete
             _instructorDal = instructorDal;
         }
 
-        public async Task<List<Instructor>> GetInstructorsWithReviewsAsync()
+        public async Task<Instructor> GetInstructorWithReviewsAsync(int instructorId)
         {
-            return await _instructorDal.GetInstructorsWithReviewsAsync();
+            return await _instructorDal.GetInstructorWithReviewsAsync(instructorId);
         }
 
         public async Task TAddAsync(Instructor entity)
@@ -41,6 +42,10 @@ namespace EducationPlatform.Application.Concrete
         public async Task TUpdateAsync(Instructor entity)
         {
             await _instructorDal.UpdateAsync(entity);
+        }
+        public async Task<List<Instructor>> GetLastFourInstructorsAsync()
+        {
+            return await _instructorDal.GetLastFourInstructorsAsync();
         }
     }
 }

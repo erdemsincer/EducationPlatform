@@ -20,12 +20,20 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
             _context = context;
         }
 
-      
 
-        public async Task<List<Instructor>> GetInstructorsWithReviewsAsync()
+
+        public async Task<Instructor> GetInstructorWithReviewsAsync(int instructorId)
         {
-            return await _context.Set<Instructor>()
-                .Include(i => i.Reviews)
+            return await _context.Instructors
+                .Include(i => i.Reviews)  // Eğitmene ait yorumları getir
+                .ThenInclude(r => r.User) // Yorumu yazan kullanıcı bilgilerini getir
+                .FirstOrDefaultAsync(i => i.Id == instructorId);
+        }
+        public async Task<List<Instructor>> GetLastFourInstructorsAsync()
+        {
+            return await _context.Instructors
+                .OrderByDescending(i => i.Id) // Son eklenenleri almak için ID’ye göre sıralama
+                .Take(4) // Sadece son 4 eğitmeni getir
                 .ToListAsync();
         }
     }
