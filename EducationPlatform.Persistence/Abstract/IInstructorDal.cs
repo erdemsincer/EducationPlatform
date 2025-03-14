@@ -9,6 +9,7 @@ namespace EducationPlatform.Persistence.Abstract
 {
     public interface IInstructorDal : IGenericDal<Instructor>
     {
-        Task<List<Instructor>> GetInstructorsWithReviewsAsync();
+        Task<Instructor> GetInstructorWithReviewsAsync(int instructorId);
+        Task<List<Instructor>> GetLastFourInstructorsAsync();
     }
 }

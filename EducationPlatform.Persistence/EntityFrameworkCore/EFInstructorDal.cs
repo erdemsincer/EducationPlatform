@@ -29,6 +29,9 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
                 .ThenInclude(r => r.User) // Yorumu yazan kullanıcı bilgilerini getir
                 .FirstOrDefaultAsync(i => i.Id == instructorId);
         }
+
+        
+
         public async Task<List<Instructor>> GetLastFourInstructorsAsync()
         {
             return await _context.Instructors
