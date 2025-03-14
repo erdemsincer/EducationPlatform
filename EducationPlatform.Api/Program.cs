@@ -32,6 +32,10 @@ builder.Services.AddCors(options =>
         });
 });
 
+builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+// API anahtarýný appsettings.json'dan okuyoruz
+var apiKey = builder.Configuration["OpenAi:ApiKey"];
 // Dependency Injection
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IUserDal, EFUserDal>();
