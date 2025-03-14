@@ -10,5 +10,7 @@ namespace EducationPlatform.Persistence.Abstract
     public interface IReviewDal:IGenericDal<Review>
     {
         Task<List<Review>> GetReviewsByInstructorIdAsync(int instructorId);
+
+
     }
 }

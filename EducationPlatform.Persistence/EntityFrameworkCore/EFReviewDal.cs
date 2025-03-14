@@ -3,10 +3,8 @@ using EducationPlatform.Persistence.Abstract;
 using EducationPlatform.Persistence.Context;
 using EducationPlatform.Persistence.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace EducationPlatform.Persistence.EntityFrameworkCore
@@ -21,9 +19,12 @@ namespace EducationPlatform.Persistence.EntityFrameworkCore
 
         public async Task<List<Review>> GetReviewsByInstructorIdAsync(int instructorId)
         {
-            return await _context.Set<Review>()
+            return await _context.Reviews
                 .Where(r => r.InstructorId == instructorId)
+                .Include(r => r.User)  // Yorumu yazan kullanıcı bilgilerini getir
+                .Include(r => r.Instructor)  // Yorumu yapılan eğitmen bilgilerini getir
                 .ToListAsync();
         }
+
     }
-    }
+}

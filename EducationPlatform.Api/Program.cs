@@ -76,6 +76,10 @@ builder.Services.AddScoped<ISkillService, SkillManager>();
 builder.Services.AddScoped<ISkillDal, EFSkillDal>();
 builder.Services.AddScoped<ICareerGoalDal, EFCareerGoal>();
 builder.Services.AddScoped<ICareerGoalService, CareerGoalManager>();
+builder.Services.AddScoped<IReviewDal, EFReviewDal>();
+builder.Services.AddScoped<IReviewService, ReviewManager>();
+builder.Services.AddScoped<IInstructorDal, EFInstructorDal>();
+builder.Services.AddScoped<IInstructorService, InstructorManager>();
 
 // JWT Authentication Ayarlarý
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");

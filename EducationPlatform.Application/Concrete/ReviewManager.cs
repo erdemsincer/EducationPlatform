@@ -18,6 +18,7 @@ namespace EducationPlatform.Application.Concrete
             return await _reviewDal.GetReviewsByInstructorIdAsync(instructorId);
         }
 
+
         public async Task TAddAsync(Review entity)
         {
             await _reviewDal.AddAsync(entity);
