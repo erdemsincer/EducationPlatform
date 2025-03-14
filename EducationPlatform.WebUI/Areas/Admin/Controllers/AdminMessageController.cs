@@ -20,7 +20,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var values = await client.GetFromJsonAsync<List<ResultMessageDto>>("https://localhost:7028/api/Message");
+            var values = await client.GetFromJsonAsync<List<ResultMessageDto>>("http://localhost:7028/api/Message");
             return View(values);
         }
 
@@ -30,7 +30,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> MessageDetail(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7028/api/Message/{id}");
+            var responseMessage = await client.GetAsync($"http://localhost:7028/api/Message/{id}");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -47,7 +47,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> RemoveMessage(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7028/api/Message/{id}");
+            var responseMessage = await client.DeleteAsync($"http://localhost:7028/api/Message/{id}");
 
             if (responseMessage.IsSuccessStatusCode)
             {

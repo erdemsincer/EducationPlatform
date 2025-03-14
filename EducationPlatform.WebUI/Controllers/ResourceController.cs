@@ -15,7 +15,7 @@ namespace EducationPlatform.WebUI.Controllers
         public async Task<IActionResult>Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var values = await client.GetFromJsonAsync<List<ResultResourceDto>>("https://localhost:7028/api/Resource/GetResourceDetails");
+            var values = await client.GetFromJsonAsync<List<ResultResourceDto>>("http://localhost:7028/api/Resource/GetResourceDetails");
             return View(values);
         }
         [HttpGet("Resources/Category/{id}")]
@@ -26,7 +26,7 @@ namespace EducationPlatform.WebUI.Controllers
             try
             {
                 // API'den yanıt al
-                var response = await client.GetAsync($"https://localhost:7028/api/Resource/GetByCategory/{id}");
+                var response = await client.GetAsync($"http://localhost:7028/api/Resource/GetByCategory/{id}");
 
                 // API başarılı bir yanıt döndürmüyorsa özel hata mesajı göster
                 if (!response.IsSuccessStatusCode)

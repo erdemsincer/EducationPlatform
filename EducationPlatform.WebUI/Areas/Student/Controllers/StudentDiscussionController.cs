@@ -28,7 +28,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             var client = _httpClientFactory.CreateClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-            var response = await client.GetAsync("https://localhost:7028/api/Discussion/GetAll");
+            var response = await client.GetAsync("http://localhost:7028/api/Discussion/GetAll");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -66,7 +66,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             var jsonData = JsonConvert.SerializeObject(dto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("https://localhost:7028/api/Discussion", content);
+            var response = await client.PostAsync("http://localhost:7028/api/Discussion", content);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -88,7 +88,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             var client = _httpClientFactory.CreateClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-            var response = await client.GetAsync($"https://localhost:7028/api/Discussion/User/{userId}");
+            var response = await client.GetAsync($"http://localhost:7028/api/Discussion/User/{userId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -108,7 +108,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             var client = _httpClientFactory.CreateClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-            var response = await client.DeleteAsync($"https://localhost:7028/api/Discussion/{id}");
+            var response = await client.DeleteAsync($"http://localhost:7028/api/Discussion/{id}");
 
             TempData[response.IsSuccessStatusCode ? "Success" : "Error"] =
                 response.IsSuccessStatusCode ? "Tartışma başarıyla silindi." : "Tartışma silinirken hata oluştu.";
@@ -122,7 +122,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             var client = _httpClientFactory.CreateClient();
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-            var response = await client.GetAsync($"https://localhost:7028/api/Discussion/{id}");
+            var response = await client.GetAsync($"http://localhost:7028/api/Discussion/{id}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -153,7 +153,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
 
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync("https://localhost:7028/api/Discussion", content);
+            var response = await client.PutAsync("http://localhost:7028/api/Discussion", content);
 
             if (!response.IsSuccessStatusCode)
             {

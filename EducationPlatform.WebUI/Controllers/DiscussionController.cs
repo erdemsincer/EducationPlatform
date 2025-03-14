@@ -27,14 +27,14 @@ namespace EducationPlatform.WebUI.Controllers
         public async Task<IActionResult> Subscribe(CreateSubscriberDto model)
         {
             var client = _httpClientFactory.CreateClient();
-            await client.PostAsJsonAsync("https://localhost:7028/api/Subscriber", model);
+            await client.PostAsJsonAsync("http://localhost:7028/api/Subscriber", model);
             return NoContent();
         }
 
         public async Task<IActionResult> Detail(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var response = await client.GetAsync($"https://localhost:7028/api/Discussion/GetDiscussionDetailWithReplies/{id}");
+            var response = await client.GetAsync($"http://localhost:7028/api/Discussion/GetDiscussionDetailWithReplies/{id}");
 
             // API isteği başarısızsa hata mesajı döndür ve ana sayfaya yönlendir
             if (!response.IsSuccessStatusCode)
@@ -79,7 +79,7 @@ namespace EducationPlatform.WebUI.Controllers
                 dto.UserId = int.Parse(userId); // Kullanıcı ID ekleniyor
 
                 var client = _httpClientFactory.CreateClient();
-                var response = await client.PostAsJsonAsync("https://localhost:7028/api/DiscussionReply", dto);
+                var response = await client.PostAsJsonAsync("http://localhost:7028/api/DiscussionReply", dto);
 
                 if (response.IsSuccessStatusCode)
                 {

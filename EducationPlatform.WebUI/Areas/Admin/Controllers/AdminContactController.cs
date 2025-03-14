@@ -19,7 +19,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var values = await client.GetFromJsonAsync<List<ResultContactDto>>("https://localhost:7028/api/Contact");
+            var values = await client.GetFromJsonAsync<List<ResultContactDto>>("http://localhost:7028/api/Contact");
             return View(values);
         }
 
@@ -39,7 +39,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
                 var client = _httpClientFactory.CreateClient();
                 Console.WriteLine("Gönderilen JSON: " + JsonConvert.SerializeObject(createContactDto));
 
-                var responseMessage = await client.PostAsJsonAsync("https://localhost:7028/api/Contact", createContactDto);
+                var responseMessage = await client.PostAsJsonAsync("http://localhost:7028/api/Contact", createContactDto);
                 string responseContent = await responseMessage.Content.ReadAsStringAsync();
 
                 Console.WriteLine("API'den Gelen Yanıt: " + responseContent);
@@ -65,7 +65,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> RemoveContact(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7028/api/Contact/{id}");
+            var responseMessage = await client.DeleteAsync($"http://localhost:7028/api/Contact/{id}");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -82,7 +82,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateContact(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7028/api/Contact/{id}");
+            var responseMessage = await client.GetAsync($"http://localhost:7028/api/Contact/{id}");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -101,7 +101,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
 
             Console.WriteLine("Güncellenen JSON: " + JsonConvert.SerializeObject(updateContactDto));
 
-            var responseMessage = await client.PutAsJsonAsync($"https://localhost:7028/api/Contact/", updateContactDto);
+            var responseMessage = await client.PutAsJsonAsync($"http://localhost:7028/api/Contact/", updateContactDto);
 
             if (responseMessage.IsSuccessStatusCode)
             {

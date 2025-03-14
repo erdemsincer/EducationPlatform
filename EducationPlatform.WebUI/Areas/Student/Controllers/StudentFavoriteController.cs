@@ -29,7 +29,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-            var response = await client.GetAsync($"https://localhost:7028/api/Favorite/User/{userId}");
+            var response = await client.GetAsync($"http://localhost:7028/api/Favorite/User/{userId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -50,7 +50,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-            var response = await client.DeleteAsync($"https://localhost:7028/api/Favorite/{id}");
+            var response = await client.DeleteAsync($"http://localhost:7028/api/Favorite/{id}");
 
             if (!response.IsSuccessStatusCode)
             {

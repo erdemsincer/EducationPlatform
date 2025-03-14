@@ -16,7 +16,7 @@ namespace EducationPlatform.WebUI.Controllers
         public async Task< IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var values = await client.GetFromJsonAsync<List<ResultContactDto>>("https://localhost:7028/api/contact");
+            var values = await client.GetFromJsonAsync<List<ResultContactDto>>("http://localhost:7028/api/contact");
             ViewBag.map = values.Select(x => x.MapUrl).FirstOrDefault();
            
             return View();
@@ -25,7 +25,7 @@ namespace EducationPlatform.WebUI.Controllers
         public async Task<IActionResult> SendMessage(CreateMessageDto model)
         {
             var client = _httpClientFactory.CreateClient();
-            await client.PostAsJsonAsync("https://localhost:7028/api/message", model);
+            await client.PostAsJsonAsync("http://localhost:7028/api/message", model);
             return NoContent();
         }
     }

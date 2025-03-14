@@ -27,7 +27,7 @@ public class StudentCommentController : Controller
         client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-        var response = await client.GetAsync($"https://localhost:7028/api/Comment/User/{userId}");
+        var response = await client.GetAsync($"http://localhost:7028/api/Comment/User/{userId}");
         if (!response.IsSuccessStatusCode)
         {
             TempData["Error"] = "Yorumlar yüklenemedi.";
@@ -46,7 +46,7 @@ public class StudentCommentController : Controller
         client.DefaultRequestHeaders.Authorization =
             new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-        var response = await client.DeleteAsync($"https://localhost:7028/api/Comment/{id}");
+        var response = await client.DeleteAsync($"http://localhost:7028/api/Comment/{id}");
 
         if (response.IsSuccessStatusCode)
         {

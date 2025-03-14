@@ -22,7 +22,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync("https://localhost:7028/api/Category");
+            var responseMessage = await client.GetAsync("http://localhost:7028/api/Category");
             if (responseMessage.IsSuccessStatusCode)
             {
                 var jsonData = await responseMessage.Content.ReadAsStringAsync();
@@ -48,7 +48,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
           
             Console.WriteLine("Gönderilen JSON: " + JsonConvert.SerializeObject(createCategoryDto));
 
-            var responseMessage = await client.PostAsJsonAsync("https://localhost:7028/api/Category", createCategoryDto);
+            var responseMessage = await client.PostAsJsonAsync("http://localhost:7028/api/Category", createCategoryDto);
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -63,7 +63,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> RemoveCategory(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7028/api/Category/{id}");
+            var responseMessage = await client.DeleteAsync($"http://localhost:7028/api/Category/{id}");
             if (responseMessage.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
@@ -78,7 +78,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateCategory(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7028/api/Category/{id}");
+            var responseMessage = await client.GetAsync($"http://localhost:7028/api/Category/{id}");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -98,7 +98,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
            
             Console.WriteLine("Güncellenen JSON: " + JsonConvert.SerializeObject(updateCategoryDto));
 
-            var responseMessage = await client.PutAsJsonAsync($"https://localhost:7028/api/Category/{updateCategoryDto.Id}", updateCategoryDto);
+            var responseMessage = await client.PutAsJsonAsync($"http://localhost:7028/api/Category/{updateCategoryDto.Id}", updateCategoryDto);
 
             if (responseMessage.IsSuccessStatusCode)
             {

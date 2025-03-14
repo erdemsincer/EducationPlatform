@@ -27,7 +27,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-            var response = await client.GetAsync("https://localhost:7028/api/Category");
+            var response = await client.GetAsync("http://localhost:7028/api/Category");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -62,7 +62,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-            var response = await client.GetAsync($"https://localhost:7028/api/Resource/User/{userId}");
+            var response = await client.GetAsync($"http://localhost:7028/api/Resource/User/{userId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -111,7 +111,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             var jsonData = JsonConvert.SerializeObject(createResourceDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("https://localhost:7028/api/Resource", content);
+            var response = await client.PostAsync("http://localhost:7028/api/Resource", content);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -141,7 +141,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
 
             Console.WriteLine($"🔹 Silme isteği gönderiliyor: /api/Resource/{id}");
 
-            var response = await client.DeleteAsync($"https://localhost:7028/api/Resource/{id}");
+            var response = await client.DeleteAsync($"http://localhost:7028/api/Resource/{id}");
 
             if (!response.IsSuccessStatusCode)
             {

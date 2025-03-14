@@ -19,7 +19,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var values = await client.GetFromJsonAsync<List<ResultSocialMediaDto>>("https://localhost:7028/api/SocialMedia");
+            var values = await client.GetFromJsonAsync<List<ResultSocialMediaDto>>("http://localhost:7028/api/SocialMedia");
             return View(values);
         }
 
@@ -39,7 +39,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
                 var client = _httpClientFactory.CreateClient();
                 Console.WriteLine("Gönderilen JSON: " + JsonConvert.SerializeObject(createSocialMediaDto));
 
-                var responseMessage = await client.PostAsJsonAsync("https://localhost:7028/api/SocialMedia", createSocialMediaDto);
+                var responseMessage = await client.PostAsJsonAsync("http://localhost:7028/api/SocialMedia", createSocialMediaDto);
                 string responseContent = await responseMessage.Content.ReadAsStringAsync();
 
                 Console.WriteLine("API'den Gelen Yanıt: " + responseContent);
@@ -65,7 +65,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> RemoveSocialMedia(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.DeleteAsync($"https://localhost:7028/api/SocialMedia/{id}");
+            var responseMessage = await client.DeleteAsync($"http://localhost:7028/api/SocialMedia/{id}");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -81,7 +81,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
         public async Task<IActionResult> UpdateSocialMedia(int id)
         {
             var client = _httpClientFactory.CreateClient();
-            var responseMessage = await client.GetAsync($"https://localhost:7028/api/SocialMedia/{id}");
+            var responseMessage = await client.GetAsync($"http://localhost:7028/api/SocialMedia/{id}");
 
             if (responseMessage.IsSuccessStatusCode)
             {
@@ -99,7 +99,7 @@ namespace EducationPlatform.WebUI.Areas.Admin.Controllers
             var client = _httpClientFactory.CreateClient();
             Console.WriteLine("Güncellenen JSON: " + JsonConvert.SerializeObject(updateSocialMediaDto));
 
-            var responseMessage = await client.PutAsJsonAsync($"https://localhost:7028/api/SocialMedia", updateSocialMediaDto);
+            var responseMessage = await client.PutAsJsonAsync($"http://localhost:7028/api/SocialMedia", updateSocialMediaDto);
 
             if (responseMessage.IsSuccessStatusCode)
             {

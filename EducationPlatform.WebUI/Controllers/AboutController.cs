@@ -15,7 +15,7 @@ namespace EducationPlatform.WebUI.Controllers
         public async Task< IActionResult> Index()
         {
             var client = _httpClientFactory.CreateClient();
-            var values = await client.GetFromJsonAsync<List<ResultAboutDto>>("https://localhost:7028/api/About");
+            var values = await client.GetFromJsonAsync<List<ResultAboutDto>>("http://localhost:7028/api/About");
             return View(values);
         }
     }

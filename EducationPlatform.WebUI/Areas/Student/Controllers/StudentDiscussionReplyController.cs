@@ -29,7 +29,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             // ✅ Tartışmayı çek
-            var discussionResponse = await client.GetAsync($"https://localhost:7028/api/Discussion/{id}");
+            var discussionResponse = await client.GetAsync($"http://localhost:7028/api/Discussion/{id}");
             if (!discussionResponse.IsSuccessStatusCode)
             {
                 TempData["Error"] = "Tartışma bilgisi alınamadı.";
@@ -40,7 +40,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             var discussion = JsonConvert.DeserializeObject<ResultDiscussionDto>(discussionData);
 
             // ✅ Yorumları çek
-            var repliesResponse = await client.GetAsync($"https://localhost:7028/api/DiscussionReply/GetReplies/{id}");
+            var repliesResponse = await client.GetAsync($"http://localhost:7028/api/DiscussionReply/GetReplies/{id}");
             var repliesData = await repliesResponse.Content.ReadAsStringAsync();
             var replies = JsonConvert.DeserializeObject<List<ResultDiscussionReplyDto>>(repliesData);
 
@@ -68,7 +68,7 @@ namespace EducationPlatform.WebUI.Areas.Student.Controllers
             var jsonData = JsonConvert.SerializeObject(dto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("https://localhost:7028/api/DiscussionReply", content);
+            var response = await client.PostAsync("http://localhost:7028/api/DiscussionReply", content);
 
             if (!response.IsSuccessStatusCode)
             {

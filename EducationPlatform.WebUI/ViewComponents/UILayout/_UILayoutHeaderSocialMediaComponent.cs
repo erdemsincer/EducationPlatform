@@ -15,7 +15,7 @@ namespace EducationPlatform.WebUI.ViewComponents.UILayout
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
-            var values = await client.GetFromJsonAsync<List<ResultSocialMediaDto>>("https://localhost:7028/api/SocialMedia");
+            var values = await client.GetFromJsonAsync<List<ResultSocialMediaDto>>("http://localhost:7028/api/SocialMedia");
             return View(values);
         }
     }

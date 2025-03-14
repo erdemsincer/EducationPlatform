@@ -15,7 +15,7 @@ namespace EducationPlatform.WebUI.ViewComponents.Home
        public async Task<IViewComponentResult> InvokeAsync()
         {
             var client = _httpClientFactory.CreateClient();
-            var values = await client.GetFromJsonAsync<List<ResultCategoryDto>>("https://localhost:7028/api/Category");
+            var values = await client.GetFromJsonAsync<List<ResultCategoryDto>>("http://localhost:7028/api/Category");
             return View(values);
         }
     }

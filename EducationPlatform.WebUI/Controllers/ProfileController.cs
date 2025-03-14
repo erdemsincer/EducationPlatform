@@ -30,7 +30,7 @@ namespace EducationPlatform.WebUI.Controllers
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-            var response = await client.GetAsync($"https://localhost:7028/api/User/{userId}");
+            var response = await client.GetAsync($"http://localhost:7028/api/User/{userId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -58,7 +58,7 @@ namespace EducationPlatform.WebUI.Controllers
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-            var response = await client.GetAsync($"https://localhost:7028/api/User/{userId}");
+            var response = await client.GetAsync($"http://localhost:7028/api/User/{userId}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -80,7 +80,7 @@ namespace EducationPlatform.WebUI.Controllers
             var jsonData = JsonConvert.SerializeObject(updateUserDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await client.PutAsync("https://localhost:7028/api/User/UpdateUser", content);
+            var response = await client.PutAsync("http://localhost:7028/api/User/UpdateUser", content);
 
             if (!response.IsSuccessStatusCode)
             {
@@ -105,7 +105,7 @@ namespace EducationPlatform.WebUI.Controllers
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", HttpContext.Session.GetString("AuthToken"));
 
-            var response = await client.GetAsync($"https://localhost:7028/api/Discussion/User/{userId}");
+            var response = await client.GetAsync($"http://localhost:7028/api/Discussion/User/{userId}");
 
             if (!response.IsSuccessStatusCode)
             {
