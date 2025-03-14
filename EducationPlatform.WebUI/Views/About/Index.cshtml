@@ -1,11 +1,11 @@
 ﻿@model List<ResultAboutDto>
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Hakkımızda";
     Layout = "~/Views/UILayout/Layout.cshtml";
 }
 
-
-    <!--? Hero Start -->
+<main>
+    <!-- Hero Start -->
     <div class="slider-area">
         <div class="slider-height2 d-flex align-items-center">
             <div class="container">
@@ -20,69 +20,50 @@
         </div>
     </div>
     <!-- Hero End -->
-    <!-- About Details Start -->
     @foreach (var item in Model)
-{
-    
-    <div class="about-details section-padding30">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="about-details-cap mb-50">
-                        <h4>Şirketimiz Hakkında</h4>
-                        <p>
-                           @item.Description
-
-                        </p>
-                       
+    {
+        <!-- Şirketimiz Hakkında -->
+        <section class="about-details section-padding30 bg-light">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-12 text-center">
+                        <img src="@item.ImageUrl1" alt="Şirket Resmi" class="img-fluid rounded shadow-lg">
                     </div>
-
-                  
-                </div>
-            </div>
-        </div>
-    </div>
-}
-    <!-- About Details End -->
-    
-    <!--? About  Start-->
-    @foreach (var item in Model)
-{
-    
-    <div class="about-area section-padding2">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-12">
-                    <div class="about-caption mb-50">
-                        <!-- Section Tittle -->
-                        <div class="section-tittle mb-35">
-                            <span>Hakkımızda Merak Edilenler</span>
-                           
-                        </div>
-                        <p>@item.Description</p>
-                        <ul>
-                            
-                            <li><span class="flaticon-business"></span> @item.Item1</li>
-                            <li><span class="flaticon-communications-1"></span> @item.Item2</li>
-                            <li><span class="flaticon-graduated"></span> @item.Item3</li>
-                            <li><span class="flaticon-tools-and-utensils"></span> @item.Item4</li>
-                        </ul>
-                       
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12">
-                    <!-- about-img -->
-                    <div class="about-img ">
-                        <div class="about-font-img d-none d-lg-block">
-                            <img src="@item.ImageUrl1" alt="">
-                        </div>
-                        <div class="about-back-img ">
-                            <img src="@item.ImageUrl2" alt="">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="about-details-cap p-4 bg-white shadow rounded">
+                            <h4 class="text-primary">Şirketimiz Hakkında</h4>
+                            <p class="text-muted">@item.Description</p>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-}
-    <!-- A
+        </section>
+
+        <!-- Hakkımızda Merak Edilenler -->
+        <section class="about-area section-padding2">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-12">
+                        <div class="about-caption mb-50">
+                            <div class="section-tittle mb-35">
+                                <span class="text-primary">Hakkımızda Merak Edilenler</span>
+                            </div>
+                            <p>@item.Description</p>
+                            <ul class="list-unstyled">
+                                <li><i class="fas fa-building text-success"></i> @item.Item1</li>
+                                <li><i class="fas fa-comments text-warning"></i> @item.Item2</li>
+                                <li><i class="fas fa-graduation-cap text-info"></i> @item.Item3</li>
+                                <li><i class="fas fa-tools text-danger"></i> @item.Item4</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-12 text-center">
+                        <div class="about-img position-relative">
+                            <img src="@item.ImageUrl2" alt="Ek Görsel" class="img-fluid rounded shadow-lg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    }
+</main>
