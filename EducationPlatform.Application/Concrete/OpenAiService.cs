@@ -1,61 +1,63 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.Net.Http;
+﻿using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
-using EducationPlatform.Application.Abstract;
+using System.Text.Json;
 
-namespace YourProjectNamespace.Services
+public class OpenAiService
 {
-    public class OpenAiService : IChatbotService
+    private readonly HttpClient _httpClient;
+    private readonly string _apiKey;
+
+    public OpenAiService(string apiKey)
     {
-        private readonly string _apiKey;
-        private readonly HttpClient _httpClient;
-
-        // Constructor'da API anahtarını IConfiguration'dan alıyoruz
-        public OpenAiService(IConfiguration configuration)
+        if (string.IsNullOrEmpty(apiKey))
         {
-            _apiKey = configuration["OpenAi:ApiKey"];
-
-            if (string.IsNullOrEmpty(_apiKey))
-            {
-                throw new InvalidOperationException("API Key is not set in appsettings.json.");
-            }
-
-            _httpClient = new HttpClient();
-            _httpClient.DefaultRequestHeaders.Add("Authorization", $"Bearer {_apiKey}");
+            throw new ArgumentNullException(nameof(apiKey), "OpenAI API key bulunamadı! Lütfen 'OPENAI_API_KEY' environment variable'ını ayarla.");
         }
 
-        // ChatGPT'ye mesaj gönderip yanıt alıyoruz
-        public async Task<string> GetChatbotResponseAsync(string message)
-        {
-            try
-            {
-                var requestBody = new
-                {
-                    model = "gpt-3.5-turbo",
-                    messages = new[]
-                    {
-                        new { role = "system", content = "You are a helpful assistant." },
-                        new { role = "user", content = message }
-                    }
-                };
-
-                var jsonContent = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json");
-
-                var response = await _httpClient.PostAsync("https://api.openai.com/v1/chat/completions", jsonContent);
-                response.EnsureSuccessStatusCode();
-
-                var responseString = await response.Content.ReadAsStringAsync();
-                var responseJson = JsonConvert.DeserializeObject<dynamic>(responseString);
-                return responseJson.choices[0].message.content.ToString();
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error during API call: {ex.Message}");
-                return "Sorry, I couldn't process yur request.";
-            }
-        }
+        _httpClient = new HttpClient();
+        _apiKey = apiKey;
     }
+
+
+
+    public async Task<string> GetCareerAdvice(string skills, string interests, string careerGoals)
+    {
+        // **Verilerin boş olup olmadığını kontrol edelim**
+        if (string.IsNullOrWhiteSpace(skills) || string.IsNullOrWhiteSpace(interests) || string.IsNullOrWhiteSpace(careerGoals))
+        {
+            return "Lütfen becerilerinizi, ilgi alanlarınızı ve kariyer hedeflerinizi eksiksiz girin.";
+        }
+
+        var requestBody = new
+        {
+            model = "gpt-4",
+            messages = new[]
+            {
+            new { role = "system", content = "Sen bir kariyer danışmanı AI'sın. Kullanıcının becerileri, ilgi alanları ve kariyer hedeflerine göre önerilerde bulun." },
+            new { role = "user", content = $"Benim becerilerim: {skills}. İlgi alanlarım: {interests}. Kariyer hedeflerim: {careerGoals}. Bana uygun meslekleri öner." }
+        },
+            temperature = 0.7
+        };
+
+        var content = new StringContent(JsonSerializer.Serialize(requestBody), Encoding.UTF8, "application/json");
+
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
+
+        var response = await _httpClient.PostAsync("https://api.openai.com/v1/chat/completions", content);
+
+        if (!response.IsSuccessStatusCode)
+        {
+            return $"API isteği başarısız oldu. Hata kodu: {response.StatusCode}";
+        }
+
+        var responseString = await response.Content.ReadAsStringAsync();
+
+        // **Gelen JSON verisini daha temiz bir formatta alalım**
+        using var jsonDoc = JsonDocument.Parse(responseString);
+        var root = jsonDoc.RootElement;
+        var contentElement = root.GetProperty("choices")[0].GetProperty("message").GetProperty("content").GetString();
+
+        return contentElement ?? "Beklenmeyen bir hata oluştu.";
+    }
+
 }
