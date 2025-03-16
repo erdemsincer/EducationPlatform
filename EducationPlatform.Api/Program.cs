@@ -92,6 +92,17 @@ builder.Services.AddScoped<IInstructorService, InstructorManager>();
 builder.Services.AddScoped<IChatbotService, ChatbotManager>();
 builder.Services.AddScoped<IChatbotDal, EFChatbotDal>();
 
+builder.Services.AddScoped<ICareerTestDal, EFCareerTestDal>();
+builder.Services.AddScoped<ICareerTestQuestionDal, EFCareerTestQuestionDal>();
+builder.Services.AddScoped<ICareerTestAnswerDal, EFCareerTestAnswerDal>();
+builder.Services.AddScoped<ICareerTestQuestionService, CareerTestQuestionManager>();
+builder.Services.AddScoped<ICareerTestAnswerService, CareerTestAnswerManager>();
+
+
+
+
+
+
 // **JWT Authentication Ayarlarý**
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Secret"]);
