@@ -97,7 +97,7 @@ namespace EducationPlatform.WebUI.Controllers
             var jsonData = JsonConvert.SerializeObject(registerDto);
             var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
 
-            var response = await client.PostAsync("https://localhost:7028/api/Auth/register", content);
+            var response = await client.PostAsync("http://localhost:7028/api/Auth/register", content);
 
             if (!response.IsSuccessStatusCode)
             {
