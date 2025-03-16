@@ -1,7 +1,11 @@
-﻿public class ChatbotManager : IChatbotService
+﻿
+using EducationPlatform.Persistence.Abstract;
+
+public class ChatbotManager : IChatbotService
 {
     private readonly IChatbotDal _chatbotDal;
     private readonly OpenAiService _openAiService;
+    private readonly ICareerTestAnswerDal _careerTestAnswerDal;
 
     public ChatbotManager(IChatbotDal chatbotDal, OpenAiService openAiService)
     {
@@ -32,5 +36,15 @@
         // **Boş veri gönderilmediğinden emin ol**
         return await _openAiService.GetCareerAdvice(skills, interests, careerGoals);
     }
+    public async Task<string> GetCareerAdviceFromTestAsync(int userId, string formattedAnswers)
+    {
+        // **Test cevapları string olarak alındı, doğrudan OpenAiService'e gönderilebilir**
+        if (string.IsNullOrEmpty(formattedAnswers))
+            return "Test cevapları eksik!";
+
+        // **AI'ye gönderilecek prompt**
+        return await _openAiService.GetCareerAdviceFromTest(formattedAnswers);
+    }
+
 
 }
