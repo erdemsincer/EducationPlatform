@@ -1,0 +1,72 @@
+﻿@model EducationPlatform.Dto.CareerTest.CareerAdviceResponseDto
+
+@{
+    ViewData["Title"] = "Kariyer Önerisi";
+    Layout = "~/Views/UILayout/Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="text-center">
+        <h1 class="text-primary fw-bold"><i class="bi bi-briefcase"></i> Kariyer Önerisi</h1>
+        <p class="text-muted">Geleceğin için en uygun kariyer alanlarını keşfet!</p>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+            <i class="bi bi-check-circle-fill"></i> @TempData["SuccessMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+            <i class="bi bi-exclamation-triangle-fill"></i> @TempData["ErrorMessage"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    }
+
+    <div class="career-advice-card">
+        <div class="card shadow-lg border-0">
+            <div class="card-body p-4">
+                <h4 class="text-secondary fw-bold"><i class="bi bi-lightbulb"></i> Öneriler</h4>
+                <p class="career-advice-text">@Model.CareerAdvice</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Anasayfaya Dön Butonu -->
+    <div class="text-center mt-4">
+        <a href="/" class="btn btn-outline-primary btn-lg shadow-sm">
+            <i class="bi bi-arrow-left"></i> Anasayfaya Dön
+        </a>
+    </div>
+</div>
+
+<!-- Stil (Bootstrap 5 ve özel CSS) -->
+<style>
+    .career-advice-card {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+
+    .career-advice-text {
+        font-size: 18px;
+        line-height: 1.6;
+        color: #555;
+        text-align: justify;
+    }
+
+    .btn-lg {
+        padding: 12px 20px;
+        font-size: 18px;
+    }
+
+    .card {
+        border-radius: 12px;
+        max-width: 800px;
+        margin: auto;
+    }
+</style>

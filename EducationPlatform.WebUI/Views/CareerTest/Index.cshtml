@@ -1,0 +1,103 @@
+﻿@model List<CareerTestQuestionDto>
+
+@{
+    ViewData["Title"] = "Kariyer Testi";
+    Layout = "~/Views/UILayout/Layout.cshtml";
+}
+
+<div class="container my-5">
+    <div class="text-center">
+        <h1 class="text-primary fw-bold"><i class="bi bi-clipboard-check"></i> Kariyer Testi</h1>
+        <p class="text-muted">Kariyerin için en uygun yönü keşfetmek için aşağıdaki soruları cevapla.</p>
+    </div>
+
+    @if (TempData["SuccessMessage"] != null)
+    {
+            <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+                <i class="bi bi-check-circle-fill"></i> @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+    }
+
+    @if (TempData["ErrorMessage"] != null)
+    {
+            <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i> @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+    }
+
+    <!-- Test Formu -->
+    <form method="POST" action="/CareerTest/SubmitAnswers" class="mt-4">
+        @foreach (var question in Model)
+        {
+                <div class="card shadow-lg border-0 mb-4">
+                    <div class="card-body">
+                        <h5 class="fw-bold mb-3"><i class="bi bi-question-circle"></i> @question.QuestionText</h5>
+
+                        <div class="options-container">
+                        @foreach (var option in question.Options)
+                        {
+                                    <div class="form-check custom-radio mb-2">
+                                        <input class="form-check-input" type="radio" name="Answers[@question.QuestionId]" value="@option" id="option-@question.QuestionId-@option" required />
+                                        <label class="form-check-label text-muted fw-normal" for="option-@question.QuestionId-@option">
+                                            <i class="bi bi-dot"></i> @option
+                                        </label>
+                                    </div>
+                        }
+                        </div>
+                    </div>
+                </div>
+        }
+
+        <!-- Gönder Butonu -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary btn-lg w-100 shadow">
+                <i class="bi bi-send"></i> Cevapları Gönder
+            </button>
+        </div>
+    </form>
+</div>
+
+<!-- Stil (Bootstrap 5 ve özel CSS) -->
+<style>
+    .custom-radio input[type="radio"] {
+        display: none;
+    }
+
+    .custom-radio label {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border: 2px solid #dee2e6;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .custom-radio input[type="radio"]:checked + label {
+        background-color: #0d6efd;
+        color: white;
+        border-color: #0d6efd;
+    }
+
+    .custom-radio label:hover {
+        background-color: rgba(13, 110, 253, 0.1);
+        border-color: #0d6efd;
+    }
+
+    .options-container {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .card {
+        border-radius: 12px;
+    }
+
+    .btn-lg {
+        padding: 12px;
+        font-size: 18px;
+    }
+</style>

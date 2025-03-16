@@ -18,7 +18,7 @@
                 <div class="card-body">
                     <h4 class="text-center text-primary">💡 Nasıl Çalışır?</h4>
                     <p class="text-muted">
-                        Yapay zeka, **becerilerinizi ve ilgi alanlarınızı** analiz ederek
+                        Yapay zeka, **kariyer testine verdiğiniz cevapları** analiz ederek
                         size en uygun kariyer önerilerini sunar.
                     </p>
                     <ul class="list-group">
@@ -26,6 +26,12 @@
                         <li class="list-group-item">📌 Hangi becerileri geliştirmeniz gerekiyor?</li>
                         <li class="list-group-item">📌 Yapay zeka gelecekte hangi işleri değiştirecek?</li>
                     </ul>
+
+                    <div class="text-center mt-3">
+                        <a href="/CareerTest" class="btn btn-outline-primary">
+                            📋 Kariyer Testini Çöz
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -35,9 +41,10 @@
             <div class="card shadow border-0">
                 <div class="card-body text-center">
                     <h4 class="text-primary">🔎 Kariyer Önerisi Alın</h4>
-                    <p class="text-muted">Hemen butona tıklayarak **kişisel kariyer önerinizi** alın!</p>
+                    <p class="text-muted">Kariyer testine verdiğiniz cevaplara göre **kişisel kariyer önerinizi** alın!</p>
 
-                    <form method="post" action="/Chatbot/GetCareerAdvicePost" id="careerForm">
+                    <form method="get" action="/CareerTest/GetCareerAdviceFromTest" id="careerForm">
+                        <input type="hidden" name="userId" value="@Context.Session.GetString("UserId")" />
                         <button type="submit" id="careerButton" class="btn btn-lg btn-success">
                             🚀 Öneri Al
                         </button>
@@ -59,7 +66,7 @@
                         }
                         else
                         {
-                            <span>🔍 Henüz bir öneri yok.</span>
+                            <span>🔍 Henüz bir öneri yok. Lütfen testi çözüp öneri alın!</span>
                         }
                     </div>
                 </div>
