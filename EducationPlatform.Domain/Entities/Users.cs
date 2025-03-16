@@ -21,5 +21,6 @@
         public ICollection<Interest> Interests { get; set; }  // Kullanıcının ilgi alanları
         public ICollection<Skill> Skills { get; set; }  // Kullanıcının becerileri
         public ICollection<CareerGoal> CareerGoals { get; set; }  // Kullanıcının kariyer hedefleri
+        public ICollection<CareerTest> CareerTests { get; set; }  // Kullanıcının kariyer hedefleri
     }
 }
