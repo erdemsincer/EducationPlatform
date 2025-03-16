@@ -9,12 +9,17 @@
         public string ProfileImage { get; set; }  // Profil fotoğrafı URL
         public string? Role { get; set; } = "User";
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;  // Kullanıcı oluşturulma tarihi
+
+        // **İlişkiler**
         public ICollection<Discussion> Discussions { get; set; }
         public ICollection<DiscussionReply> DiscussionReplies { get; set; }
         public ICollection<Role> Roles { get; set; }
         public ICollection<UserRole> UserRoles { get; set; }
         public ICollection<Review> Reviews { get; set; }
+
+        // **Chatbot İçin Yeni Eklenenler**
+        public ICollection<Interest> Interests { get; set; }  // Kullanıcının ilgi alanları
+        public ICollection<Skill> Skills { get; set; }  // Kullanıcının becerileri
+        public ICollection<CareerGoal> CareerGoals { get; set; }  // Kullanıcının kariyer hedefleri
     }
-
 }
-

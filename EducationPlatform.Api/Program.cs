@@ -8,25 +8,24 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
-
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Veritabaný baðlantýsý
+// **Veritabaný Baðlantýsý**
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-// CORS Politikasý Ekle
+// **CORS Politikasý**
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAllOrigins",
         builder =>
         {
-            builder.AllowAnyOrigin()  // Mobil ve Web için eriþime izin ver
+            builder.AllowAnyOrigin()
                    .AllowAnyMethod()
                    .AllowAnyHeader();
         });
@@ -34,9 +33,19 @@ builder.Services.AddCors(options =>
 
 builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-// API anahtarýný appsettings.json'dan okuyoruz
-var apiKey = builder.Configuration["OpenAi:ApiKey"];
-// Dependency Injection
+// **Environment Variable’dan OpenAI API Key Okuma**
+var apiKey = Environment.GetEnvironmentVariable("OPENAI_API_KEY", EnvironmentVariableTarget.User)
+           ?? Environment.GetEnvironmentVariable("OPENAI_API_KEY", EnvironmentVariableTarget.Machine);
+
+if (string.IsNullOrEmpty(apiKey))
+{
+    throw new Exception("OpenAI API key bulunamadý! Lütfen 'OPENAI_API_KEY' environment variable'ýný ayarla.");
+}
+
+// **OpenAiService için API key’i Singleton olarak DI'a ekleyelim**
+builder.Services.AddSingleton<OpenAiService>(provider => new OpenAiService(apiKey));
+
+// **Dependency Injection - Servisler ve Repository'ler**
 builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IUserDal, EFUserDal>();
 builder.Services.AddScoped<ICommentService, CommentManager>();
@@ -80,8 +89,10 @@ builder.Services.AddScoped<IReviewDal, EFReviewDal>();
 builder.Services.AddScoped<IReviewService, ReviewManager>();
 builder.Services.AddScoped<IInstructorDal, EFInstructorDal>();
 builder.Services.AddScoped<IInstructorService, InstructorManager>();
+builder.Services.AddScoped<IChatbotService, ChatbotManager>();
+builder.Services.AddScoped<IChatbotDal, EFChatbotDal>();
 
-// JWT Authentication Ayarlarý
+// **JWT Authentication Ayarlarý**
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 var key = Encoding.UTF8.GetBytes(jwtSettings["Secret"]);
 
@@ -106,7 +117,7 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-// Newtonsoft.Json Desteði Ekle
+// **Newtonsoft.Json Desteði**
 builder.Services
     .AddControllers()
     .AddNewtonsoftJson(options =>
@@ -114,17 +125,16 @@ builder.Services
         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
     });
 
-
-// Session Kullanýmý
+// **Session Kullanýmý**
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // 30 dakika oturum süresi
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
     options.Cookie.HttpOnly = true;
     options.Cookie.IsEssential = true;
 });
 
-// Swagger JWT Token Desteði
+// **Swagger JWT Token Desteði**
 builder.Services.AddSwaggerGen(c =>
 {
     c.AddSecurityDefinition("Bearer", new Microsoft.OpenApi.Models.OpenApiSecurityScheme
@@ -157,22 +167,16 @@ builder.Services.AddEndpointsApiExplorer();
 
 var app = builder.Build();
 
-// Swagger UI
+// **Swagger UI**
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
-
-app.UseCors("AllowAllOrigins"); // CORS Ekle
-
-app.UseSession(); // Session Kullanýmýný Aktif Et
-
+app.UseCors("AllowAllOrigins");
+app.UseSession();
 app.UseAuthentication();
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
