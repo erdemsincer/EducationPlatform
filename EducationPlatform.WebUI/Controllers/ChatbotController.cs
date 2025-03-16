@@ -31,7 +31,7 @@ public class ChatbotController : Controller
             if (string.IsNullOrEmpty(userId))
             {
                 TempData["ErrorMessage"] = "Öneri alabilmek için giriş yapmalısınız!";
-                return RedirectToAction("Login", "Account");
+                return RedirectToAction("Auth", "Login");
             }
 
             Console.WriteLine($"✅ Kullanıcı ID: {userId}");

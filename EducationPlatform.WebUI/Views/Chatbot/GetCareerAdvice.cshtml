@@ -1,34 +1,78 @@
 ﻿@{
-    ViewData["Title"] = "Kariyer Danışmanı";
+    ViewData["Title"] = "Kariyer Rehberi";
     Layout = "~/Views/UILayout/Layout.cshtml";
 }
 
-<h2 class="text-center">Kariyer Danışmanı</h2>
+<div class="container py-4">
+    <div class="text-center mb-4">
+        <h3 class="text-primary font-weight-bold">🔍 Yapay Zeka Destekli Kariyer Rehberi</h3>
+        <p class="lead text-muted">
+            Yapay zeka destekli sistemimizle **en uygun kariyer seçeneklerini** keşfedin.
+        </p>
+    </div>
 
-@if (TempData["ErrorMessage"] != null)
-{
-    <div class="alert alert-danger">@TempData["ErrorMessage"]</div>
-}
+    <div class="row">
+        <!-- Sol taraf: Bilgilendirme -->
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-body">
+                    <h4 class="text-center text-primary">💡 Nasıl Çalışır?</h4>
+                    <p class="text-muted">
+                        Yapay zeka, **becerilerinizi ve ilgi alanlarınızı** analiz ederek
+                        size en uygun kariyer önerilerini sunar.
+                    </p>
+                    <ul class="list-group">
+                        <li class="list-group-item">📌 Hangi meslekler size daha uygun?</li>
+                        <li class="list-group-item">📌 Hangi becerileri geliştirmeniz gerekiyor?</li>
+                        <li class="list-group-item">📌 Yapay zeka gelecekte hangi işleri değiştirecek?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
-}
+        <!-- Sağ taraf: Kariyer Önerisi Butonu ve Sonuç -->
+        <div class="col-md-6">
+            <div class="card shadow border-0">
+                <div class="card-body text-center">
+                    <h4 class="text-primary">🔎 Kariyer Önerisi Alın</h4>
+                    <p class="text-muted">Hemen butona tıklayarak **kişisel kariyer önerinizi** alın!</p>
 
-<div class="container">
-    <form method="post" action="/Chatbot/GetCareerAdvicePost">
-        <button type="submit" class="btn btn-primary mt-3">Öneri Al</button>
-    </form>
+                    <form method="post" action="/Chatbot/GetCareerAdvicePost" id="careerForm">
+                        <button type="submit" id="careerButton" class="btn btn-lg btn-success">
+                            🚀 Öneri Al
+                        </button>
+                    </form>
 
-    <h3 class="mt-4">Önerilen Kariyer:</h3>
-    <div class="alert alert-info" style="white-space: pre-line;">
-        @if (TempData["CareerAdvice"] != null)
-        {
-            @TempData["CareerAdvice"]
-        }
-        else
-        {
-            <span>Henüz bir öneri yok.</span>
-        }
+                    <!-- Yükleniyor Animasyonu -->
+                    <div id="loadingSpinner" class="text-center mt-3" style="display: none;">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="sr-only">Öneri alınıyor...</span>
+                        </div>
+                        <p class="text-muted mt-2">Lütfen bekleyin, kariyer öneriniz hazırlanıyor...</p>
+                    </div>
+
+                    <h5 class="mt-4 text-primary">📌 Önerilen Kariyer:</h5>
+                    <div class="alert alert-info mt-3" style="white-space: pre-line; font-weight: bold;">
+                        @if (TempData["CareerAdvice"] != null)
+                        {
+                            @TempData["CareerAdvice"]
+                        }
+                        else
+                        {
+                            <span>🔍 Henüz bir öneri yok.</span>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+
+<!-- Butona Basınca Yükleniyor Animasyonu -->
+<script>
+    document.getElementById("careerForm").addEventListener("submit", function () {
+        document.getElementById("careerButton").disabled = true;
+        document.getElementById("careerButton").innerText = "Bekleyin...";
+        document.getElementById("loadingSpinner").style.display = "block";
+    });
+</script>
